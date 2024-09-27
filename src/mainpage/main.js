@@ -107,10 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       applyTheme(savedTheme);
-    } else if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
+    } else if (window.matchMedia?.("(prefers-color-scheme: dark)")?.matches) {
       applyTheme("dark-theme");
     } else {
       applyTheme("light-theme");
@@ -126,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Observar mudanças na preferência de cor do sistema
   if (window.matchMedia) {
-    window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
+    window.matchMedia?.("(prefers-color-scheme: dark)")?.addListener((e) => {
       if (!localStorage.getItem("theme")) {
         applyTheme(e.matches ? "dark-theme" : "light-theme");
       }
