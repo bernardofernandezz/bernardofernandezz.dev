@@ -88,61 +88,37 @@ document.addEventListener("DOMContentLoaded", () => {
     projeto.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.2}s`;
   });
 
-  //temas
+  // Função para aplicar o tema
   function applyTheme(theme) {
-    if (theme === "light") {
-      document.documentElement.style.setProperty("--bg-color", "#ffffff");
-      document.documentElement.style.setProperty("--text-color", "#000000");
-    } else {
-      document.documentElement.style.setProperty("--bg-color", "#000000");
-      document.documentElement.style.setProperty("--text-color", "#ffffff");
-    }
-  }
-
-  // Detecta a preferência inicial
-  if (window.matchMedia?.("(prefers-color-scheme: dark)")?.matches) {
-    applyTheme("dark");
-  } else {
-    applyTheme("light");
-  }
-
-  // Detecta alterações na preferência do sistema
-  window
-    .matchMedia?.("(prefers-color-scheme: dark)")
-    .addEventListener("change", (event) => {
-      applyTheme(event.matches ? "dark" : "light");
-    });
-
-  // Função para definir o tema
-  function setTheme(theme) {
     document.body.className = theme;
     localStorage.setItem("theme", theme);
   }
 
   // Função para alternar o tema
   function toggleTheme() {
-    const currentTheme = localStorage.getItem("theme") || "system";
-    const themes = ["light-theme", "dark-theme", "system"];
-    const nextTheme =
-      themes[(themes.indexOf(currentTheme) + 1) % themes.length];
+    const currentTheme = document.body.className;
+    const newTheme =
+      currentTheme === "light-theme" ? "dark-theme" : "light-theme";
+    applyTheme(newTheme);
+  }
 
-    if (nextTheme === "system") {
-      setTheme("");
-      if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
-        document.body.classList.add("dark-theme");
-      }
+  // Detectar preferência do sistema e aplicar tema inicial
+  function setInitialTheme() {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      applyTheme("dark-theme");
     } else {
-      setTheme(nextTheme);
+      applyTheme("light-theme");
     }
   }
 
-  // Aplicar o tema salvo ou o tema do sistema
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    setTheme(savedTheme);
-  } else if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
-    document.body.classList.add("dark-theme");
-  }
+  // Aplicar tema inicial
+  setInitialTheme();
 
   // Adicionar evento de clique ao botão de alternar tema
   const themeToggle = document.getElementById("theme-toggle");
@@ -150,16 +126,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Observar mudanças na preferência de cor do sistema
   if (window.matchMedia) {
-    window.matchMedia?.("(prefers-color-scheme: dark)").addListener((e) => {
-      if (
-        localStorage.getItem("theme") === "system" ||
-        !localStorage.getItem("theme")
-      ) {
-        if (e.matches) {
-          document.body.classList.add("dark-theme");
-        } else {
-          document.body.classList.remove("dark-theme");
-        }
+    window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
+      if (!localStorage.getItem("theme")) {
+        applyTheme(e.matches ? "dark-theme" : "light-theme");
       }
     });
   }

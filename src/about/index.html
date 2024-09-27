@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sobre Mim</title>
+    <title>bernardofernandez | Sobre mim</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
@@ -13,31 +13,46 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
   </head>
   <body>
     <header>
+      <div class="logo">bernardofernandez</div>
       <nav>
-        <a href="#" class="logo">bernardofernandez</a>
         <ul>
-          <li><a href="#">Sobre</a></li>
-          <li><a href="#">Stacks</a></li>
-          <li><a href="#">Projetos</a></li>
-          <li><a href="#">Contato</a></li>
+          <li><a href="../mainpage/index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#sobre">Sobre</a>
+            <ul class="submenu">
+              <li><a href="./index.html">Sobre mim</a></li>
+              <li><a href="../projects/index.html">Projetos</a></li>
+            </ul>
+          </li>
+          <li><a href="../stacks/index.html">Stacks</a></li>
+          <li><a href="../contact/index.html">Contato</a></li>
         </ul>
       </nav>
+      <button id="theme-toggle" aria-label="Alternar tema">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+      </button>
     </header>
 
     <main>
-      <h1>Sobre mim</h1>
+      <h1 class="animate__animated animate__fadeInDown">Sobre mim</h1>
 
       <div class="content">
         <img
-          src="../assets/avatar.png"
+          src="../assets/profile1.png"
           alt="Foto de Bernardo Fernandez"
-          class="profile-photo"
+          class="profile-photo animate__animated animate__fadeInLeft"
         />
 
-        <div class="bio">
+        <div class="bio animate__animated animate__fadeInRight">
           <p>Meu nome é Bernardo Fernandez e tenho 15 anos.</p>
 
           <p>
@@ -51,16 +66,53 @@
           </p>
         </div>
       </div>
-
-      <section id="carreira">
-        <h2>Carreira</h2>
-        <div class="job">
-          <h3>Jovem Aprendiz E-Commerce</h3>
-          <p><a href="#">Amara Net Zero</a> • Presencial</p>
-          <p>dez 2023 - Momento • 9 meses</p>
-        </div>
-      </section>
     </main>
+
+    <section id="experiencias" class="reveal">
+      <h2>Experiências</h2>
+      <div class="experiencias-container">
+        <div class="experiencia-box">
+          <h3>Estudos e Cursos</h3>
+          <ul>
+            <li>
+              <h4>Senai Cimatec</h4>
+              <p>• Curso Técnico em Biotecnologia</p>
+              <p>2024 - 2026</p>
+            </li>
+            <li>
+              <h4>NLW Journey</h4>
+              <p>
+                • Projeto de desenvolvimento de uma aplicação web com foco em
+                ensino para iniciantes feito pela Rocketseat.
+              </p>
+              <p>2024</p>
+            </li>
+            <li>
+              <h4>
+                <a href="https://www.udemy.com/course/java-curso-completo/"
+                  >Curso de Java e Orientação a Objetos</a
+                >
+              </h4>
+              <p>
+                • Curso de Java e Orientação a Objetos com 100% de
+                aproveitamento
+              </p>
+              <p>2024</p>
+            </li>
+          </ul>
+        </div>
+        <div class="experiencia-box">
+          <h3>Experiência Profissional</h3>
+          <ul>
+            <li>
+              <h4>Jovem Aprendiz E-Commerce</h4>
+              <p>Amara Net Zero • Presencial</p>
+              <p>dez 2023 - Momento • 9 meses</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <script src="main.js"></script>
   </body>
