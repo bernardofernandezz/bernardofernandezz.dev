@@ -88,6 +88,31 @@ document.addEventListener("DOMContentLoaded", () => {
     projeto.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.2}s`;
   });
 
+  //temas
+  function applyTheme(theme) {
+    if (theme === "light") {
+      document.documentElement.style.setProperty("--bg-color", "#ffffff");
+      document.documentElement.style.setProperty("--text-color", "#000000");
+    } else {
+      document.documentElement.style.setProperty("--bg-color", "#000000");
+      document.documentElement.style.setProperty("--text-color", "#ffffff");
+    }
+  }
+
+  // Detecta a preferência inicial
+  if (window.matchMedia?.("(prefers-color-scheme: dark)")?.matches) {
+    applyTheme("dark");
+  } else {
+    applyTheme("light");
+  }
+
+  // Detecta alterações na preferência do sistema
+  window
+    .matchMedia?.("(prefers-color-scheme: dark)")
+    .addEventListener("change", (event) => {
+      applyTheme(event.matches ? "dark" : "light");
+    });
+
   // Função para definir o tema
   function setTheme(theme) {
     document.body.className = theme;
@@ -146,9 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           sobreMimSection.classList.add("visible");
-          for (const section of sobreMimSection) {
-            sobreMimObserver.unobserve(section);
-          }
+          sobreMimObserver.unobserve(sobreMimSection);
         }
       }
     },

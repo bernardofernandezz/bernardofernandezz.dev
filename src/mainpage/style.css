@@ -25,6 +25,13 @@ body.light-theme {
   --secondary-color: #f0f0f0;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+  }
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -153,25 +160,55 @@ h1 {
 
 .drops-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
 .drop-item {
-  background-color: var(--secondary-color);
+  position: relative;
   border-radius: 0.5rem;
   overflow: hidden;
+  aspect-ratio: 16 / 9;
 }
 
 .drop-item img {
   width: 100%;
-  height: 150px;
+  height: 100%;
   object-fit: cover;
 }
 
-.drop-item h3,
-.drop-item p {
-  padding: 0.5rem 1rem;
+.drop-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.drop-item:hover .drop-content {
+  opacity: 1;
+}
+
+.drop-content i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.drop-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.drop-content p {
+  font-size: 1rem;
 }
 
 /* ... (mantenha as animações existentes) ... */
@@ -284,7 +321,7 @@ footer {
 
 .sobre-mim-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 2rem;
 }
 
@@ -296,8 +333,20 @@ footer {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+.sobre-mim-text h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.sobre-mim-text .subtitulo {
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
 .sobre-mim-text p {
   margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
 @keyframes fadeInLeft {
@@ -316,19 +365,21 @@ footer {
   opacity: 0;
 }
 
+#sobre-mim .sobre-mim-text h3,
+#sobre-mim .sobre-mim-text .subtitulo,
 #sobre-mim .sobre-mim-text p {
   animation: fadeInLeft 0.5s ease forwards;
   opacity: 0;
 }
 
-#sobre-mim .sobre-mim-text p:nth-child(1) {
+#sobre-mim .sobre-mim-text h3 {
   animation-delay: 0.4s;
 }
 
-#sobre-mim .sobre-mim-text p:nth-child(2) {
+#sobre-mim .sobre-mim-text .subtitulo {
   animation-delay: 0.6s;
 }
 
-#sobre-mim .sobre-mim-text p:nth-child(3) {
+#sobre-mim .sobre-mim-text p {
   animation-delay: 0.8s;
 }
