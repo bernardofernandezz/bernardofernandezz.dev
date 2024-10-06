@@ -5,17 +5,20 @@
 }
 
 :root {
-  --bg-color: #1a1a1a; /* Preto menos escuro */
-  --text-color: #c0e0c0; /* Verde claro para texto */
-  --highlight-color: #a0d0a0; /* Verde claro para destaque */
-  --secondary-color: #2f4f4f; /* Verde musgo escuro */
+  --bg-color: #0d1117;
+  --text-color: #c9d1d9;
+  --highlight-color: #58a6ff;
+  --secondary-color: #21262d;
+  --border-color: #30363d;
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 body.light-theme {
@@ -27,9 +30,9 @@ body.light-theme {
 
 body.dark-theme {
   --bg-color: #1a1a1a;
-  --text-color: #c0e0c0; /* Verde claro para texto */
-  --highlight-color: #a0d0a0; /* Verde claro para destaque */
-  --secondary-color: #2f4f4f;
+  --text-color: #ffffff;
+  --highlight-color: #4caf50;
+  --secondary-color: #2f2f2f;
 }
 
 @media (prefers-color-scheme: light) {
@@ -124,18 +127,16 @@ nav ul li a {
 }
 
 main {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 2rem;
 }
 
-h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+section {
+  margin-bottom: 4rem;
 }
 
-.subtitulo {
-  font-size: 2rem;
+h1, h2, h3 {
   margin-bottom: 1rem;
 }
 
@@ -157,16 +158,17 @@ h1 {
 }
 
 .btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 2rem;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--highlight-color);
+  color: #ffffff;
   text-decoration: none;
-  font-weight: bold;
+  border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
-.btn:first-child {
-  background-color: var(--text-color);
-  color: var(--bg-color);
+.btn:hover {
+  background-color: darken(var(--highlight-color), 10%);
 }
 
 .btn-secondary {
@@ -402,4 +404,152 @@ footer {
 
 #sobre-mim .sobre-mim-text p {
   animation-delay: 0.8s;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+aside {
+  width: 250px;
+  background-color: #161b22;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  position: fixed;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+nav ul li {
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+nav ul li a {
+  color: var(--text-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+nav ul li a:hover, nav ul li a.active {
+  background-color: #1f2937;
+}
+
+nav ul li a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.social-links a {
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+main {
+  flex-grow: 1;
+  margin-left: 250px;
+  padding: 2rem;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.profile-info p {
+  margin: 0.5rem 0;
+  color: #8b949e;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tech-tags span {
+  background-color: #1f2937;
+  color: #58a6ff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  #sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 1rem;
+  }
+
+  main {
+    margin-left: 0;
+  }
+
+  .profile {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .tech-tags {
+    justify-content: center;
+  }
+
+  nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav ul li {
+    width: auto;
+    margin-right: 1rem;
+  }
 }
