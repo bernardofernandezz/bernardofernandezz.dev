@@ -147,17 +147,17 @@ document.addEventListener("DOMContentLoaded", () => {
   sobreMimObserver.observe(sobreMimSection);
 
   // Funcionalidade da sidebar responsiva
-  const sidebar = document.getElementById('sidebar');
-  const main = document.querySelector('main');
-  const mediaQuery = window.matchMedia('(max-width: 768px)');
+  const sidebar = document.getElementById("sidebar");
+  const main = document.querySelector("main");
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
 
   function handleSidebarVisibility(e) {
     if (e.matches) {
-      sidebar.style.transform = 'translateX(-100%)';
-      main.style.marginLeft = '0';
+      sidebar.style.transform = "translateX(-100%)";
+      main.style.marginLeft = "0";
     } else {
-      sidebar.style.transform = 'translateX(0)';
-      main.style.marginLeft = '250px';
+      sidebar.style.transform = "translateX(0)";
+      main.style.marginLeft = "250px";
     }
   }
 
@@ -165,29 +165,51 @@ document.addEventListener("DOMContentLoaded", () => {
   handleSidebarVisibility(mediaQuery);
 
   // Toggle sidebar on mobile
-  document.querySelector('.fas.fa-bars').addEventListener('click', () => {
+  document.querySelector(".fas.fa-bars").addEventListener("click", () => {
     if (window.innerWidth <= 768) {
-      sidebar.style.transform = sidebar.style.transform === 'translateX(0)' ? 'translateX(-100%)' : 'translateX(0)';
+      sidebar.style.transform =
+        sidebar.style.transform === "translateX(0)"
+          ? "translateX(-100%)"
+          : "translateX(0)";
     }
   });
 
   // Fechar a sidebar ao clicar fora dela em dispositivos móveis
-  document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 768 && 
-        !sidebar.contains(e.target) && 
-        !sidebarToggle.contains(e.target) && 
-        container.classList.contains('sidebar-open')) {
-      container.classList.remove('sidebar-open');
+  document.addEventListener("click", (e) => {
+    if (
+      window.innerWidth <= 768 &&
+      !sidebar.contains(e.target) &&
+      !sidebarToggle.contains(e.target) &&
+      container.classList.contains("sidebar-open")
+    ) {
+      container.classList.remove("sidebar-open");
     }
   });
 
-  // Fechar a sidebar após clicar em um link (para dispositivos móveis)
-  const sidebarLinks = sidebar.querySelectorAll('a');
-  sidebarLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        container.classList.remove('sidebar-open');
+  // Adicione esta função ao seu arquivo JavaScript existente
+  function highlightActiveSection() {
+    const sections = document.querySelectorAll("main section");
+    const navItems = document.querySelectorAll("#sidebar nav a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      for (const section of sections) {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - sectionHeight / 3) {
+          current = section.getAttribute("id");
+        }
+      }
+
+      for (const item of navItems) {
+        item.classList.remove("active");
+        if (item.getAttribute("href").slice(1) === current) {
+          item.classList.add("active");
+        }
       }
     });
-  });
+  }
+
+  // Chame esta função quando o DOM estiver carregado
+  document.addEventListener("DOMContentLoaded", highlightActiveSection);
 });

@@ -1,84 +1,189 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bernardo Fernandez | Desenvolvedor Web</title>
-    <link rel="stylesheet" href="./mainpage/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4caf50",
+            },
+          },
+        },
+      };
+    </script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
-  <body class="dark-theme">
-    <div class="container">
-      <aside id="sidebar">
+  <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside
+        class="w-64 h-screen bg-white dark:bg-gray-800 fixed left-0 top-0 overflow-y-auto"
+      >
+        <div class="p-4">
+          <img
+            src="./assets/avatar.png"
+            alt="Bernardo Fernandez"
+            class="w-32 h-32 rounded-full mx-auto mb-4"
+          />
+          <h1 class="text-xl font-bold text-center mb-2">Bernardo Fernandez</h1>
+          <p class="text-sm text-center mb-4">
+            Desenvolvedor Web @ Amara Net Zero
+          </p>
+          <div class="flex flex-wrap justify-center gap-2 mb-4">
+            <span
+              class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-full text-xs"
+              >HTML</span
+            >
+            <span
+              class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-full text-xs"
+              >CSS</span
+            >
+            <span
+              class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-full text-xs"
+              >JavaScript</span
+            >
+          </div>
+        </div>
         <nav>
           <ul>
-            <li><a href="#inicio" class="active"><i class="fas fa-home"></i> Início</a></li>
-            <li><a href="#eu"><i class="fas fa-user"></i> Eu</a></li>
-            <li><a href="#sobre"><i class="fas fa-info-circle"></i> Sobre mim</a></li>
-            <li><a href="#projetos"><i class="fas fa-code"></i> Projetos</a></li>
-            <li><a href="#tecnologias"><i class="fas fa-laptop-code"></i> Tecnologias e Ferramentas</a></li>
-            <li><a href="#diario"><i class="fas fa-book"></i> Diário</a></li>
-            <li><a href="#livro-visitas"><i class="fas fa-address-book"></i> Livro de Visitas</a></li>
-            <li><a href="#blog"><i class="fas fa-rss"></i> Blog</a></li>
+            <li>
+              <a
+                href="#inicio"
+                class="block py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700"
+                ><i class="fas fa-home mr-2"></i> Início</a
+              >
+            </li>
+            <li>
+              <a
+                href="#sobre"
+                class="block py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700"
+                ><i class="fas fa-user mr-2"></i> Sobre mim</a
+              >
+            </li>
+            <li>
+              <a
+                href="#experiencias"
+                class="block py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700"
+                ><i class="fas fa-briefcase mr-2"></i> Experiências</a
+              >
+            </li>
+            <li>
+              <a
+                href="#educacao"
+                class="block py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700"
+                ><i class="fas fa-graduation-cap mr-2"></i> Educação</a
+              >
+            </li>
+            <li>
+              <a
+                href="#projetos"
+                class="block py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700"
+                ><i class="fas fa-code mr-2"></i> Projetos</a
+              >
+            </li>
           </ul>
         </nav>
-        <div class="social-links">
-          <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="Bluesky"><i class="fas fa-cloud"></i></a>
-          <a href="#" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-          <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <div class="p-4">
+          <div class="flex justify-center space-x-4">
+            <a
+              href="#"
+              class="text-gray-600 dark:text-gray-400 hover:text-primary"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a
+              href="#"
+              class="text-gray-600 dark:text-gray-400 hover:text-primary"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a
+              href="#"
+              class="text-gray-600 dark:text-gray-400 hover:text-primary"
+              ><i class="fab fa-twitter"></i
+            ></a>
+          </div>
         </div>
       </aside>
-      <main>
-        <header>
-          <div class="profile">
-            <img src="../assets/images/avatar.png" alt="Bernardo Fernandez" class="profile-photo">
-            <div class="profile-info">
-              <h1>Bernardo Fernandez</h1>
-              <p>Desenvolvedor Front-end @ Sua Empresa</p>
-              <div class="tech-tags">
-                <span>ReactJS</span>
-                <span>NextJS</span>
-                <span>Svelte</span>
-                <span>SvelteKit</span>
-                <span>NodeJS</span>
-                <span>TypeScript</span>
-                <span>JavaScript</span>
-              </div>
-            </div>
-          </div>
-        </header>
-        <section id="sobre">
-          <h2>Sobre mim</h2>
-          <p>Olá, meu nome é Bernardo Fernandez, sou um desenvolvedor front-end dedicado, com ampla experiência em tecnologias como ReactJS e NextJS, e um histórico com clientes notáveis. Especializado em soluções robustas e amigáveis ao usuário, priorizando escalabilidade, acessibilidade e performance.</p>
+
+      <!-- Main Content -->
+      <main class="ml-64 p-8">
+        <section id="inicio" class="mb-16">
+          <h2 class="text-3xl font-bold mb-4">
+            Olá, eu sou Bernardo Fernandez
+          </h2>
+          <p class="text-xl mb-4">
+            Desenvolvedor Web apaixonado por criar soluções inovadoras.
+          </p>
+          <a
+            href="#contato"
+            class="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90"
+            >Entre em contato</a
+          >
         </section>
-        <section id="experiencias">
-          <h2>Experiências</h2>
-          <div class="experience-item">
-            <img src="path/to/company-logo.png" alt="Logo da Empresa">
-            <div class="experience-details">
-              <h3>Desenvolvedor Front-end</h3>
-              <p>Sua Empresa Atual</p>
-              <p>2024 - Atualmente</p>
-            </div>
-          </div>
-          <!-- Adicione mais itens de experiência conforme necessário -->
+
+        <section id="sobre" class="mb-16">
+          <h2 class="text-2xl font-bold mb-4">Sobre mim</h2>
+          <p>
+            Olá, meu nome é Bernardo Fernandez, tenho 15 anos e sou um
+            desenvolvedor front-end dedicado...
+          </p>
         </section>
-        <section id="educacao">
-          <h2>Educação</h2>
-          <!-- Adicione seus itens de educação aqui -->
+
+        <section id="experiencias" class="mb-16">
+          <h2 class="text-2xl font-bold mb-4">Experiências</h2>
+          <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+            <h3 class="text-xl font-semibold">
+              Jovem Aprendiz - Tecnologia da Informação
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">Amara Net Zero</p>
+            <p class="text-sm">2023 - Atualmente</p>
+          </div>
+        </section>
+
+        <section id="educacao" class="mb-16">
+          <h2 class="text-2xl font-bold mb-4">Educação</h2>
+          <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+            <h3 class="text-xl font-semibold">Senai Cimatec</h3>
+            <p>Ensino Médio Integrado ao Técnico</p>
+            <p class="text-sm">2024 - 2026</p>
+          </div>
+        </section>
+
+        <section id="projetos" class="mb-16">
+          <h2 class="text-2xl font-bold mb-4">Projetos</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+              <h3 class="text-xl font-semibold mb-2">Projeto 1</h3>
+              <p class="mb-4">Descrição breve do projeto 1</p>
+              <a href="#" class="text-primary hover:underline">Ver projeto</a>
+            </div>
+            <!-- Adicione mais projetos conforme necessário -->
+          </div>
         </section>
       </main>
     </div>
-    <script src="./mainpage/main.js"></script>
+
+    <script>
+      // Adicione aqui o JavaScript necessário para funcionalidades adicionais
+      document.addEventListener("DOMContentLoaded", () => {
+        const links = document.querySelectorAll("nav a");
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+            targetElement.scrollIntoView({ behavior: "smooth" });
+          });
+        });
+      });
+    </script>
   </body>
 </html>
