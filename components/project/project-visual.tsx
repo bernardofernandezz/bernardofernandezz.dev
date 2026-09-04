@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react"
 import type { ProjectVisualSpec } from "@/lib/content/projects"
 import { DrawOnVisible } from "@/components/motion/draw-on-visible"
+import { Tilt } from "@/components/motion/tilt"
 import { cn } from "@/lib/utils"
 
 interface ProjectVisualProps {
@@ -251,9 +252,11 @@ export function ProjectVisual({ spec, title, className }: ProjectVisualProps) {
         className,
       )}
     >
-      <DrawOnVisible>
-        <Pattern />
-      </DrawOnVisible>
+      <Tilt max={5}>
+        <DrawOnVisible>
+          <Pattern />
+        </DrawOnVisible>
+      </Tilt>
     </div>
   )
 }

@@ -159,7 +159,7 @@ export function CuriousAbout({ locale }: { locale: Locale }) {
                         top: `${(node.y / VIEW_H) * 100}%`,
                       }}
                       className={cn(
-                        "absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border bg-background px-4 py-2 text-left text-sm transition-colors duration-300",
+                        "absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border bg-background px-4 py-2 text-left text-sm transition-all duration-300 hover:scale-[1.07] active:scale-100",
                         node.anchor === "start" && "translate-x-0",
                         node.anchor === "end" && "-translate-x-full",
                         selected

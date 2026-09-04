@@ -115,9 +115,12 @@ function buildLattice(): Lattice {
 
 /*
  * A random walk through the lattice — the pulse is the path, not a particle.
+ * A forced start lets taps inject a signal at the nearest node.
  */
-function buildPulsePath(lattice: Lattice): readonly number[] {
-  const path: number[] = [Math.floor(Math.random() * lattice.base.length)]
+function buildPulsePath(lattice: Lattice, start?: number): readonly number[] {
+  const path: number[] = [
+    start ?? Math.floor(Math.random() * lattice.base.length),
+  ]
   for (let hop = 1; hop < 9; hop++) {
     const neighbors = lattice.adjacency[path[hop - 1]]
     const previous = path[hop - 2]
@@ -199,6 +202,36 @@ export function StructureCanvas({ hue, className }: StructureCanvasProps) {
 
     const pulses: Pulse[] = []
     let lastPulseAt = 0
+    let lastProjected: { x: number; y: number; z: number }[] = []
+
+    // Tapping the structure injects signals at the nearest node —
+    // the one interaction that also works on touch screens.
+    const onPointerDown = (event: PointerEvent) => {
+      if (reducedMotion || lastProjected.length === 0) return
+      const rect = canvas.getBoundingClientRect()
+      const px = event.clientX - rect.left
+      const py = event.clientY - rect.top
+      let nearest = -1
+      let nearestSquared = 220 * 220
+      for (let i = 0; i < lastProjected.length; i++) {
+        const dx = lastProjected[i].x - px
+        const dy = lastProjected[i].y - py
+        const distanceSquared = dx * dx + dy * dy
+        if (distanceSquared < nearestSquared) {
+          nearestSquared = distanceSquared
+          nearest = i
+        }
+      }
+      if (nearest < 0) return
+      const time = performance.now()
+      for (let n = 0; n < 2 && pulses.length < PULSE_MAX_ACTIVE + 2; n++) {
+        pulses.push({
+          path: buildPulsePath(lattice, nearest),
+          startedAt: time - n * 260,
+          duration: 1500 + Math.random() * 900,
+        })
+      }
+    }
 
     const draw = (time: number) => {
       context.clearRect(0, 0, width, height)
@@ -232,6 +265,7 @@ export function StructureCanvas({ hue, className }: StructureCanvasProps) {
           scale,
         ),
       )
+      lastProjected = projected
 
       // Pointer proximity excites nodes — they lean toward the cursor.
       const excite = new Float32Array(projected.length)
@@ -392,6 +426,7 @@ export function StructureCanvas({ hue, className }: StructureCanvasProps) {
     const section = pointerTarget.closest("section") ?? pointerTarget
     section.addEventListener("pointermove", onPointerMove)
     section.addEventListener("pointerleave", onPointerLeave)
+    canvas.addEventListener("pointerdown", onPointerDown)
 
     if (reducedMotion) {
       angleY = 0.72
@@ -409,6 +444,7 @@ export function StructureCanvas({ hue, className }: StructureCanvasProps) {
       window.removeEventListener("scroll", onScroll)
       section.removeEventListener("pointermove", onPointerMove)
       section.removeEventListener("pointerleave", onPointerLeave)
+      canvas.removeEventListener("pointerdown", onPointerDown)
     }
   }, [hue])
 

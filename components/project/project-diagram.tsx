@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactElement } from "react"
 import { DrawOnVisible } from "@/components/motion/draw-on-visible"
+import { Tilt } from "@/components/motion/tilt"
 import { cn } from "@/lib/utils"
 
 /*
@@ -233,9 +234,11 @@ export function ProjectDiagram({
       aria-label={`${title} — ${label}`}
       className={cn("rounded-lg border bg-card p-6 md:p-8", className)}
     >
-      <DrawOnVisible>
-        <Diagram />
-      </DrawOnVisible>
+      <Tilt max={4}>
+        <DrawOnVisible>
+          <Diagram />
+        </DrawOnVisible>
+      </Tilt>
     </div>
   )
 }
