@@ -139,12 +139,17 @@ export function CommandMenu({ locale }: { locale: Locale }) {
     )
   }, [items, query])
 
+  // Derived clamp: when the result list shrinks (typing, or the items
+  // array rebuilding) the active index never points past the end, so
+  // Enter can't hit a stale index. No setState-in-effect needed.
+  const safeIndex = Math.min(activeIndex, Math.max(filtered.length - 1, 0))
+
   useEffect(() => {
     if (!open) return
-    const active = filtered[activeIndex]
+    const active = filtered[safeIndex]
     const node = listRef.current?.querySelector(`[data-item-id="${active?.id}"]`)
     node?.scrollIntoView({ block: "nearest" })
-  }, [activeIndex, filtered, open])
+  }, [safeIndex, filtered, open])
 
   const runItem = useCallback(
     (item: CommandItem | undefined) => {
@@ -183,7 +188,7 @@ export function CommandMenu({ locale }: { locale: Locale }) {
     }
     if (event.key === "Enter") {
       event.preventDefault()
-      runItem(filtered[activeIndex])
+      runItem(filtered[safeIndex])
     }
   }
 
@@ -244,16 +249,20 @@ export function CommandMenu({ locale }: { locale: Locale }) {
               autoComplete="off"
               spellCheck={false}
               role="combobox"
-              aria-expanded="true"
+              aria-expanded={filtered.length > 0}
               aria-autocomplete="list"
               aria-controls="command-menu-listbox"
               aria-activedescendant={
-                filtered[activeIndex] ? `${filtered[activeIndex].id}-option` : undefined
+                filtered[safeIndex] ? `${filtered[safeIndex].id}-option` : undefined
               }
               className="h-13 w-full border-b bg-transparent px-5 text-base outline-none placeholder:text-muted-foreground"
             />
             <p aria-live="polite" className="sr-only">
-              {emailCopied ? palette.actions.emailCopied : ""}
+              {emailCopied
+                ? palette.actions.emailCopied
+                : query.trim()
+                  ? palette.matchCount(filtered.length)
+                  : ""}
             </p>
             <div
               ref={listRef}
@@ -274,7 +283,7 @@ export function CommandMenu({ locale }: { locale: Locale }) {
                     <p className="eyebrow px-3 pb-1.5 pt-3">{groupLabels[group]}</p>
                     {groupItems.map((item) => {
                       const index = filtered.indexOf(item)
-                      const active = index === activeIndex
+                      const active = index === safeIndex
                       return (
                         <button
                           key={item.id}

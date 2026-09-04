@@ -18,14 +18,20 @@ import {
   type BriefStepId,
 } from "@/lib/briefing/flow"
 import { submitBrief } from "@/lib/briefing/submit-brief"
-import type {
-  Audience,
-  BriefAnswers,
-  BudgetRange,
-  ProjectStage,
-  ProjectType,
-  Timeline,
-  WebsiteKind,
+import {
+  AUDIENCES,
+  BUDGET_RANGES,
+  PROJECT_STAGES,
+  PROJECT_TYPES,
+  TIMELINES,
+  WEBSITE_KINDS,
+  type Audience,
+  type BriefAnswers,
+  type BudgetRange,
+  type ProjectStage,
+  type ProjectType,
+  type Timeline,
+  type WebsiteKind,
 } from "@/lib/briefing/types"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
 import type { Locale } from "@/lib/i18n/config"
@@ -72,6 +78,19 @@ function loadProgress(): SavedProgress | null {
     for (const value of Object.values(saved.answers)) {
       if (typeof value !== "string") return null
     }
+    // Enum membership: tampered storage must never reach the renderer,
+    // where unknown option values would resolve to undefined copy.
+    const { intent, intentDetail, audience, stage, timeline, budget } =
+      saved.answers
+    const known = <T extends string>(value: string | undefined, list: readonly T[]) =>
+      value === undefined || (list as readonly string[]).includes(value)
+    if (!known(intent, PROJECT_TYPES)) return null
+    if (!known(audience, AUDIENCES)) return null
+    if (!known(stage, PROJECT_STAGES)) return null
+    if (!known(timeline, TIMELINES)) return null
+    if (!known(budget, BUDGET_RANGES)) return null
+    if (intent === "website" && intentDetail !== undefined && !known(intentDetail, WEBSITE_KINDS))
+      return null
     return saved
   } catch {
     return null
@@ -177,6 +196,7 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
 
   function editFromSummary(editStepId: BriefStepId) {
     setDirection("back")
+    setSubmitError(null)
     setPhase("questions")
     setStepIndex(BRIEF_STEP_IDS.indexOf(editStepId))
   }
@@ -186,13 +206,17 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
 
     setSending(true)
     setSubmitError(null)
-    const result = await submitBrief(answers)
-    setSending(false)
-
-    if (result.ok) {
-      setPhase("confirmation")
-    } else {
+    try {
+      const result = await submitBrief(answers)
+      if (result.ok) {
+        setPhase("confirmation")
+      } else {
+        setSubmitError(text.submitError)
+      }
+    } catch {
       setSubmitError(text.submitError)
+    } finally {
+      setSending(false)
     }
   }
 
@@ -220,7 +244,14 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
         />
       )}
 
-      <div aria-live="polite" className="flex flex-1 flex-col justify-center py-12">
+      <div className="flex flex-1 flex-col justify-center py-12">
+        {/*
+         * Scoped status announcement: the step container itself is not a
+         * live region, so keystrokes don't re-announce the whole step.
+         */}
+        <p aria-live="polite" className="sr-only">
+          {text.progress.ariaLabel(progressCurrent, BRIEF_STEP_IDS.length)}
+        </p>
         <div key={stepKey} className={animationClassName}>
           {phase === "intro" && (
             <div>
@@ -291,6 +322,7 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
                       name="intentDetail"
                       value={answers.intentDetail}
                       placeholder={text.textPlaceholder}
+                      label={presentation.question}
                       onChange={(value) =>
                         setAnswers((prev) => ({ ...prev, intentDetail: value }))
                       }
@@ -301,6 +333,7 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
                     name="problem"
                     value={answers.problem}
                     placeholder={text.textPlaceholder}
+                    label={presentation.question}
                     onChange={(value) =>
                       setAnswers((prev) => ({ ...prev, problem: value }))
                     }

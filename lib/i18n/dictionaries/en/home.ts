@@ -3,7 +3,7 @@ export const home = {
     identity: ["Software developer.", "Builder.", "Curious about how things work."],
     body:
       "I like turning ideas, problems and weird questions into things people can actually use.",
-    ctaPrimary: "Explore my work",
+    ctaPrimary: "Explore what I've built",
     ctaSecondary: "Get to know me",
     quietCta: "Have something in mind?",
     structureLabel:
@@ -29,6 +29,11 @@ export const home = {
     title: "What I'm thinking about",
     intro:
       "Not a skills list — the areas my brain keeps returning to while building.",
+  },
+  aboutTeaser: {
+    eyebrow: "A little about me",
+    line: "I'm Bernardo — I build the software behind the idea.",
+    link: "More about me",
   },
   now: {
     eyebrow: "Now",

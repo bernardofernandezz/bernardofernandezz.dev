@@ -42,9 +42,13 @@ export const about = {
     label: "Questions I'm thinking about",
   },
   evidence: {
-    label: "This site as evidence",
+    label: "Behind this site",
     body:
       "This portfolio is a small case study of how I work: Next.js with strict TypeScript, a typed interactive briefing, self-hosted on a VPS with nginx, systemd, Let's Encrypt and CI/CD with quality gates and health checks. A small system — built the way I'd build yours.",
+  },
+  outsideCode: {
+    label: "Outside the code",
+    items: [] as string[],
   },
   currently: "Currently",
   currentlyBody: (availability: string, location: string) =>

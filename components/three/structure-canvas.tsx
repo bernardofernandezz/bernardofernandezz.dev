@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils"
 interface StructureCanvasProps {
   hue: number
   className?: string
-  label: string
 }
 
 interface Vec3 {
@@ -131,7 +130,7 @@ function buildPulsePath(lattice: Lattice): readonly number[] {
   return path
 }
 
-export function StructureCanvas({ hue, className, label }: StructureCanvasProps) {
+export function StructureCanvas({ hue, className }: StructureCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -237,12 +236,13 @@ export function StructureCanvas({ hue, className, label }: StructureCanvasProps)
       // Pointer proximity excites nodes — they lean toward the cursor.
       const excite = new Float32Array(projected.length)
       if (pointerActive) {
+        const radiusSquared = POINTER_RADIUS * POINTER_RADIUS
         for (let i = 0; i < projected.length; i++) {
           const dx = projected[i].x - pointerX
           const dy = projected[i].y - pointerY
-          const distance = Math.hypot(dx, dy)
-          if (distance < POINTER_RADIUS) {
-            excite[i] = 1 - distance / POINTER_RADIUS
+          const distanceSquared = dx * dx + dy * dy
+          if (distanceSquared < radiusSquared) {
+            excite[i] = 1 - Math.sqrt(distanceSquared) / POINTER_RADIUS
           }
         }
       }
@@ -351,7 +351,9 @@ export function StructureCanvas({ hue, className, label }: StructureCanvasProps)
 
     const tick = (time: number) => {
       if (!pointerActive) {
-        targetAngleY += 0.0014
+        // Wrapped so idle sessions running for hours don't lose float precision.
+        targetAngleY =
+          0.55 + ((targetAngleY - 0.55 + 0.0014) % (Math.PI * 2))
       }
       angleY += (targetAngleY - angleY) * 0.045
       angleX += (targetAngleX - angleX) * 0.045
@@ -410,12 +412,13 @@ export function StructureCanvas({ hue, className, label }: StructureCanvasProps)
     }
   }, [hue])
 
+  // Announced once by the HeroStructure wrapper (role="img") —
+  // a second label here would double-announce when the canvas mounts.
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className={cn("h-full w-full", className)}
-      role="img"
-      aria-label={label}
     />
   )
 }

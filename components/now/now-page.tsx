@@ -31,7 +31,8 @@ export function NowPage({ locale }: { locale: Locale }) {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-highlight opacity-60 motion-reduce:animate-none motion-reduce:hidden" />
             <span className="relative inline-flex size-1.5 rounded-full bg-highlight" />
           </span>
-          {now.title} · {data.updatedAt} · <LocalTime label={dict.common.localTimeShort} />
+          {now.title} · {now.updatedLabel} {data.updatedAt} ·{" "}
+          <LocalTime label={dict.common.localTimeShort} />
         </p>
         <h1 className="mt-6 font-display text-display-lg tracking-tight">
           <span className="serif-accent">{now.title}</span>

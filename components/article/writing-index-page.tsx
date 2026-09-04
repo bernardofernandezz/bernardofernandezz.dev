@@ -1,3 +1,5 @@
+import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
 import { Reveal } from "@/components/motion/reveal"
 import { ArticleRow } from "@/components/article/article-row"
 import { ArrowLink } from "@/components/site/arrow-link"
@@ -8,6 +10,8 @@ import { getArticles } from "@/lib/content/articles"
 export function WritingIndexPage({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale)
   const index = dict.writing.index
+  const articles = getArticles(locale)
+  const [featured, ...rest] = articles
 
   return (
     <div className="container-page py-16 md:py-24">
@@ -21,14 +25,38 @@ export function WritingIndexPage({ locale }: { locale: Locale }) {
         </p>
       </Reveal>
 
-      <div className="mt-14 border-t md:mt-20">
-        {getArticles(locale).map((article, index) => (
-          <Reveal key={article.slug} delayMs={index * 60}>
+      {featured && (
+        <Reveal>
+          <Link
+            href={localePath(locale, `/writing/${featured.slug}`)}
+            className="group mt-14 block border-t pt-10 md:mt-20"
+            aria-label={featured.title}
+          >
+            <p className="eyebrow">
+              {featured.category} · {featured.readingTime}
+            </p>
+            <p className="mt-4 max-w-4xl font-display text-display-md tracking-tight transition-colors duration-300 group-hover:text-highlight">
+              {featured.title}
+              <ArrowUpRight
+                className="ml-2 inline size-8 -translate-x-1 text-highlight opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                aria-hidden="true"
+              />
+            </p>
+            <p className="serif-accent mt-5 max-w-2xl text-xl leading-snug text-muted-foreground md:text-2xl">
+              {featured.summary}
+            </p>
+          </Link>
+        </Reveal>
+      )}
+
+      <div className="mt-14 border-t">
+        {rest.map((article, position) => (
+          <Reveal key={article.slug} delayMs={position * 60}>
             <ArticleRow
               article={article}
               locale={locale}
               size="large"
-              index={index + 1}
+              index={position + 2}
             />
           </Reveal>
         ))}

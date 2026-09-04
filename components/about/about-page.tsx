@@ -127,6 +127,24 @@ export function AboutPage({ locale }: { locale: Locale }) {
             </div>
           </Reveal>
 
+          {about.outsideCode.items.length > 0 && (
+            <Reveal delayMs={275}>
+              <div className="mt-10 border-t pt-6">
+                <p className="eyebrow">{about.outsideCode.label}</p>
+                <ul className="mt-4 flex flex-col gap-3">
+                  {about.outsideCode.items.map((item) => (
+                    <li
+                      key={item}
+                      className="text-lg leading-snug text-muted-foreground"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          )}
+
           <Reveal delayMs={300}>
             <div className="mt-10 border-t pt-6">
               <p className="eyebrow">{about.evidence.label}</p>

@@ -33,6 +33,8 @@ export const common = {
     label: "Command menu",
     placeholder: "Type a command or search…",
     noResults: "Nothing matches — try something else.",
+    matchCount: (count: number) =>
+      `${count} option${count === 1 ? "" : "s"} found`,
     groups: {
       navigate: "Go to",
       actions: "Actions",

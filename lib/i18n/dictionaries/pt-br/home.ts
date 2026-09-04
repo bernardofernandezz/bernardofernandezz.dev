@@ -7,7 +7,7 @@ export const home = {
     ],
     body:
       "Gosto de transformar ideias, problemas e perguntas esquisitas em coisas que as pessoas realmente usam.",
-    ctaPrimary: "Explorar os projetos",
+    ctaPrimary: "Explore o que eu construí",
     ctaSecondary: "Me conhecer melhor",
     quietCta: "Tem algo em mente?",
     structureLabel:
@@ -33,6 +33,11 @@ export const home = {
     title: "O que está girando na minha cabeça",
     intro:
       "Não é uma lista de habilidades — são as áreas em que meu pensamento fica voltando enquanto eu construo.",
+  },
+  aboutTeaser: {
+    eyebrow: "Um pouco sobre mim",
+    line: "Sou o Bernardo — eu construo o software que fica atrás da ideia.",
+    link: "Mais sobre mim",
   },
   now: {
     eyebrow: "Agora",

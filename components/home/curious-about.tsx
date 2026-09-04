@@ -31,12 +31,22 @@ export function CuriousAbout({ locale }: { locale: Locale }) {
             </Reveal>
           </div>
 
-          <dl className="md:col-span-8">
+          {/*
+           * One thread, several stations: the rail suggests these interests
+           * are connected inquiries, not isolated skills. Purely decorative.
+           */}
+          <dl className="relative md:col-span-8">
+            <span
+              aria-hidden="true"
+              className="absolute bottom-10 left-[5px] top-10 hidden w-px bg-border sm:block"
+            />
             {proof.curiosities.map((area, index) => (
               <Reveal key={area.title} delayMs={index * 60}>
-                <div
-                  className="group border-b py-7 first:border-t md:py-8"
-                >
+                <div className="group relative border-b py-7 first:border-t sm:pl-9 md:py-8">
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 top-[38px] hidden size-[11px] rounded-full border border-muted-foreground/40 bg-background transition-colors duration-300 group-hover:border-highlight group-hover:bg-highlight md:top-[46px] sm:block"
+                  />
                   <dt className="font-display text-xl tracking-tight transition-colors duration-300 group-hover:text-highlight md:text-2xl">
                     {area.title}
                   </dt>

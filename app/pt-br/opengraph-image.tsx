@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
 import { siteConfig } from "@/lib/config/site"
 
-export const alt = "Bernardo Fernandez — Desenvolvedor de software & builder"
+export const alt = siteConfig.name
 export const size = {
   width: 1200,
   height: 630,

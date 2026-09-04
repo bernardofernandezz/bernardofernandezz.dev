@@ -53,7 +53,7 @@ export function HeroStructure({ hue, label, className }: HeroStructureProps) {
         )}
       />
       {nearViewport && (
-        <StructureCanvas hue={hue} label={label} className="absolute inset-0" />
+        <StructureCanvas hue={hue} className="absolute inset-0" />
       )}
     </div>
   )

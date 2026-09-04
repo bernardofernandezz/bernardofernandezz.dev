@@ -33,6 +33,8 @@ export const common = {
     label: "Menu de comandos",
     placeholder: "Digite um comando ou busca…",
     noResults: "Nada encontrado — tenta outra coisa.",
+    matchCount: (count: number) =>
+      `${count} ${count === 1 ? "opção encontrada" : "opções encontradas"}`,
     groups: {
       navigate: "Ir para",
       actions: "Ações",
