@@ -7,7 +7,7 @@ export const home = {
     ],
     body:
       "Gosto de transformar ideias, problemas e perguntas esquisitas em coisas que as pessoas realmente usam.",
-    ctaPrimary: "Explore o que eu construí",
+    ctaPrimary: "Explorar meu trabalho",
     ctaSecondary: "Me conhecer melhor",
     quietCta: "Tem algo em mente?",
     structureLabel:
@@ -33,6 +33,16 @@ export const home = {
     title: "O que está girando na minha cabeça",
     intro:
       "Não é uma lista de habilidades — são as áreas em que meu pensamento fica voltando enquanto eu construo.",
+    mapHint: "Como os fios se conectam — passe o mouse ou toque num tema.",
+    evidenceLink: "Ver num projeto",
+  },
+  personal: {
+    eyebrow: "Algumas coisas sobre mim",
+    title: "Em algum lugar entre software e o que ficou interessante essa semana.",
+    intro:
+      "Costumo acabar em algum lugar entre software, sistemas e a pergunta que ficou interessante essa semana.",
+    curiousLabel: "Curioso com agora",
+    talkLabel: "Coisas sobre as quais eu provavelmente falo demais",
   },
   aboutTeaser: {
     eyebrow: "Um pouco sobre mim",
@@ -58,7 +68,7 @@ export const home = {
     situationsLabel: "Conversas que costumam levar a algo",
     notSure: "Achando que é “pequeno demais”? As interessantes quase sempre são.",
     afterLine: "Tem uma ideia? Vamos ver onde ela vai.",
-    afterCta: "Começar um projeto",
+    afterCta: "Me conta sobre isso",
   },
 }
 

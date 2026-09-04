@@ -23,25 +23,11 @@ const EN: readonly ServiceSituation[] = [
     examples: ["SaaS products", "Customer portals", "Booking systems", "Marketplaces"],
   },
   {
-    id: "automation-tools",
-    situation: "Our workflow lives in spreadsheets and group chats.",
-    response:
-      "I turn manual coordination into internal tools that give the team one reliable place to run the operation — dashboards, automations and integrations that fit how the work actually happens.",
-    examples: ["Operations dashboards", "Workflow automation", "Admin panels", "Integrations"],
-  },
-  {
     id: "architecture",
     situation: "The product works, but the codebase is becoming the problem.",
     response:
       "Architecture and refactoring: data models, APIs, type safety and performance — structural work that makes the next six features cheap instead of terrifying.",
     examples: ["API design", "Database modeling", "Performance work", "Technical audits"],
-  },
-  {
-    id: "end-to-end",
-    situation: "I need someone technical who can actually own this.",
-    response:
-      "End-to-end product development: one person who moves between product decisions, design and implementation — no translation losses between what's decided and what's built.",
-    examples: ["Founder-led builds", "Product engineering", "Zero-to-launch ownership"],
   },
 ]
 
@@ -61,25 +47,11 @@ const PT_BR: readonly ServiceSituation[] = [
     examples: ["Produtos SaaS", "Portais de clientes", "Sistemas de reserva", "Marketplaces"],
   },
   {
-    id: "automation-tools",
-    situation: "Nosso processo vive numa planilha e num grupo de WhatsApp.",
-    response:
-      "Eu transformo coordenação manual em ferramentas internas que dão ao time um lugar confiável de onde operar — dashboards, automações e integrações que se encaixam em como o trabalho acontece de verdade.",
-    examples: ["Dashboards de operação", "Automação de fluxos", "Painéis de administração", "Integrações"],
-  },
-  {
     id: "architecture",
     situation: "O produto funciona, mas o código virou o problema.",
     response:
       "Arquitetura e refatoração: modelos de dados, APIs, type safety e performance — trabalho estrutural que torna os próximos seis recursos baratos em vez de assustadores.",
     examples: ["Desenho de APIs", "Modelagem de dados", "Trabalho de performance", "Auditoria técnica"],
-  },
-  {
-    id: "end-to-end",
-    situation: "Preciso de alguém técnico que realmente assuma isso.",
-    response:
-      "Desenvolvimento de produto ponta a ponta: uma pessoa que transita entre decisões de produto, design e implementação — sem perdas de tradução entre o que é decidido e o que é construído.",
-    examples: ["Construção com fundadores", "Product engineering", "Do zero ao lançamento"],
   },
 ]
 

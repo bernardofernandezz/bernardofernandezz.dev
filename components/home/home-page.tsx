@@ -1,4 +1,6 @@
+import { PersonJsonLd } from "@/components/seo/json-ld"
 import { Hero } from "@/components/home/hero"
+import { PersonalCuriosity } from "@/components/home/personal-curiosity"
 import { NowStrip } from "@/components/home/now-strip"
 import { SelectedWork } from "@/components/home/selected-work"
 import { Positioning } from "@/components/home/positioning"
@@ -9,13 +11,15 @@ import { Door } from "@/components/home/door"
 import type { Locale } from "@/lib/i18n/config"
 
 /*
- * Person → Currently → Things built → How I think → Curiosity →
- * About → Notes → Business door.
+ * Person → Personal curiosity → Currently → Things built → How I think →
+ * Curiosity map → About → Notes → Business door.
  */
 export function HomePage({ locale }: { locale: Locale }) {
   return (
     <>
+      <PersonJsonLd locale={locale} />
       <Hero locale={locale} />
+      <PersonalCuriosity locale={locale} />
       <NowStrip locale={locale} />
       <SelectedWork locale={locale} />
       <Positioning locale={locale} />

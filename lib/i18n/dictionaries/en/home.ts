@@ -3,7 +3,7 @@ export const home = {
     identity: ["Software developer.", "Builder.", "Curious about how things work."],
     body:
       "I like turning ideas, problems and weird questions into things people can actually use.",
-    ctaPrimary: "Explore what I've built",
+    ctaPrimary: "Explore my work",
     ctaSecondary: "Get to know me",
     quietCta: "Have something in mind?",
     structureLabel:
@@ -29,6 +29,17 @@ export const home = {
     title: "What I'm thinking about",
     intro:
       "Not a skills list — the areas my brain keeps returning to while building.",
+    mapHint: "How the threads connect — hover or tap a topic.",
+    evidenceLink: "See it in a project",
+  },
+  personal: {
+    eyebrow: "A few things about me",
+    title:
+      "Somewhere between software and whatever got interesting this week.",
+    intro:
+      "I tend to end up somewhere between software, systems and whatever question became interesting this week.",
+    curiousLabel: "Currently curious about",
+    talkLabel: "Things I can probably talk about for too long",
   },
   aboutTeaser: {
     eyebrow: "A little about me",
@@ -54,7 +65,7 @@ export const home = {
     situationsLabel: "Conversations that usually go somewhere",
     notSure: "Not sure it's “big enough”? The interesting ones rarely are.",
     afterLine: "Have an idea? Let's see where it goes.",
-    afterCta: "Start a project",
+    afterCta: "Tell me about it",
   },
 }
 

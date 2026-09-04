@@ -11,7 +11,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale)
   const work = dict.home.work
   const kindLabels = dict.work.kinds
-  const projects = getFeaturedProjects(locale)
+  const [featured, ...rest] = getFeaturedProjects(locale)
 
   return (
     <section className="border-t">
@@ -33,31 +33,74 @@ export function SelectedWork({ locale }: { locale: Locale }) {
           </div>
         </Reveal>
 
-        <div className="mt-16 border-t md:mt-20">
-          {projects.map((project, index) => (
+        {featured && (
+          <Reveal>
+            <article className="group mt-14 md:mt-20">
+              <Link
+                href={localePath(locale, `/work/${featured.slug}`)}
+                aria-label={`${featured.name}: ${featured.tagline}`}
+                className="block"
+              >
+                <ProjectVisual
+                  spec={featured.visual}
+                  title={featured.name}
+                  className="aspect-[16/8] transition-transform duration-500 group-hover:scale-[1.01]"
+                />
+                <div className="mt-8 grid gap-6 md:grid-cols-12 md:gap-8">
+                  <div className="md:col-span-7">
+                    <h3 className="font-display text-display-md tracking-tight transition-colors duration-300 group-hover:text-highlight">
+                      {featured.name}
+                      <ArrowUpRight
+                        className="ml-2 inline size-7 -translate-x-1 text-highlight opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                        aria-hidden="true"
+                      />
+                    </h3>
+                    <p className="serif-accent mt-2 text-2xl text-muted-foreground md:text-3xl">
+                      {featured.tagline}
+                    </p>
+                  </div>
+                  <div className="md:col-span-5">
+                    <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                      {kindLabels[featured.kind]} · {featured.year}
+                    </p>
+                    <p className="mt-3 leading-relaxed text-muted-foreground">
+                      {featured.summary}
+                    </p>
+                    <p className="mt-3 font-mono text-xs tracking-wide text-muted-foreground">
+                      {featured.stack.join(" · ")}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </article>
+          </Reveal>
+        )}
+
+        <div className="mt-14 border-t md:mt-16">
+          {rest.map((project, index) => (
             <Reveal key={project.slug}>
               <article className="group border-b">
                 <Link
                   href={localePath(locale, `/work/${project.slug}`)}
-                  className="grid items-center gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-14"
+                  className="grid items-center gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-12"
                   aria-label={`${project.name}: ${project.tagline}`}
                 >
                   <p className="eyebrow transition-colors duration-300 group-hover:text-highlight md:col-span-1">
-                    {String(index + 1).padStart(2, "0")}
+                    {String(index + 2).padStart(2, "0")}
                   </p>
 
                   <div className="md:col-span-4">
-                    <h3 className="font-display text-display-sm tracking-tight">
+                    <h3 className="font-display text-2xl tracking-tight transition-colors duration-300 group-hover:text-highlight md:text-3xl">
                       {project.name}
                       <ArrowUpRight
-                        className="ml-1 inline size-6 -translate-x-1 text-highlight opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                        className="ml-1 inline size-5 -translate-x-1 text-highlight opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
                         aria-hidden="true"
                       />
                     </h3>
-                    <p className="serif-accent mt-1 text-xl text-muted-foreground md:text-2xl">
+                    <p className="serif-accent mt-1 text-lg text-muted-foreground md:text-xl">
                       {project.tagline}
                     </p>
-                    <p className="mt-1 font-mono text-xs uppercase tracking-wider text-muted-foreground/80">
+                    <p className="mt-1 font-mono text-xs uppercase tracking-wider text-muted-foreground">
                       {kindLabels[project.kind]} · {project.year}
                     </p>
                   </div>
@@ -66,8 +109,8 @@ export function SelectedWork({ locale }: { locale: Locale }) {
                     <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
                       {project.summary}
                     </p>
-                    <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground opacity-100 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
-                      {project.caseStudy.role}
+                    <p className="mt-3 font-mono text-xs tracking-wide text-muted-foreground">
+                      {project.stack.slice(0, 3).join(" · ")}
                     </p>
                   </div>
 
