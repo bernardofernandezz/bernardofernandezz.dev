@@ -1,0 +1,15 @@
+[Unit]
+Description=Portfolio - Bernardo Fernandez (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+User=bernardo
+WorkingDirectory=/srv/apps/portfolio/bernardofernandezz
+ExecStart=/home/bernardo/.bun/bin/bun run start -- --hostname 127.0.0.1 --port 3000
+Environment=NODE_ENV=production
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
