@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { PersonJsonLd } from "@/components/seo/json-ld"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { Magnetic } from "@/components/site/magnetic"
@@ -15,6 +16,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
   return (
     <div className="container-page py-16 md:py-24">
+      <PersonJsonLd locale={locale} />
       <Reveal>
         <p className="eyebrow">{dict.common.nav.about}</p>
         <h1 className="mt-6 max-w-3xl font-display text-display-lg tracking-tight">
@@ -26,7 +28,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       <div className="mt-16 grid gap-14 md:mt-20 md:grid-cols-12 md:gap-12">
         <div className="md:col-span-7">
-          <div className="flex flex-col gap-6 border-t pt-8">
+          <Reveal>
+            <p className="eyebrow">{about.storyLabel}</p>
+          </Reveal>
+          <div className="mt-6 flex flex-col gap-6 border-t pt-8">
             {about.story.map((paragraph, index) => (
               <Reveal key={index} delayMs={index * 80}>
                 <p
@@ -43,7 +48,23 @@ export function AboutPage({ locale }: { locale: Locale }) {
           </div>
 
           <Reveal>
-            <div className="mt-16">
+            <div className="mt-14 border-t pt-8">
+              <p className="eyebrow">{about.howLabel}</p>
+              <ul className="mt-5 flex flex-col gap-4">
+                {proof.approach.map((point) => (
+                  <li
+                    key={point.title}
+                    className="max-w-xl text-lg leading-snug tracking-tight"
+                  >
+                    {point.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="mt-14">
               <p className="eyebrow">{about.workingWith}</p>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
                 {about.workingWithNote}

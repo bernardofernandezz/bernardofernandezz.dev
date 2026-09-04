@@ -10,11 +10,13 @@ export const about = {
     "The part of building I care most about is where product meets engineering. Whether a data model makes the next feature cheap or expensive. Whether an API fails loudly or silently. Whether an interface feels inevitable or merely functional. I don't think those are separate concerns — they're the same concern, seen from different distances.",
     "I don't have fifteen years of experience, and I won't pretend otherwise. What I have is a habit: taking technical problems seriously — reading the docs, testing the assumption, staying with the problem until it's actually solved, not until it stops being my turn.",
   ],
+  storyLabel: "How I ended up here",
+  howLabel: "How I work",
   workingWith: "What I build with",
   workingWithNote:
     "Not a skills wall — this is just what shows up across the projects on the work page, grouped by where it lives.",
   beliefs: {
-    label: "What I believe",
+    label: "What I care about",
     items: [
       {
         title: "The boring parts are the product",
@@ -53,8 +55,8 @@ export const about = {
   currently: "Currently",
   currentlyBody: (availability: string, location: string) =>
     `Based in ${location}. ${availability} — and always up for a conversation about something worth building.`,
-  ctaLine: "Now you know a little about me. Tell me what you're building.",
-  ctaButton: "Tell me what you're building",
+  ctaLine: "Now you know a little about me.",
+  ctaButton: "Get in touch",
 }
 
 export type About = typeof about
