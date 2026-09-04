@@ -19,8 +19,8 @@ jobs:
           bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun run lint
-      - run: bunx tsc --noEmit
       - run: bun run build
+      - run: bunx tsc --noEmit
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
