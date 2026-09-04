@@ -54,10 +54,10 @@ const options: {
   ],
   budget: [
     { value: "unsure", label: "Ainda não sei" },
-    { value: "under-1k", label: "Até $1k" },
-    { value: "1k-3k", label: "$1k – $3k" },
-    { value: "3k-7k", label: "$3k – $7k" },
-    { value: "7k-plus", label: "$7k ou mais" },
+    { value: "under-1k", label: "Até R$5k" },
+    { value: "1k-3k", label: "R$5k – R$15k" },
+    { value: "3k-7k", label: "R$15k – R$35k" },
+    { value: "7k-plus", label: "R$35k ou mais" },
   ],
 }
 
