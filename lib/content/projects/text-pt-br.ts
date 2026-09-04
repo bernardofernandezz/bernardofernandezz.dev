@@ -13,15 +13,15 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         "A parte difícil nunca foi o dashboard. Era tornar a importação e a categorização confiáveis o suficiente pra agir em cima: CSVs de bancos com formatos diferentes, pagadores recorrentes com nomes inconsistentes, e o fato de que ferramenta financeira em que ninguém confia é pior que nenhuma.",
       role: "Desenvolvedor único — modelagem de domínio, backend, pipeline de dados e interface.",
       technicalChallenge: [
-        "Cada banco exporta CSV com suas manias: datas em formatos diferentes, débitos como valor positivo ou negativo, encodings que quebram no meio do arquivo. A camada de ingestão precisa traduzir tudo isso num modelo de transação confiável sem perder dado no caminho.",
-        "A categorização precisa ser automática o suficiente pra economizar tempo e corrigível o suficiente pra continuar precisa — um motor de regras que aprende pagadores recorrentes, com toda correção manual realimentando as regras.",
-        "A pergunta central do painel — 'quanto eu posso gastar com segurança agora' — depende de compromissos, não só de saldos. Isso significa modelar obrigações futuras, não apenas transações passadas.",
+        "Cada banco exporta CSV com suas manias — datas estranhas, débitos com sinal trocado, encodings que quebram no meio do arquivo. A ingestão traduz tudo isso num modelo de transação confiável sem perder dado no caminho.",
+        "A categorização precisa ser automática o suficiente pra economizar tempo e corrigível o suficiente pra continuar precisa — um motor de regras que aprende pagadores recorrentes, com cada correção manual realimentando as regras.",
+        "A pergunta central do painel — 'quanto posso gastar com segurança agora' — depende de compromissos, não de saldos. Então obrigações futuras também são modeladas, não só transações passadas.",
       ],
       decisions: [
         {
           title: "Um modelo de transação único e normalizado",
           detail:
-            "Todo formato de banco é traduzido na borda do sistema, então o domínio central nunca precisa saber de onde veio a transação. Adicionar um banco virou um problema de mapeamento, não de reescrita.",
+            "Todo formato é traduzido na borda, então o domínio central nunca sabe de onde veio a transação. Adicionar um banco virou mapeamento, não reescrita.",
         },
         {
           title: "Agregação no servidor, não no cliente",
@@ -31,7 +31,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         {
           title: "Motor de regras com correção humana",
           detail:
-            "A automação cuida da maior parte da categorização, e correções manuais realimentam as regras — o sistema fica mais preciso quanto mais é usado.",
+            "A automação categoriza a maior parte; correções manuais realimentam as regras, e a precisão cresce com o uso.",
         },
       ],
       result: [
@@ -55,8 +55,8 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         "Reserva parece problema de interface e é problema de correção: disponibilidade, tarifas e confirmação de pagamento precisam permanecer consistentes sob concorrência. A pergunta interessante era como tornar overbooking e pagamento fantasma estruturalmente impossíveis, em vez de tratá-los no suporte.",
       role: "Desenvolvedor único — desenho do sistema, modelo de disponibilidade, pagamentos e fluxo de reserva.",
       technicalChallenge: [
-        "A disponibilidade precisa ser verificada no momento da reserva, sob concorrência — duas pessoas reservando o último quarto ao mesmo tempo precisam receber respostas verdadeiras.",
-        "O estado do pagamento e o estado da reserva vivem em dois sistemas (a aplicação e o provedor de pagamento). Manter os dois sincronizados é onde a maioria dos sistemas de booking escorrega.",
+        "Disponibilidade se verifica na hora da reserva, sob concorrência — duas pessoas disputando o último quarto precisam receber respostas verdadeiras.",
+        "Pagamento e reserva vivem em dois sistemas. Manter os dois sincronizados é onde a maioria dos bookings escorrega.",
         "Cada propriedade precisa da própria identidade, mas um fork por propriedade transformaria cada correção em deploy para toda a rede.",
       ],
       decisions: [
@@ -98,8 +98,8 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
       role: "Pensamento de produto, design de interface e desenvolvimento completo.",
       technicalChallenge: [
         "Cortar pra um único ciclo significou dizer não pra uma dúzia de recursos que pareciam obrigatórios — e construir o único ciclo tão bem que ele não parecesse pequeno.",
-        "A experiência de leitura carrega o produto: tipografia, mapas e tratamento de imagens precisaram de polimento real, porque o que estava em teste era desejo — se as pessoas querem continuar lendo — mais que fluxo de trabalho.",
-        "O conteúdo precisava ser dado estruturado no próprio banco da aplicação — portável e consultável — em vez de documentos dentro de um CMS de terceiros.",
+        "A experiência de leitura carrega o produto: tipografia, mapas e imagens precisaram de polimento real, porque o teste era desejo — as pessoas querem continuar lendo? — mais que fluxo de trabalho.",
+        "O conteúdo precisava ser dado estruturado no banco da aplicação — portável e consultável — não documentos num CMS de terceiros.",
       ],
       decisions: [
         {
@@ -115,7 +115,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         {
           title: "Modelo de conteúdo no Postgres, sem CMS",
           detail:
-            "Guias são linhas estruturadas, não documentos num serviço — o produto continua portátil e os dados consultáveis conforme o conceito evolui.",
+            "Guias são linhas estruturadas, não documentos num serviço — produto portátil, dados consultáveis, espaço pra evoluir.",
         },
       ],
       result: [
@@ -139,19 +139,19 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
       role: "Desenvolvedor único — arquitetura de eventos, camada de tempo real e interface.",
       technicalChallenge: [
         "Transmitir estado é fácil; manter todo cliente correto através de reconexões, períodos offline e edições simultâneas é o problema de verdade.",
-        "Uso em campo significa luvas, sol e uma barra de sinal — o orçamento de interface é medido em toques, e toda mudança de estado precisa sobreviver a chegar atrasada.",
+        "Uso em campo significa luvas, sol e uma barra de sinal — o orçamento de interface é medido em toques, e toda mudança de estado precisa sobreviver ao atraso.",
         "Histórico importa tanto quanto o presente: 'o que aconteceu ontem' precisa ser consultável, não algo que você escava do histórico do chat.",
       ],
       decisions: [
         {
           title: "Eventos, não diffs",
           detail:
-            "O servidor publica eventos de domínio ('tarefa atribuída', 'tarefa atrasada'); qualquer cliente que reconecta reconstrói sua visão a partir do log de eventos, sem lógica de sincronização no frontend.",
+            "O servidor publica eventos de domínio; quem reconecta reconstrói a visão pelo log de eventos — sem lógica de sync no frontend.",
         },
         {
           title: "UI otimista, reconciliação autoritativa",
           detail:
-            "A interface aplica atualizações na hora e se reconcilia com o evento autoritativo — o quadro responde rápido em conexões ruins sem mentir sobre o estado.",
+            "Atualizações aplicam na hora e se reconciliam com o evento autoritativo — rápido em conexão ruim sem mentir sobre o estado.",
         },
         {
           title: "Pensado pro celular do campo",
@@ -179,7 +179,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         "Renderizar dezenas de amostras de texto vivas no DOM a framerate interativo é um problema de performance; compartilhar uma descoberta sem contas nem armazenamento é um problema de produto.",
       role: "Conceito, design e desenvolvimento.",
       technicalChallenge: [
-        "Dúzias de amostras de texto atualizando por frame travam o layout no DOM — os previews precisavam manter 60fps usando arquivos reais de fonte.",
+        "Dezenas de amostras vivas por frame travam o layout no DOM — os previews precisavam segurar 60fps com fontes reais.",
         "Uma escala fluida é uma função da largura da viewport; mostrar um número esconde a curva que decide se ela funciona.",
         "A ferramenta precisava ser compartilhável com zero backend, zero contas e zero armazenamento.",
       ],
@@ -187,7 +187,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         {
           title: "Canvas em vez de DOM nos previews",
           detail:
-            "Dúzias de amostras vivas atualizando por frame travam o layout no DOM. Renderização em canvas mantém a interação a 60fps com o texto vindo de fontes reais.",
+            "Renderização em canvas segura 60fps com o texto vindo de fontes reais.",
         },
         {
           title: "A URL é o botão de salvar",
@@ -210,24 +210,24 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
       "Uma biblioteca TypeScript pequena que transforma declarações de rota em construtores de URL tipados — sem runtime, sem codegen, só inferência.",
     caseStudy: {
       context:
-        "Na maioria dos codebases TypeScript, URLs são strings com o sistema de tipos desligado. Mudar o nome de um parâmetro num lugar quebra silenciosamente os links construídos em outros nove — uma classe de bug que não deveria existir numa linguagem tipada.",
+        "Na maioria dos codebases TypeScript, URLs são strings com o sistema de tipos desligado. Renomear um parâmetro num lugar quebra em silêncio os links de outros nove — uma classe de bug que não deveria existir numa linguagem tipada.",
       problem:
         "A solução precisava ser adotável: sem build step, sem arquivos gerados para dessincronizar, sem custo de runtime — ou os times continuariam escrevendo template strings.",
       role: "Autor e mantenedor.",
       technicalChallenge: [
-        "Inferir tanto a assinatura do builder quanto os tipos dos parâmetros a partir de uma única declaração de rota, sem codegen, empurra os template literal types do TypeScript para o limite prático.",
+        "Inferir assinatura do builder e tipos dos parâmetros de uma declaração só — sem codegen — empurra os template literal types ao limite prático.",
         "A proposta de valor é a pequenez — cada funcionalidade que adiciona peso de runtime trabalha contra a adoção.",
       ],
       decisions: [
         {
           title: "Inferência em vez de codegen",
           detail:
-            "Os tipos derivam da própria declaração — não existe build step para manter nem arquivo gerado para dessincronizar da fonte.",
+            "Os tipos derivam da declaração — sem build step pra manter, sem arquivo gerado pra dessincronizar.",
         },
         {
           title: "Zero runtime por padrão",
           detail:
-            "A camada de tipos faz o trabalho em tempo de compilação; a superfície de runtime é uma pequena função de parse. API pequena, bundle pequeno, adoção fácil.",
+            "Tipos trabalham em compilação; o runtime é uma função pequena de parse. API pequena, bundle pequeno, adoção fácil.",
         },
       ],
       result: [

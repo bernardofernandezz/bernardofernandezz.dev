@@ -12,14 +12,14 @@ const EN: readonly ServiceSituation[] = [
     id: "idea-to-product",
     situation: "I have an idea, but I don't know where to start.",
     response:
-      "MVP and product development — we cut the idea to the smallest version worth building, then I take it from scope to data model to a product people can actually use.",
+      "MVP and product development — we cut the idea to the smallest version worth building, then I take it from scope to data model to something people can use.",
     examples: ["MVP development", "Product launches", "Prototypes that survive contact with users"],
   },
   {
     id: "web-applications",
     situation: "We need a real application, not another landing page.",
     response:
-      "Web applications with actual domain logic — accounts, data models, permissions, workflows — built to be maintained after launch, not just demoed once.",
+      "Web applications with real domain logic — accounts, data models, permissions, workflows — built to be maintained, not just demoed.",
     examples: ["SaaS products", "Customer portals", "Booking systems", "Marketplaces"],
   },
   {
@@ -36,14 +36,14 @@ const PT_BR: readonly ServiceSituation[] = [
     id: "idea-to-product",
     situation: "Tenho uma ideia, mas não sei por onde começar.",
     response:
-      "Desenvolvimento de MVP e produto: a gente corta a ideia até a menor versão que vale construir, e eu levo do escopo ao modelo de dados até um produto que dá pra usar de verdade.",
+      "Desenvolvimento de MVP e produto: a gente corta a ideia até a menor versão que vale construir, e eu levo do escopo ao modelo de dados até algo que dá pra usar de verdade.",
     examples: ["Desenvolvimento de MVP", "Lançamentos de produto", "Protótipos que sobrevivem ao contato com usuários"],
   },
   {
     id: "web-applications",
     situation: "A gente precisa de uma aplicação de verdade, não de mais uma landing page.",
     response:
-      "Aplicações web com lógica de domínio real — contas, modelos de dados, permissões, fluxos — construídas pra serem mantidas depois do lançamento, não só demonstradas uma vez.",
+      "Aplicações web com lógica de domínio real — contas, modelos de dados, permissões, fluxos — feitas pra durar, não só pra demonstrar.",
     examples: ["Produtos SaaS", "Portais de clientes", "Sistemas de reserva", "Marketplaces"],
   },
   {

@@ -1,13 +1,12 @@
 export const home = {
   hero: {
     identity: ["Software developer.", "Builder.", "Curious about how things work."],
-    body:
-      "I like turning ideas, problems and weird questions into things people can actually use.",
+    body: "I turn ideas, problems and weird questions into things people use.",
     ctaPrimary: "Explore my work",
     ctaSecondary: "Get to know me",
     quietCta: "Have something in mind?",
     structureLabel:
-      "Interactive structure — a lattice of nodes where signals travel, following your cursor and turning as you scroll",
+      "Interactive structure — a lattice of nodes where signals travel, following your cursor and turning as you scroll. Tap it to send a signal through.",
     scrollHint: "Scroll to explore",
   },
   interlude: "I care about what happens after the demo.",
@@ -22,7 +21,7 @@ export const home = {
     eyebrow: "How I think",
     heading: "From “we need a system for this” to shipped.",
     intro:
-      "Most projects start as a vague request. The value shows up early — when someone turns the fog into a scope you can actually build. That shaping is where I do my best work.",
+      "Most projects start as a vague request. The value is in turning fog into a scope you can build — that shaping is my best work.",
   },
   curious: {
     eyebrow: "Curious about",
@@ -61,7 +60,7 @@ export const home = {
     eyebrow: "Want to build something?",
     title: "Ideas welcome. Fuzzy ones included.",
     intro:
-      "If you have an idea, a messy technical problem, or something that should exist but doesn't yet — that's where the interesting conversations start.",
+      "An idea, a messy technical problem, or something that should exist but doesn't — that's where the interesting conversations start.",
     situationsLabel: "Conversations that usually go somewhere",
     notSure: "Not sure it's “big enough”? The interesting ones rarely are.",
     afterLine: "Have an idea? Let's see where it goes.",

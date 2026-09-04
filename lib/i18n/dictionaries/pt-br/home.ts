@@ -5,13 +5,12 @@ export const home = {
       "Construtor.",
       "Curioso com o funcionamento das coisas.",
     ],
-    body:
-      "Gosto de transformar ideias, problemas e perguntas esquisitas em coisas que as pessoas realmente usam.",
+    body: "Transformo ideias, problemas e perguntas esquisitas em coisas que as pessoas usam.",
     ctaPrimary: "Explorar meu trabalho",
     ctaSecondary: "Me conhecer melhor",
     quietCta: "Tem algo em mente?",
     structureLabel:
-      "Estrutura interativa — uma malha de nós por onde sinais viajam, seguindo o seu cursor e girando conforme você rola a página",
+      "Estrutura interativa — uma malha de nós por onde sinais viajam, seguindo o seu cursor e girando conforme você rola a página. Toque para enviar um sinal.",
     scrollHint: "Role para explorar",
   },
   interlude: "Eu me importo com o que acontece depois do demo.",
@@ -26,7 +25,7 @@ export const home = {
     eyebrow: "Como eu penso",
     heading: "De “precisamos de um sistema” até no ar.",
     intro:
-      "A maioria dos projetos começa com um pedido vago. O valor aparece cedo — quando alguém transforma essa névoa num escopo que dá pra construir. Esse desenho é onde eu rendo mais.",
+      "A maioria dos projetos começa vaga. O valor está em transformar névoa num escopo que dá pra construir — esse desenho é onde eu rendo mais.",
   },
   curious: {
     eyebrow: "Curioso com",
@@ -64,7 +63,7 @@ export const home = {
     eyebrow: "Quer construir algo?",
     title: "Ideias são bem-vindas. As confusas também.",
     intro:
-      "Se você tem uma ideia, um problema técnico cabeçudo, ou algo que deveria existir e ainda não existe — é aí que começam as conversas interessantes.",
+      "Uma ideia, um problema técnico cabeçudo, ou algo que deveria existir e não existe — é aí que começam as conversas interessantes.",
     situationsLabel: "Conversas que costumam levar a algo",
     notSure: "Achando que é “pequeno demais”? As interessantes quase sempre são.",
     afterLine: "Tem uma ideia? Vamos ver onde ela vai.",

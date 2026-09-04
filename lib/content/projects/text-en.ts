@@ -13,15 +13,15 @@ export const TEXT_EN: Record<string, ProjectText> = {
         "The hard part was never the dashboard. It was making ingestion and categorization trustworthy enough to act on: bank CSVs in different formats, recurring payees with inconsistent names, and the fact that a financial tool users can't trust is worse than no tool at all.",
       role: "Sole developer — domain modeling, backend, data pipeline and interface.",
       technicalChallenge: [
-        "Every bank exports CSVs with its own quirks: dates in different formats, debits as positive or negative values, encodings that break mid-file. The ingestion layer has to translate all of them into one reliable transaction model without losing data.",
-        "Categorization needs to be automatic enough to save time and correctable enough to stay accurate — a rules engine that learns recurring payees, with every manual correction feeding back into the rules.",
-        "The dashboard's core question — 'how much can I safely spend right now' — depends on commitments, not just balances. That means modeling future obligations, not only past transactions.",
+        "Every bank exports CSVs with its own quirks — odd date formats, flipped debit signs, encodings that break mid-file. The ingestion layer has to translate all of them into one reliable transaction model without losing data.",
+        "Categorization has to be automatic enough to save time and correctable enough to stay accurate — a rules engine that learns recurring payees, with every manual correction feeding back in.",
+        "The dashboard's core question — 'how much can I safely spend right now' — depends on commitments, not balances. So future obligations get modeled, not just past transactions.",
       ],
       decisions: [
         {
           title: "A single normalized transaction model",
           detail:
-            "Every bank format is translated at the edge of the system, so the core domain never needs to know where a transaction came from. Adding a bank became a mapping problem instead of a core rewrite.",
+            "Every bank format is translated at the edge, so the core domain never knows where a transaction came from. Adding a bank became a mapping problem, not a rewrite.",
         },
         {
           title: "Server-side aggregation over client-side math",
@@ -31,7 +31,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
         {
           title: "Rules engine with human override",
           detail:
-            "Automation handles the majority of categorization, and manual corrections feed back into the rules — the system gets more accurate the longer it is used.",
+            "Automation handles most categorization; manual corrections feed back into the rules, so accuracy compounds with use.",
         },
       ],
       result: [
@@ -55,8 +55,8 @@ export const TEXT_EN: Record<string, ProjectText> = {
         "Reservations look like a UI problem and are actually a correctness problem: availability, rates and payment confirmations must stay consistent under concurrency. The interesting question was how to make double bookings and phantom payments structurally impossible instead of handling them in support.",
       role: "Sole developer — system design, availability model, payments and booking flow.",
       technicalChallenge: [
-        "Availability has to be checked at the moment of booking, under concurrency — two users booking the last room at the same time must both get a truthful answer.",
-        "Payment state and reservation state live in two systems (the app and the payment provider). Keeping them synchronized is where most booking systems drift.",
+        "Availability is checked at booking time, under concurrency — two users racing for the last room must both get a truthful answer.",
+        "Payment state and reservation state live in two systems. Keeping them in sync is where most booking systems drift.",
         "Each property needs its own identity, but a per-property fork would make every fix a fleet-wide operation.",
       ],
       decisions: [
@@ -98,8 +98,8 @@ export const TEXT_EN: Record<string, ProjectText> = {
       role: "Product thinking, interface design and full development.",
       technicalChallenge: [
         "Cutting to one loop meant saying no to a dozen features that felt mandatory — and building the one loop so well it didn't feel small.",
-        "The reading experience carries the product: typography, maps and image handling needed real polish, because the thing under test was desire — whether people want to keep reading — more than workflow.",
-        "Content had to be structured data in the application's own database — portable and queryable — rather than documents inside a third-party CMS.",
+        "The reading experience carries the product: typography, maps and image handling needed real polish, because the thing under test was desire — do people want to keep reading — more than workflow.",
+        "Content had to be structured data in the app's own database — portable and queryable — not documents inside a third-party CMS.",
       ],
       decisions: [
         {
@@ -115,7 +115,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
         {
           title: "Postgres-backed content model, no CMS",
           detail:
-            "Guides are structured rows, not documents in a service, keeping the product portable and the data queryable as the concept evolves.",
+            "Guides are structured rows, not documents in a service — portable product, queryable data, room to evolve.",
         },
       ],
       result: [
@@ -139,19 +139,19 @@ export const TEXT_EN: Record<string, ProjectText> = {
       role: "Sole developer — event architecture, realtime layer and interface.",
       technicalChallenge: [
         "Broadcasting state is easy; keeping every client correct across reconnects, offline periods and concurrent edits is the actual problem.",
-        "Field usage means gloves, sunlight and one-bar connections — the interface budget is measured in taps, and every state change has to survive being delayed.",
+        "Field usage means gloves, sunlight and one-bar connections — the interface budget is measured in taps, and every state change must survive delay.",
         "History matters as much as the present: 'what happened yesterday' has to be queryable, not something you excavate from scrollback.",
       ],
       decisions: [
         {
           title: "Events, not diffs",
           detail:
-            "The server broadcasts domain events ('job assigned', 'job delayed'); any client that reconnects rebuilds its view from the event log, with no sync logic in the frontend.",
+            "The server broadcasts domain events; any reconnecting client rebuilds its view from the event log — no sync logic in the frontend.",
         },
         {
           title: "Optimistic UI, authoritative reconciliation",
           detail:
-            "The interface applies updates immediately and reconciles against the authoritative event, so the board stays responsive on poor connections without lying about state.",
+            "Updates apply immediately, then reconcile against the authoritative event — responsive on poor connections without lying about state.",
         },
         {
           title: "Mobile-first field usage",
@@ -179,7 +179,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
         "Rendering dozens of live type samples in the DOM at interactive framerates is a performance problem; sharing a finding without accounts or storage is a product problem.",
       role: "Concept, design and development.",
       technicalChallenge: [
-        "Many live text samples updating per frame thrash layout in the DOM — the previews had to stay at 60fps while still using real font files.",
+        "Dozens of live samples updating per frame thrash DOM layout — previews had to hold 60fps with real font files.",
         "A fluid scale is a function of viewport width; showing it as one number hides the curve that actually decides whether it works.",
         "The tool needed to be shareable with zero backend, zero accounts and zero storage.",
       ],
@@ -187,7 +187,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
         {
           title: "Canvas over DOM for the previews",
           detail:
-            "Dozens of live samples updating per frame thrash layout in the DOM. Canvas rendering keeps interaction at 60fps while the text still comes from real font files.",
+            "Canvas rendering keeps interaction at 60fps while the text still comes from real font files.",
         },
         {
           title: "The URL is the save button",
@@ -210,24 +210,24 @@ export const TEXT_EN: Record<string, ProjectText> = {
       "A small TypeScript library that turns route declarations into typed URL builders — no runtime, no codegen, just inference.",
     caseStudy: {
       context:
-        "In most TypeScript codebases, URLs are strings with the type system switched off. Change a parameter name in one place and the links built in nine others break silently at runtime — a category of bug that shouldn't exist in a typed language.",
+        "In most TypeScript codebases, URLs are strings with the type system switched off. Rename a parameter in one place and links built in nine others break silently — a bug category that shouldn't exist in a typed language.",
       problem:
         "The fix had to be adoptable: no build step, no generated files to drift, no runtime cost — or teams would simply keep writing template strings.",
       role: "Author and maintainer.",
       technicalChallenge: [
-        "Inferring both the builder's signature and the parameter types from a single route declaration, without codegen, requires pushing TypeScript's template literal types to their practical limits.",
+        "Inferring the builder's signature and parameter types from one route declaration — no codegen — pushes TypeScript's template literal types to their practical limits.",
         "The value proposition is smallness — every feature that adds runtime weight works against adoption.",
       ],
       decisions: [
         {
           title: "Inference over codegen",
           detail:
-            "Types are derived from the declaration itself, so there is no build step to maintain and no generated file to drift from source.",
+            "Types derive from the declaration itself — no build step to maintain, no generated file to drift.",
         },
         {
           title: "Zero runtime by default",
           detail:
-            "The type layer does the work at compile time; the runtime surface is one small parse function. Small API, small bundle, easy adoption.",
+            "The type layer works at compile time; the runtime is one small parse function. Small API, small bundle, easy adoption.",
         },
       ],
       result: [

@@ -30,14 +30,14 @@ const EN: Record<string, ArticleText> = {
       {
         paragraphs: [
           "The first version of any feature puts the logic right there in the component. It's fast, it's obvious, and it works — until the second screen needs the same rule and copies it, or the rule changes and someone finds the third copy two months later.",
-          "That was me for a while: a date comparison here, a currency format there, a status check embedded in JSX. Each one harmless. Together, they made every screen slightly different from every other one, and none of them wrong in a way a test could catch.",
+          "That was me for a while: a date comparison here, a currency format there, a status check in JSX. Each harmless alone. Together, they made every screen slightly different — never wrong in a way a test could catch.",
         ],
       },
       {
         heading: "Where I draw the line now",
         paragraphs: [
           "My rule is blunt: components render and capture intent; they don't decide. If a piece of code answers 'what is this UI state?', it can live in the component or a hook. If it answers 'what does the business allow?', it belongs in typed functions with no knowledge of React at all.",
-          "The type system does more work than any architecture diagram here. A status that is a string with six valid values is a bug waiting for a typo; the same status as a union type makes half the invalid states impossible to write. The component then becomes a rendering of a decision that was already made.",
+          "The type system does more work than any architecture diagram here. A status as a string with six valid values is a typo waiting to happen; as a union type, half the invalid states become unwritable. The component just renders a decision already made.",
         ],
       },
       {
@@ -59,7 +59,7 @@ const EN: Record<string, ArticleText> = {
     sections: [
       {
         paragraphs: [
-          "The endpoint worked perfectly in every test: correct inputs in, correct outputs out, edge cases covered, integration suite green. Then real traffic arrived and it failed in a way none of the tests had imagined — not because the logic was wrong, but because the world was allowed to send things the tests never considered.",
+          "The endpoint passed every test: correct inputs in, correct outputs out, edge cases covered, suite green. Then real traffic arrived and it failed in a way no test had imagined — not because the logic was wrong, but because the world could send things the tests never considered.",
           "The bug itself was ordinary. The interesting part was where it lived: exactly on the boundary between my system and the outside world, in the place where I had trusted the shape of the data instead of verifying it.",
         ],
       },
@@ -67,13 +67,13 @@ const EN: Record<string, ArticleText> = {
         heading: "Tests verify what you assumed",
         paragraphs: [
           "Every test I had written confirmed the behavior for data shaped the way I expected it to arrive. Not one of them asked the more important question: what does this endpoint do with data shaped like nothing we expected?",
-          "Validation at the boundary is architecture, not bureaucracy. A strict parser at the edge of a system converts an unknown future failure into a known present rejection — and that difference is the difference between a bug report and a log line.",
+          "Validation at the boundary is architecture, not bureaucracy. A strict parser at the edge turns an unknown future failure into a known present rejection — the difference between a bug report and a log line.",
         ],
       },
       {
         heading: "What changed in how I build",
         paragraphs: [
-          "I now treat the edges of a system — inputs from users, other services, third parties — as hostile by default, with narrow, explicit contracts that fail loudly. The interior can then be elegant, because it only ever sees data that has already been through the door guard.",
+          "I now treat system edges — user inputs, other services, third parties — as hostile by default, with narrow contracts that fail loudly. The interior stays elegant because it only sees data that passed the door guard.",
           "The irony is that the fix made the code smaller, not bigger. Trusting less means checking once at the boundary instead of defensively everywhere.",
         ],
       },
@@ -89,14 +89,14 @@ const EN: Record<string, ArticleText> = {
     sections: [
       {
         paragraphs: [
-          "Every ambitious project starts with a list, and the list is honest — all of those things will eventually matter. The mistake is building them in parallel: everything half-done, nothing good to use, and the launch date drifting while the codebase gets harder to change.",
+          "Every ambitious project starts with a list, and the list is honest — all of it will eventually matter. The mistake is building in parallel: everything half-done, nothing good to use, the launch date drifting while the codebase hardens.",
           "The alternative I've settled on is a loop, not a feature list: one complete path a user walks, from arrival to the moment the product earns their trust. Build the loop. Polish the loop. Ship the loop. Let real usage decide what loop two is.",
         ],
       },
       {
         heading: "Quality is the scope multiplier",
         paragraphs: [
-          "A small product that feels solid creates more momentum than a large one that feels approximate. Users forgive missing features; they don't forgive feeling like beta testers. The polish budget isn't vanity — it's the difference between a product that spreads and one that stalls.",
+          "A small product that feels solid beats a large one that feels approximate. Users forgive missing features; they don't forgive feeling like beta testers. Polish isn't vanity — it's the difference between spreading and stalling.",
           "The trick is directing that polish at the loop. Polishing features nobody has asked for yet is how teams feel productive while building the wrong thing.",
         ],
       },
@@ -123,14 +123,14 @@ const PT_BR: Record<string, ArticleText> = {
       {
         paragraphs: [
           "A primeira versão de qualquer recurso coloca a lógica ali mesmo, no componente. É rápido, é óbvio e funciona — até a segunda tela precisar da mesma regra e copiar, ou a regra mudar e alguém encontrar a terceira cópia dois meses depois.",
-          "Fui assim por um tempo: uma comparação de data aqui, um formato de moeda ali, uma checagem de status embutida no JSX. Cada uma inofensiva. Juntas, fizeram cada tela ficar levemente diferente das outras — e nenhuma errada de um jeito que um teste pegasse.",
+          "Fui assim por um tempo: comparação de data aqui, formato de moeda ali, checagem de status no JSX. Cada uma inofensiva sozinha. Juntas, deixaram cada tela levemente diferente — nunca erradas de um jeito que um teste pegasse.",
         ],
       },
       {
         heading: "Onde eu traço a linha hoje",
         paragraphs: [
           "Minha regra é direta: componentes renderizam e capturam intenção; eles não decidem. Se um pedaço de código responde 'que estado de interface é esse?', pode viver no componente ou num hook. Se responde 'o que o negócio permite?', pertence a funções tipadas que não sabem nada de React.",
-          "O sistema de tipos trabalha mais aqui do que qualquer diagrama de arquitetura. Um status que é string com seis valores válidos é um bug esperando um typo; o mesmo status como union type torna metade dos estados inválidos impossíveis de escrever. O componente então vira a renderização de uma decisão que já foi tomada.",
+          "O sistema de tipos trabalha mais aqui que qualquer diagrama. Um status como string de seis valores é um typo esperando acontecer; como union type, metade dos estados inválidos vira impossível de escrever. O componente só renderiza uma decisão já tomada.",
         ],
       },
       {
@@ -152,7 +152,7 @@ const PT_BR: Record<string, ArticleText> = {
     sections: [
       {
         paragraphs: [
-          "O endpoint funcionava perfeitamente em todos os testes: entradas corretas, saídas corretas, casos de borda cobertos, suíte de integração verde. Aí chegou tráfego real e ele falhou de um jeito que nenhum teste tinha imaginado — não porque a lógica estava errada, mas porque o mundo tinha permissão de enviar coisas que os testes nunca consideraram.",
+          "O endpoint passou em todos os testes: entradas corretas, saídas corretas, bordas cobertas, suíte verde. Aí chegou tráfego real e ele falhou de um jeito que nenhum teste imaginou — não porque a lógica estava errada, mas porque o mundo podia enviar coisas que os testes nunca consideraram.",
           "O bug em si era comum. O interessante era onde ele morava: exatamente na fronteira entre meu sistema e o mundo exterior, no lugar onde eu confiava na forma dos dados em vez de verificá-la.",
         ],
       },
@@ -160,13 +160,13 @@ const PT_BR: Record<string, ArticleText> = {
         heading: "Testes verificam o que você assumiu",
         paragraphs: [
           "Todo teste que eu tinha escrito confirmava o comportamento para dados no formato que eu esperava que chegassem. Nenhum perguntava a pergunta mais importante: o que esse endpoint faz com dados num formato que ninguém imaginou?",
-          "Validação na fronteira é arquitetura, não burocracia. Um parser estrito na borda de um sistema converte uma falha futura desconhecida numa rejeição presente e conhecida — e essa diferença é a diferença entre um bug report e uma linha de log.",
+          "Validação na fronteira é arquitetura, não burocracia. Um parser estrito na borda transforma falha futura desconhecida em rejeição presente e conhecida — a diferença entre um bug report e uma linha de log.",
         ],
       },
       {
         heading: "O que mudou no jeito de construir",
         paragraphs: [
-          "Hoje trato as bordas de um sistema — entradas de usuários, outros serviços, terceiros — como hostis por padrão, com contratos estreitos e explícitos que falham alto. O interior pode então ser elegante, porque só vê dados que já passaram pelo porteiro.",
+          "Hoje trato as bordas do sistema — entradas de usuários, outros serviços, terceiros — como hostis por padrão, com contratos estreitos que falham alto. O interior fica elegante porque só vê dados que passaram pelo porteiro.",
           "A ironia é que a correção deixou o código menor, não maior. Confiar menos significa verificar uma vez, na fronteira, em vez de se defender por toda parte.",
         ],
       },
@@ -182,14 +182,14 @@ const PT_BR: Record<string, ArticleText> = {
     sections: [
       {
         paragraphs: [
-          "Todo projeto ambicioso começa com uma lista, e a lista é honesta — tudo aquilo vai importar em algum momento. O erro é construir em paralelo: tudo pela metade, nada bom de usar, e a data de lançamento escorrendo enquanto o codebase fica mais difícil de mudar.",
+          "Todo projeto ambicioso começa com uma lista, e a lista é honesta — tudo aquilo vai importar um dia. O erro é construir em paralelo: tudo pela metade, nada bom de usar, o lançamento escorrendo enquanto o codebase endurece.",
           "A alternativa em que me estabilizei é um ciclo, não uma lista de funcionalidades: um caminho completo que o usuário percorre, da chegada até o momento em que o produto conquista a confiança dele. Constrói o ciclo. Refina o ciclo. Entrega o ciclo. Deixa o uso real decidir o que é o ciclo dois.",
         ],
       },
       {
         heading: "Qualidade é o multiplicador do escopo",
         paragraphs: [
-          "Um produto pequeno que parece sólido gera mais impulso que um grande que parece aproximado. Usuários perdoam funcionalidade faltando; não perdoam se sentir beta tester. O orçamento de polimento não é vaidade — é a diferença entre um produto que se espalha e um que estanca.",
+          "Um produto pequeno que parece sólido vence um grande que parece aproximado. Usuários perdoam funcionalidade faltando; não perdoam se sentir beta tester. Polimento não é vaidade — é a diferença entre espalhar e estancar.",
           "O truque é direcionar esse polimento ao ciclo. Polir funcionalidades que ninguém pediu ainda é como times se sentem produtivos construindo a coisa errada.",
         ],
       },

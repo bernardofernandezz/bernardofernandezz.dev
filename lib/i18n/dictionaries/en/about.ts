@@ -6,15 +6,15 @@ export const about = {
   metaDescription:
     "Who Bernardo Fernandez is, how he approaches software, what he cares about technically and what he's currently exploring.",
   story: [
-    "I'm a software developer from Brazil. I build web applications, internal tools and the systems behind them — and I got here the direct way: I wanted to make things on the web and refused to stop at the surface. Curiosity about interfaces turned into interest in everything that has to work for those interfaces to exist at all.",
-    "The part of building I care most about is where product meets engineering. Whether a data model makes the next feature cheap or expensive. Whether an API fails loudly or silently. Whether an interface feels inevitable or merely functional. I don't think those are separate concerns — they're the same concern, seen from different distances.",
-    "I don't have fifteen years of experience, and I won't pretend otherwise. What I have is a habit: taking technical problems seriously — reading the docs, testing the assumption, staying with the problem until it's actually solved, not until it stops being my turn.",
+    "I'm a software developer from Brazil. I build web apps, internal tools and the systems behind them. I got here the direct way: I wanted to make things on the web and refused to stop at the surface — so curiosity about interfaces turned into interest in everything underneath them.",
+    "What I care about most is where product meets engineering: data models that make the next feature cheap or expensive, APIs that fail loudly or silently, interfaces that feel inevitable instead of merely functional. Same concern, seen from different distances.",
+    "I don't have fifteen years of experience, and I won't pretend otherwise. What I have is a habit: taking technical problems seriously — reading the docs, testing assumptions, staying until it's actually solved.",
   ],
   storyLabel: "How I ended up here",
   howLabel: "How I work",
   workingWith: "What I build with",
   workingWithNote:
-    "Not a skills wall — this is just what shows up across the projects on the work page, grouped by where it lives.",
+    "Not a skills wall — just what shows up across the projects, grouped by where it lives.",
   beliefs: {
     label: "What I care about",
     items: [
@@ -46,7 +46,7 @@ export const about = {
   evidence: {
     label: "Behind this site",
     body:
-      "This portfolio is a small case study of how I work: Next.js with strict TypeScript, a typed interactive briefing, self-hosted on a VPS with nginx, systemd, Let's Encrypt and CI/CD with quality gates and health checks. A small system — built the way I'd build yours.",
+      "This portfolio is its own case study: Next.js with strict TypeScript, a typed briefing flow, self-hosted on a VPS with nginx, systemd, Let's Encrypt and CI/CD. A small system — built the way I'd build yours.",
   },
   outsideCode: {
     label: "Outside the code",
