@@ -9,6 +9,12 @@ export const common = {
   skipToContent: "Skip to content",
   toggleTheme: "Toggle theme",
   close: "Close",
+  errorFallback: {
+    titlePlain: "Something broke",
+    titleAccent: "on my end",
+    body: "An unexpected error interrupted this page. Trying again usually fixes it.",
+    retry: "Try again",
+  },
   notFound: {
     titlePlain: "This page wandered",
     titleAccent: "off",
