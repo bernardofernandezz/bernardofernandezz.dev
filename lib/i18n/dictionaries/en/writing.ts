@@ -10,7 +10,8 @@ export const writing = {
     afterCta: "Let's talk",
   },
   article: {
-    moreLabel: "More writing",
+    prev: "Previous",
+    next: "Next",
   },
 }
 

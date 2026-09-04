@@ -10,7 +10,8 @@ export const writing = {
     afterCta: "Vamos conversar",
   },
   article: {
-    moreLabel: "Mais textos",
+    prev: "Anterior",
+    next: "Próximo",
   },
 }
 
