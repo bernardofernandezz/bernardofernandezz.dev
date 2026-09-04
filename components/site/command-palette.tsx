@@ -217,7 +217,7 @@ export function CommandMenu({ locale }: { locale: Locale }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={palette.open}
-        className="flex size-8 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+        className="flex h-10 w-10 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
       >
         <CommandIcon className="size-3.5" aria-hidden="true" />
         <kbd className="ml-1 hidden font-mono text-[0.65rem] tracking-widest md:inline">

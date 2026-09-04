@@ -101,7 +101,13 @@
     background: var(--highlight);
     color: var(--highlight-foreground);
   }
+  /*
+   * Plain elements (text links, nav) have no component-level focus
+   * ring — this guarantees a visible indicator. Buttons and inputs
+   * set outline-none plus their own ring, so this never double-renders.
+   */
   :focus-visible {
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
   html {

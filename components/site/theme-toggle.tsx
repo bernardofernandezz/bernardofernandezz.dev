@@ -14,7 +14,7 @@ export function ThemeToggle({ locale }: { locale: Locale }) {
     <Button
       variant="ghost"
       size="icon"
-      className="text-muted-foreground hover:text-foreground"
+      className="h-10 w-10 text-muted-foreground hover:text-foreground"
       aria-label={dict.toggleTheme}
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >

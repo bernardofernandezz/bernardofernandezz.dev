@@ -31,9 +31,9 @@ export function Positioning({ locale }: { locale: Locale }) {
           <div className="md:col-span-4">
             <Reveal>
               <p className="eyebrow">{positioning.eyebrow}</p>
-              <p className="mt-6 font-display text-display-sm tracking-tight">
+              <h2 className="mt-6 font-display text-display-sm tracking-tight">
                 {positioning.heading}
-              </p>
+              </h2>
               <p className="mt-6 max-w-sm leading-relaxed text-muted-foreground">
                 {positioning.intro}
               </p>

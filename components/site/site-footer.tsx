@@ -89,7 +89,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <p>
             © {new Date().getFullYear()} Bernardo Fernandez. {dict.footer.rights}
           </p>
-          <p className="text-xs leading-relaxed text-muted-foreground/70 sm:text-right">
+          <p className="text-xs leading-relaxed text-muted-foreground sm:text-right">
             {dict.footer.colophon}
           </p>
         </div>

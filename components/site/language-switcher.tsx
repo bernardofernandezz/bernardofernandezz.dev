@@ -47,7 +47,7 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
                 }
               }}
               className={cn(
-                "px-1 py-1 transition-colors",
+                "min-h-8 min-w-8 px-2 py-2 text-center transition-colors",
                 active
                   ? "text-foreground underline underline-offset-4"
                   : "text-muted-foreground hover:text-foreground",
