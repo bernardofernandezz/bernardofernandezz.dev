@@ -69,7 +69,7 @@ export function BriefingSummary({
       <Button
         onClick={onSubmit}
         disabled={sending}
-        className="mt-8 h-12 rounded-full bg-highlight px-8 text-base text-highlight-foreground hover:bg-highlight/90"
+        className="mt-8 h-12 rounded-full bg-primary px-8 text-base text-primary-foreground hover:bg-primary/90"
       >
         {sending ? text.summary.sending : text.summary.send}
         <ArrowRight className="size-4" aria-hidden="true" />

@@ -8,7 +8,7 @@ set -euo pipefail
 
 APP_DIR="/srv/apps/portfolio/bernardofernandezz"
 DOMAIN="bernardofernandezz.dev"
-EMAIL="hello@bernardofernandezz.dev"
+EMAIL="suporte@bernardofernandezz.dev"
 SERVICE_NAME="portfolio"
 
 if [[ $EUID -ne 0 ]]; then

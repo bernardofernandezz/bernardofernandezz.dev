@@ -7,22 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-instrument-serif), Georgia, serif;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
+  --font-sans: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-display: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-mono: var(--font-geist-mono), monospace;
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -37,10 +25,10 @@
   --color-primary: var(--primary);
   --color-highlight: var(--highlight);
   --color-highlight-foreground: var(--highlight-foreground);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -50,77 +38,56 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * Identity — "paper, ink & signal".
+ * Warm bone paper, near-black ink, and one cobalt accent used sparingly,
+ * the way ink is used on an engineering drawing.
+ */
 :root {
-  --background: oklch(0.977 0.005 85);
-  --foreground: oklch(0.185 0.008 60);
-  --card: oklch(0.985 0.004 85);
-  --card-foreground: oklch(0.185 0.008 60);
-  --popover: oklch(0.985 0.004 85);
-  --popover-foreground: oklch(0.185 0.008 60);
-  --primary: oklch(0.185 0.008 60);
-  --primary-foreground: oklch(0.977 0.005 85);
-  --secondary: oklch(0.94 0.007 80);
-  --secondary-foreground: oklch(0.185 0.008 60);
-  --muted: oklch(0.945 0.006 82);
-  --muted-foreground: oklch(0.475 0.012 65);
-  --accent: oklch(0.94 0.007 80);
-  --accent-foreground: oklch(0.185 0.008 60);
-  --highlight: oklch(0.56 0.13 42);
-  --highlight-foreground: oklch(0.977 0.005 85);
+  --background: oklch(0.977 0.004 95);
+  --foreground: oklch(0.208 0.012 75);
+  --card: oklch(0.99 0.003 95);
+  --card-foreground: oklch(0.208 0.012 75);
+  --popover: oklch(0.99 0.003 95);
+  --popover-foreground: oklch(0.208 0.012 75);
+  --primary: oklch(0.208 0.012 75);
+  --primary-foreground: oklch(0.977 0.004 95);
+  --secondary: oklch(0.948 0.005 90);
+  --secondary-foreground: oklch(0.208 0.012 75);
+  --muted: oklch(0.948 0.005 90);
+  --muted-foreground: oklch(0.478 0.014 75);
+  --accent: oklch(0.948 0.005 90);
+  --accent-foreground: oklch(0.208 0.012 75);
+  --highlight: oklch(0.44 0.135 262);
+  --highlight-foreground: oklch(0.977 0.004 95);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.895 0.008 80);
-  --input: oklch(0.875 0.008 80);
-  --ring: oklch(0.56 0.13 42);
-  --chart-1: oklch(0.56 0.13 42);
-  --chart-2: oklch(0.475 0.012 65);
-  --chart-3: oklch(0.4 0.01 60);
-  --chart-4: oklch(0.32 0.01 60);
-  --chart-5: oklch(0.24 0.01 60);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.977 0.005 85);
-  --sidebar-foreground: oklch(0.185 0.008 60);
-  --sidebar-primary: oklch(0.185 0.008 60);
-  --sidebar-primary-foreground: oklch(0.977 0.005 85);
-  --sidebar-accent: oklch(0.94 0.007 80);
-  --sidebar-accent-foreground: oklch(0.185 0.008 60);
-  --sidebar-border: oklch(0.895 0.008 80);
-  --sidebar-ring: oklch(0.56 0.13 42);
+  --border: oklch(0.893 0.007 85);
+  --input: oklch(0.872 0.008 85);
+  --ring: oklch(0.44 0.135 262);
+  --radius: 0.375rem;
 }
 
 .dark {
-  --background: oklch(0.16 0.008 60);
-  --foreground: oklch(0.93 0.007 85);
-  --card: oklch(0.195 0.008 62);
-  --card-foreground: oklch(0.93 0.007 85);
-  --popover: oklch(0.195 0.008 62);
-  --popover-foreground: oklch(0.93 0.007 85);
-  --primary: oklch(0.93 0.007 85);
-  --primary-foreground: oklch(0.16 0.008 60);
-  --secondary: oklch(0.245 0.009 62);
-  --secondary-foreground: oklch(0.93 0.007 85);
-  --muted: oklch(0.235 0.009 62);
-  --muted-foreground: oklch(0.66 0.011 75);
-  --accent: oklch(0.245 0.009 62);
-  --accent-foreground: oklch(0.93 0.007 85);
-  --highlight: oklch(0.72 0.125 48);
-  --highlight-foreground: oklch(0.16 0.008 60);
+  --background: oklch(0.158 0.007 75);
+  --foreground: oklch(0.926 0.006 90);
+  --card: oklch(0.187 0.007 75);
+  --card-foreground: oklch(0.926 0.006 90);
+  --popover: oklch(0.187 0.007 75);
+  --popover-foreground: oklch(0.926 0.006 90);
+  --primary: oklch(0.926 0.006 90);
+  --primary-foreground: oklch(0.158 0.007 75);
+  --secondary: oklch(0.23 0.008 75);
+  --secondary-foreground: oklch(0.926 0.006 90);
+  --muted: oklch(0.22 0.008 75);
+  --muted-foreground: oklch(0.668 0.012 80);
+  --accent: oklch(0.23 0.008 75);
+  --accent-foreground: oklch(0.926 0.006 90);
+  --highlight: oklch(0.7 0.115 258);
+  --highlight-foreground: oklch(0.158 0.007 75);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.72 0.125 48);
-  --chart-1: oklch(0.72 0.125 48);
-  --chart-2: oklch(0.66 0.011 75);
-  --chart-3: oklch(0.5 0.01 65);
-  --chart-4: oklch(0.38 0.01 62);
-  --chart-5: oklch(0.28 0.009 62);
-  --sidebar: oklch(0.16 0.008 60);
-  --sidebar-foreground: oklch(0.93 0.007 85);
-  --sidebar-primary: oklch(0.93 0.007 85);
-  --sidebar-primary-foreground: oklch(0.16 0.008 60);
-  --sidebar-accent: oklch(0.245 0.009 62);
-  --sidebar-accent-foreground: oklch(0.93 0.007 85);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.72 0.125 48);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 13%);
+  --ring: oklch(0.7 0.115 258);
 }
 
 @layer base {
@@ -134,29 +101,45 @@
     background: var(--highlight);
     color: var(--highlight-foreground);
   }
+  :focus-visible {
+    outline-offset: 2px;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
+/* ------------------------------------------------------------------ */
+/* Display type — architectural scale, tight tracking                  */
+/* ------------------------------------------------------------------ */
+
 @utility text-display-xl {
-  font-size: clamp(3rem, 9vw, 7.5rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  font-size: clamp(3.4rem, 10vw, 8.75rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
 }
 
 @utility text-display-lg {
-  font-size: clamp(2.5rem, 6vw, 4.75rem);
-  line-height: 1.02;
-  letter-spacing: -0.015em;
+  font-size: clamp(2.6rem, 6.6vw, 5.1rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
 
 @utility text-display-md {
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
-  line-height: 1.08;
-  letter-spacing: -0.01em;
+  font-size: clamp(2.05rem, 4.8vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
 }
 
 @utility text-display-sm {
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  line-height: 1.15;
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
 @utility eyebrow {
@@ -165,6 +148,17 @@
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: var(--muted-foreground);
+}
+
+/*
+ * Serif accent — Instrument Serif italic, an editorial counterpoint
+ * inside display headlines. Used sparingly: one or two words per line.
+ */
+@utility serif-accent {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 @utility container-page {
@@ -177,9 +171,50 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Navigation link underline — sweeps in from the left on hover        */
+/* ------------------------------------------------------------------ */
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll progress — a 1px signal line under the navbar                */
+/* ------------------------------------------------------------------ */
+
+.scroll-progress {
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion — reveal on scroll                                           */
+/* ------------------------------------------------------------------ */
+
 .reveal {
   opacity: 0;
-  translate: 0 1.5rem;
+  translate: 0 1.25rem;
   transition:
     opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
@@ -191,25 +226,167 @@
   translate: 0 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    translate: 0 0;
-    transition: none;
-  }
-  html {
-    scroll-behavior: auto !important;
+/*
+ * Draw-on strokes for the abstract project visuals. SVG shapes carry
+ * pathLength="1" so the dash math works for any geometry; a parent
+ * with data-drawn="true" releases them.
+ */
+.draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--draw-delay, 0ms);
+}
+
+[data-drawn="true"] .draw-line {
+  stroke-dashoffset: 0;
+}
+
+.draw-node {
+  opacity: 0;
+  scale: 0.4;
+  transform-origin: center;
+  transform-box: fill-box;
+  transition:
+    opacity 0.6s ease,
+    scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: var(--draw-delay, 0ms);
+}
+
+[data-drawn="true"] .draw-node {
+  opacity: 1;
+  scale: 1;
+}
+
+.draw-fill {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  transition-delay: var(--draw-delay, 0ms);
+}
+
+[data-drawn="true"] .draw-fill {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Living visuals — small idle animations, GPU-cheap                   */
+/* ------------------------------------------------------------------ */
+
+@keyframes dash-march {
+  to {
+    stroke-dashoffset: -64;
   }
 }
 
-html {
-  scroll-behavior: smooth;
+@keyframes bar-breathe {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(var(--breathe, 0.8));
+  }
 }
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--float-y, -6px));
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/*
+ * Dash-marching lines inside draw-on visuals. They participate in the
+ * entrance sequence (fade in after the static strokes draw), then march.
+ * --march-opacity lets a pattern tune its resting opacity without
+ * fighting the class.
+ */
+.draw-march {
+  stroke-dasharray: 6 10;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  transition-delay: var(--draw-delay, 0ms);
+}
+
+[data-drawn="true"] .draw-march {
+  opacity: var(--march-opacity, 1);
+  animation: dash-march 2.4s linear infinite;
+}
+
+.anim-breathe {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: bar-breathe 5.5s ease-in-out infinite;
+}
+
+.anim-float {
+  transform-box: fill-box;
+  animation: float-y 7s ease-in-out infinite;
+}
+
+.anim-glow {
+  animation: glow-pulse 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .draw-node,
+  .draw-fill {
+    opacity: 1 !important;
+    translate: 0 0 !important;
+    scale: 1 !important;
+    transition: none !important;
+  }
+  .draw-line {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+  .draw-march,
+  .anim-breathe,
+  .anim-float,
+  .anim-glow {
+    animation: none !important;
+  }
+  .draw-march {
+    opacity: var(--march-opacity, 1) !important;
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Project hue system                                                  */
+/* ------------------------------------------------------------------ */
 
 .project-accent {
-  color: oklch(0.56 0.13 var(--project-hue, 40));
+  color: oklch(0.5 0.14 var(--project-hue, 262));
 }
 
 .dark .project-accent {
-  color: oklch(0.72 0.13 var(--project-hue, 40));
+  color: oklch(0.72 0.12 var(--project-hue, 258));
+}
+
+/*
+ * The global border token is very quiet in dark mode — inside the
+ * project visuals that makes the drawings almost disappear, so the
+ * structural strokes get their own contrast there.
+ */
+.project-visual .stroke-border {
+  stroke: var(--border);
+}
+
+.dark .project-visual .stroke-border {
+  stroke: oklch(1 0 0 / 20%);
 }

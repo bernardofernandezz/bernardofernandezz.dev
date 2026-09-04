@@ -1,68 +1,62 @@
 export const home = {
   hero: {
-    statement: "Algumas ideias pedem uma landing page. Outras pedem um produto de verdade.",
-    sub: "Pra esse segundo tipo, sou eu: pego ideias ainda incertas e problemas técnicos cabeçudos e transformo em aplicações que sobrevivem à primeira versão.",
-    ctaPrimary: "Começar um projeto",
-    ctaSecondary: "Ver o que eu construí",
+    identity: [
+      "Desenvolvedor de software.",
+      "Construtor.",
+      "Curioso com o funcionamento das coisas.",
+    ],
+    body:
+      "Gosto de transformar ideias, problemas e perguntas esquisitas em coisas que as pessoas realmente usam.",
+    ctaPrimary: "Explorar os projetos",
+    ctaSecondary: "Me conhecer melhor",
+    quietCta: "Tem algo em mente?",
+    structureLabel:
+      "Estrutura interativa — uma malha de nós por onde sinais viajam, seguindo o seu cursor e girando conforme você rola a página",
+    scrollHint: "Role para explorar",
+  },
+  interlude: "Eu me importo com o que acontece depois do demo.",
+  work: {
+    eyebrow: "Coisas que eu construí",
+    title: "Projetos, protótipos e experimentos",
+    intro:
+      "Trabalho meu, classificado sem maquiagem. Cada case study é menos “olha a UI” e mais “olha o problema que eu desmontei”.",
+    allProjects: "Todos os projetos",
+    cardCta: "Ler o case study",
+    afterLine: "Este poderia ser o seu próximo projeto?",
+    afterCta: "Vamos ver onde isso vai",
   },
   positioning: {
-    eyebrow: "Como eu trabalho",
+    eyebrow: "Como eu penso",
     heading: "De “precisamos de um sistema” até no ar.",
     intro:
       "A maioria dos projetos começa com um pedido vago. O valor aparece cedo — quando alguém transforma essa névoa num escopo que dá pra construir. Esse desenho é onde eu rendo mais.",
   },
-  work: {
-    eyebrow: "Trabalhos selecionados",
-    title: "Coisas que eu construí",
+  curious: {
+    eyebrow: "Curioso com",
+    title: "O que está girando na minha cabeça",
     intro:
-      "Projetos meus, protótipos e experimentos — classificados sem maquiagem, porque trabalho de cliente inventado não prova nada. O que cada um mostra é como eu desmonto um problema técnico.",
-    allProjects: "Todos os projetos",
-    cardCta: "Ler o case study",
-    afterLine: "Tem algo parecido na sua cabeça?",
-    afterCta: "Me conta",
+      "Não é uma lista de habilidades — são as áreas em que meu pensamento fica voltando enquanto eu construo.",
   },
-  situations: {
-    eyebrow: "Onde eu ajudo",
-    title: "Soa familiar?",
-    afterLine: "Se identificou? Isso já basta pra começar uma conversa.",
-    afterCta: "Me conta o que você quer construir",
-  },
-  engineering: {
-    eyebrow: "Além da interface",
-    title: "Construir é uma coisa. Engenharia é o que faz durar.",
-    body1:
-      "Qualquer um monta uma interface. O que decide se o software vive depois do demo é o que fica por trás: o modelo de dados que torna o próximo recurso barato, a API que falha alto em vez de calada, o deploy que sobrevive a um dia ruim.",
-    body2:
-      "É esse alcance que eu levo pro projeto — do primeiro schema à interface que as pessoas realmente usam.",
-    exploringLabel: "Explorando agora",
-  },
-  process: {
-    eyebrow: "Como eu trabalho",
-    title: "Da primeira conversa até o produto no ar",
-    afterLine: "Tem algo faltando no seu produto atual?",
-    afterCta: "Vamos conversar",
-  },
-  fit: {
-    eyebrow: "Trabalhar juntos",
-    title: "A gente combina se…",
-    notFitLabel: "Provavelmente não combina se",
-    notSure:
-      "Não sabe de que lado você está? É exatamente pra isso que existe o briefing.",
-    afterLine: "Soa com a sua situação?",
-    afterCta: "Vamos conversar sobre isso",
+  now: {
+    eyebrow: "Agora",
+    title: "O estado atual das coisas",
+    viewAll: "Ver o que ando fazendo",
   },
   writing: {
     eyebrow: "Escritos",
-    title: "Como eu penso",
+    title: "Notas de quem constrói",
+    intro: "Coisas que quebraram, decisões que tomei, coisas que ainda estou entendendo.",
     all: "Todos os textos",
   },
-  cta: {
-    eyebrow: "Começar um projeto",
-    line1: "Não precisa estar tudo resolvido.",
-    line2: "Uma ideia rascunhada já basta pra começar.",
-    body:
-      "O briefing existe porque ninguém chega com tudo pronto — nem quem no fim acaba entregando. Me conta o que você está girando na cabeça.",
-    button: "Tenho uma ideia",
+  door: {
+    eyebrow: "Quer construir algo?",
+    title: "Ideias são bem-vindas. As confusas também.",
+    intro:
+      "Se você tem uma ideia, um problema técnico cabeçudo, ou algo que deveria existir e ainda não existe — é aí que começam as conversas interessantes.",
+    situationsLabel: "Conversas que costumam levar a algo",
+    notSure: "Achando que é “pequeno demais”? As interessantes quase sempre são.",
+    afterLine: "Tem uma ideia? Vamos ver onde ela vai.",
+    afterCta: "Começar um projeto",
   },
 }
 

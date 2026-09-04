@@ -185,7 +185,7 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
     if (result.ok) {
       setPhase("confirmation")
     } else {
-      setSubmitError(result.error)
+      setSubmitError(text.submitError)
     }
   }
 
@@ -229,7 +229,7 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
                   setDirection("forward")
                   setPhase("questions")
                 }}
-                className="mt-10 h-12 rounded-full bg-highlight px-8 text-base text-highlight-foreground hover:bg-highlight/90"
+                className="mt-10 h-12 rounded-full bg-primary px-8 text-base text-primary-foreground hover:bg-primary/90"
               >
                 {text.intro.button}
                 <ArrowRight className="size-4" aria-hidden="true" />

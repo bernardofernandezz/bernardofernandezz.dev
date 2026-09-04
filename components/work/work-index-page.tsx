@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
 import { Reveal } from "@/components/motion/reveal"
 import { ProjectVisual } from "@/components/project/project-visual"
 import { ArrowLink } from "@/components/site/arrow-link"
@@ -54,7 +55,7 @@ export async function WorkIndexPage({
     <div className="container-page py-16 md:py-24">
       <Reveal>
         <p className="eyebrow">{index.eyebrow}</p>
-        <h1 className="mt-6 max-w-3xl font-display text-display-lg">
+        <h1 className="mt-6 max-w-3xl font-display text-display-lg tracking-tight">
           {index.title}
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
@@ -80,7 +81,7 @@ export async function WorkIndexPage({
                 className={cn(
                   "rounded-full border px-4 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors",
                   isActive
-                    ? "border-highlight bg-highlight text-highlight-foreground"
+                    ? "border-foreground bg-foreground text-background"
                     : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
                 )}
               >
@@ -91,72 +92,62 @@ export async function WorkIndexPage({
         </nav>
       </Reveal>
 
-      <div className="mt-14 flex flex-col gap-20 md:gap-24">
+      <div className="mt-16 border-t">
         {visibleProjects.map((project, index) => (
           <Reveal key={project.slug}>
-            <article className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
-              <div
-                className={cn(
-                  "md:col-span-5",
-                  index % 2 === 1 && "md:order-2 md:col-start-8",
-                )}
+            <article className="group border-b">
+              <Link
+                href={localePath(locale, `/work/${project.slug}`)}
+                className="grid items-center gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-12"
+                aria-label={`View case study: ${project.name}`}
               >
-                <Link
-                  href={localePath(locale, `/work/${project.slug}`)}
-                  className="group block transition-opacity hover:opacity-90"
-                  aria-label={`View case study: ${project.name}`}
-                >
+                <p className="eyebrow transition-colors duration-300 group-hover:text-highlight md:col-span-1">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+
+                <div className="md:col-span-5">
+                  <h2 className="font-display text-display-sm tracking-tight">
+                    {project.name}
+                    <ArrowUpRight
+                      className="ml-1 inline size-6 -translate-x-1 text-highlight opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                      aria-hidden="true"
+                    />
+                  </h2>
+                  <p className="serif-accent mt-1 text-xl text-muted-foreground md:text-2xl">
+                    {project.tagline}
+                  </p>
+                  <p className="mt-2 font-mono text-xs uppercase tracking-wider text-muted-foreground/80">
+                    {kindLabels[project.kind]} · {project.year}
+                  </p>
+                </div>
+
+                <div className="max-w-lg md:col-span-3">
+                  <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+                    {project.summary}
+                  </p>
+                  <p className="mt-4 font-mono text-xs tracking-wide text-muted-foreground/70">
+                    {project.stack.slice(0, 3).join(" · ")}
+                  </p>
+                </div>
+
+                <div className="md:col-span-3">
                   <ProjectVisual
                     spec={project.visual}
                     title={project.name}
-                    className="aspect-[4/3] transition-transform duration-500 group-hover:scale-[1.01]"
+                    className="aspect-[16/10] opacity-80 transition-all duration-500 group-hover:scale-[1.015] group-hover:opacity-100"
                   />
-                </Link>
-              </div>
-
-              <div
-                className={cn(
-                  "md:col-span-6",
-                  index % 2 === 1 && "md:order-1 md:col-start-1",
-                )}
-              >
-                <p className="eyebrow">
-                  {String(index + 1).padStart(2, "0")} ·{" "}
-                  {kindLabels[project.kind].toUpperCase()} · {project.year}
-                </p>
-                <h2 className="mt-4 font-display text-display-sm">
-                  <Link
-                    href={localePath(locale, `/work/${project.slug}`)}
-                    className="transition-colors hover:text-highlight"
-                  >
-                    {project.name}
-                    <span className="text-muted-foreground">
-                      {" "}
-                      — {project.tagline}
-                    </span>
-                  </Link>
-                </h2>
-                <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
-                  {project.summary}
-                </p>
-                <p className="mt-5 font-mono text-xs tracking-wide text-muted-foreground/80">
-                  {project.stack.join(" · ")}
-                </p>
-                <ArrowLink
-                  href={localePath(locale, `/work/${project.slug}`)}
-                  className="mt-6"
-                >
-                  {dict.home.work.cardCta}
-                </ArrowLink>
-              </div>
+                </div>
+              </Link>
             </article>
           </Reveal>
         ))}
       </div>
 
       <Reveal>
-        <div className="mt-24 flex flex-col items-start gap-4 border-t pt-10 md:flex-row md:items-center md:justify-between">
-          <p className="font-display text-display-sm">{index.afterLine}</p>
+        <div className="mt-20 flex flex-col items-start gap-4 border-t pt-10 md:flex-row md:items-center md:justify-between">
+          <p className="font-display text-display-sm tracking-tight">
+            {index.afterLine}
+          </p>
           <ArrowLink
             href={localePath(locale, "/start-a-project")}
             className="text-base"

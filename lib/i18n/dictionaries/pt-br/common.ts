@@ -1,24 +1,45 @@
 export const common = {
   siteTitle: "Bernardo Fernandez — Desenvolvedor de software",
   siteDescription:
-    "Desenvolvedor de software e builder. Pego ideias incertas e problemas técnicos cabeçudos e transformo em software que funciona — aplicações web, MVPs, ferramentas internas e os sistemas por trás.",
+    "O espaço pessoal do Bernardo na web: as coisas que ele constrói, os sistemas por trás delas e o que anda despertando curiosidade agora.",
   brandRole: "Desenvolvedor de software & builder",
   location: "Brasil",
   availability: "Disponível para novos projetos",
+  localTimeShort: "hora local",
   skipToContent: "Pular para o conteúdo",
   nav: {
+    home: "Início",
     work: "Projetos",
     about: "Sobre",
     writing: "Escritos",
-    startProject: "Começar um projeto",
+    now: "Agora",
+    startProject: "Vamos construir algo",
     menu: "Menu",
     openMenu: "Abrir menu",
+  },
+  commandPalette: {
+    open: "Abrir o menu de comandos",
+    label: "Menu de comandos",
+    placeholder: "Digite um comando ou busca…",
+    noResults: "Nada encontrado — tenta outra coisa.",
+    groups: {
+      navigate: "Ir para",
+      actions: "Ações",
+    },
+    actions: {
+      toggleTheme: "Alternar claro / escuro",
+      copyEmail: "Copiar meu email",
+      emailCopied: "Copiado para a área de transferência",
+    },
   },
   footer: {
     siteColumn: "Site",
     elsewhere: "Por aí",
     email: "Email",
     rights: "Todos os direitos reservados.",
+    localTimeLabel: "Meu horário local",
+    colophon:
+      "Desenhado e construído pelo Bernardo — tipografia em Instrument Sans, Instrument Serif e Geist Mono. Sem trackers, sem cookies.",
   },
   language: {
     label: "Idioma",

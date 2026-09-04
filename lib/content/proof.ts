@@ -10,13 +10,45 @@ export interface StackGroup {
   readonly items: readonly string[]
 }
 
-interface Proof {
+export interface CuriosityArea {
+  readonly title: string
+  readonly detail: string
+}
+
+export interface Proof {
   readonly approach: readonly ApproachPoint[]
   readonly stack: readonly StackGroup[]
-  readonly currentlyExploring: readonly string[]
+  readonly curiosities: readonly CuriosityArea[]
 }
 
 const EN: Proof = {
+  curiosities: [
+    {
+      title: "Distributed systems",
+      detail:
+        "How reliable services actually stay reliable — consensus, failure modes, and the boring parts in between.",
+    },
+    {
+      title: "Infrastructure & operations",
+      detail:
+        "Kubernetes, observability and the side of software that runs, not just the side that builds.",
+    },
+    {
+      title: "Product engineering",
+      detail:
+        "The place where design decisions and engineering decisions turn out to be the same decision.",
+    },
+    {
+      title: "Type systems",
+      detail:
+        "How far inference and modeling can go before they start getting in the way.",
+    },
+    {
+      title: "Developer tooling",
+      detail:
+        "The tools that make the act of building feel better — I've built a few just to sharpen my own workflow.",
+    },
+  ],
   approach: [
     {
       title: "Vague in, defined out",
@@ -44,12 +76,6 @@ const EN: Proof = {
     { area: "Backend", items: ["Node.js", "NestJS", "Java", "Go"] },
     { area: "Data", items: ["PostgreSQL", "Prisma", "TypeORM", "Supabase"] },
     { area: "Infrastructure", items: ["Docker", "Kubernetes", "Grafana"] },
-  ],
-  currentlyExploring: [
-    "Distributed systems — the patterns behind reliable services",
-    "Go for backend services and tooling",
-    "Kubernetes and the operational side of running software",
-    "Observability — metrics and traces that explain production behavior",
   ],
 }
 
@@ -82,11 +108,32 @@ const PT_BR: Proof = {
     { area: "Dados", items: ["PostgreSQL", "Prisma", "TypeORM", "Supabase"] },
     { area: "Infraestrutura", items: ["Docker", "Kubernetes", "Grafana"] },
   ],
-  currentlyExploring: [
-    "Sistemas distribuídos — os padrões por trás de serviços confiáveis",
-    "Go para serviços e tooling de backend",
-    "Kubernetes e o lado operacional de rodar software",
-    "Observabilidade — métricas e traces que explicam o comportamento em produção",
+  curiosities: [
+    {
+      title: "Sistemas distribuídos",
+      detail:
+        "Os padrões por trás de serviços que de fato continuam confiáveis — consenso, modos de falha e as partes chatas no meio.",
+    },
+    {
+      title: "Infraestrutura e operação",
+      detail:
+        "Kubernetes, observabilidade e o lado do software que roda, não só o lado que aparece na tela.",
+    },
+    {
+      title: "Product engineering",
+      detail:
+        "O lugar onde decisão de design e decisão técnica descobrem que são a mesma decisão.",
+    },
+    {
+      title: "Sistemas de tipos",
+      detail:
+        "Até onde inferência e modelagem conseguem ir antes de começarem a atrapalhar.",
+    },
+    {
+      title: "Developer tooling",
+      detail:
+        "As ferramentas que tornam o ato de construir melhor — já construí algumas só pra afiar meu próprio fluxo.",
+    },
   ],
 }
 

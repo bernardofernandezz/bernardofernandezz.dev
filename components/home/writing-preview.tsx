@@ -16,9 +16,12 @@ export function WritingPreview({ locale }: { locale: Locale }) {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="eyebrow">{writing.eyebrow}</p>
-              <h2 className="mt-4 font-display text-display-lg">
+              <h2 className="mt-4 font-display text-display-lg tracking-tight">
                 {writing.title}
               </h2>
+              <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
+                {writing.intro}
+              </p>
             </div>
             <ArrowLink
               href={localePath(locale, "/writing")}
@@ -29,12 +32,17 @@ export function WritingPreview({ locale }: { locale: Locale }) {
           </div>
         </Reveal>
 
-        <div className="mt-14 flex flex-col border-t">
+        <div className="mt-14 border-t md:mt-20">
           {getArticles(locale)
             .slice(0, 3)
             .map((article, index) => (
               <Reveal key={article.slug} delayMs={index * 60}>
-                <ArticleRow article={article} locale={locale} size="large" />
+                <ArticleRow
+                  article={article}
+                  locale={locale}
+                  size="large"
+                  index={index + 1}
+                />
               </Reveal>
             ))}
         </div>

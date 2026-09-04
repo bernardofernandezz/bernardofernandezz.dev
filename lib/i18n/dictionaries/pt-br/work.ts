@@ -18,18 +18,18 @@ export const work = {
     eyebrow: "Projetos",
     title: "Case studies, não prints de tela",
     intro:
-      "São meus projetos próprios, protótipos e experimentos — classificados de forma honesta. Cada um traz o problema, as decisões e o resultado técnico, porque é essa parte do trabalho que você contrata.",
-    afterLine: "Seu projeto pode ser o próximo.",
-    afterCta: "Me conta",
+      "São meus projetos próprios, protótipos e experimentos — classificados de forma honesta. Cada um traz o problema, as decisões e o resultado técnico, porque é essa a parte que eu acho mais divertida mesmo.",
+    afterLine: "Tem algo parecido aí?",
+    afterCta: "Vamos conversar",
     filterNav: "Filtrar projetos por categoria",
   },
   caseStudy: {
     builtWith: "Feito com",
     sections: {
-      context: "Contexto",
+      context: "A ideia",
       problem: "O problema",
       role: "Meu papel",
-      technicalChallenge: "O que tornou tecnicamente interessante",
+      technicalChallenge: "O que tornou interessante",
       decisions: "Decisões",
       result: "Resultado",
       lesson: "O que eu aprendi",

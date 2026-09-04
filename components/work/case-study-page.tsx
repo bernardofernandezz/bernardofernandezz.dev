@@ -28,6 +28,12 @@ export function CaseStudyContent({
   const currentIndex = allProjects.findIndex((item) => item.slug === slug)
   const nextProject = allProjects[(currentIndex + 1) % allProjects.length]
 
+  const numbered = (index: number) => (
+    <span className="mr-2 text-highlight" aria-hidden="true">
+      {String(index).padStart(2, "0")}
+    </span>
+  )
+
   return (
     <>
       <article className="container-page pb-24">
@@ -36,11 +42,11 @@ export function CaseStudyContent({
             <p className="eyebrow">
               {kindLabel.toUpperCase()} · {project.year}
             </p>
-            <h1 className="mt-6 font-display text-display-xl">
+            <h1 className="mt-6 font-display text-display-xl tracking-tight">
               {project.name}
-              <span className="text-muted-foreground">.</span>
+              <span className="serif-accent text-muted-foreground">.</span>
             </h1>
-            <p className="mt-6 max-w-2xl font-display text-display-sm text-muted-foreground">
+            <p className="serif-accent mt-4 max-w-2xl text-display-sm text-muted-foreground">
               {project.tagline}
             </p>
           </Reveal>
@@ -68,16 +74,18 @@ export function CaseStudyContent({
                   </li>
                 ))}
               </ul>
+              <p className="eyebrow mt-10">{labels.role}</p>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                {project.caseStudy.role}
+              </p>
             </div>
           </aside>
 
           <div className="md:col-span-9">
             <Reveal>
               <section aria-labelledby="context">
-                <h2
-                  id="context"
-                  className="font-display text-display-sm"
-                >
+                <h2 id="context" className="font-display text-display-sm tracking-tight">
+                  {numbered(1)}
                   {labels.context}
                 </h2>
                 <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
@@ -88,22 +96,12 @@ export function CaseStudyContent({
 
             <Reveal>
               <section aria-labelledby="problem" className="mt-14">
-                <h2 id="problem" className="font-display text-display-sm">
+                <h2 id="problem" className="font-display text-display-sm tracking-tight">
+                  {numbered(2)}
                   {labels.problem}
                 </h2>
                 <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
                   {project.caseStudy.problem}
-                </p>
-              </section>
-            </Reveal>
-
-            <Reveal>
-              <section aria-labelledby="role" className="mt-14 border-y py-8">
-                <h2 id="role" className="eyebrow">
-                  {labels.role}
-                </h2>
-                <p className="mt-3 text-lg leading-relaxed">
-                  {project.caseStudy.role}
                 </p>
               </section>
             </Reveal>
@@ -115,8 +113,9 @@ export function CaseStudyContent({
               >
                 <h2
                   id="technical-challenge"
-                  className="font-display text-display-sm"
+                  className="font-display text-display-sm tracking-tight"
                 >
+                  {numbered(3)}
                   {labels.technicalChallenge}
                 </h2>
                 {project.caseStudy.technicalChallenge.map(
@@ -134,16 +133,23 @@ export function CaseStudyContent({
 
             <Reveal>
               <section aria-labelledby="decisions" className="mt-14">
-                <h2 id="decisions" className="font-display text-display-sm">
+                <h2 id="decisions" className="font-display text-display-sm tracking-tight">
+                  {numbered(4)}
                   {labels.decisions}
                 </h2>
                 <dl className="mt-6 flex flex-col border-t">
-                  {project.caseStudy.decisions.map((decision) => (
+                  {project.caseStudy.decisions.map((decision, index) => (
                     <div
                       key={decision.title}
-                      className="grid gap-3 border-b py-7 md:grid-cols-12 md:gap-8"
+                      className="group grid gap-3 border-b py-7 md:grid-cols-12 md:gap-8"
                     >
                       <dt className="text-base font-medium md:col-span-5">
+                        <span
+                          className="mr-3 font-mono text-xs text-muted-foreground transition-colors duration-300 group-hover:text-highlight"
+                          aria-hidden="true"
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
                         {decision.title}
                       </dt>
                       <dd className="leading-relaxed text-muted-foreground md:col-span-7">
@@ -157,7 +163,8 @@ export function CaseStudyContent({
 
             <Reveal>
               <section aria-labelledby="result" className="mt-14">
-                <h2 id="result" className="font-display text-display-sm">
+                <h2 id="result" className="font-display text-display-sm tracking-tight">
+                  {numbered(5)}
                   {labels.result}
                 </h2>
                 <ul className="mt-6 flex max-w-2xl flex-col gap-4">
@@ -180,12 +187,12 @@ export function CaseStudyContent({
             <Reveal>
               <section
                 aria-labelledby="lesson"
-                className="mt-14 rounded-xl border bg-card/40 p-8"
+                className="mt-16 border-l-2 border-highlight py-2 pl-6 md:pl-8"
               >
                 <h2 id="lesson" className="eyebrow">
                   {labels.lesson}
                 </h2>
-                <p className="mt-4 max-w-2xl font-display text-xl leading-snug md:text-2xl">
+                <p className="serif-accent mt-4 max-w-2xl text-2xl leading-snug md:text-3xl">
                   {project.caseStudy.lesson}
                 </p>
               </section>
@@ -195,7 +202,7 @@ export function CaseStudyContent({
 
         <Reveal>
           <div className="mt-24 flex flex-col items-start gap-6 border-t pt-12 md:flex-row md:items-center md:justify-between">
-            <p className="max-w-md font-display text-display-sm">
+            <p className="max-w-md font-display text-display-sm tracking-tight">
               {dict.work.caseStudy.ctaLine}
             </p>
             <ArrowLink
@@ -221,7 +228,10 @@ export function CaseStudyContent({
               href={localePath(locale, `/work/${nextProject.slug}`)}
               className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              {dict.work.caseStudy.next}: {nextProject.name}
+              <span className="max-md:hidden">{dict.work.caseStudy.next}:</span>
+              <span className="font-display text-base text-foreground transition-colors group-hover:text-highlight">
+                {nextProject.name}
+              </span>
               <ArrowRight
                 className="size-4 transition-transform group-hover:translate-x-1"
                 aria-hidden="true"

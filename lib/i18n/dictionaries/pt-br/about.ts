@@ -36,7 +36,9 @@ export const about = {
       },
     ],
   },
-  exploring: "Explorando agora",
+  thinking: {
+    label: "Perguntas que estou pensando",
+  },
   evidence: {
     label: "Este site como evidência",
     body:
@@ -44,9 +46,9 @@ export const about = {
   },
   currently: "No momento",
   currentlyBody: (availability: string, location: string) =>
-    `Baseado no ${location}, trabalhando com clientes em qualquer lugar. ${availability.toLowerCase()} — o caminho mais rápido pra começar é o briefing abaixo.`,
-  ctaLine: "Tem um problema que soa com alguma dessas histórias?",
-  ctaButton: "Vamos conversar sobre isso",
+    `Baseado no ${location}. ${availability} — e sempre aberto a uma conversa sobre algo que valha a pena construir.`,
+  ctaLine: "Agora você me conhece um pouco. Me conta o que você está construindo.",
+  ctaButton: "Me conta o que você está construindo",
 }
 
 export type About = typeof about

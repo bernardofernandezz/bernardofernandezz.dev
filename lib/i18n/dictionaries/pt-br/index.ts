@@ -5,6 +5,7 @@ import { about } from "@/lib/i18n/dictionaries/pt-br/about"
 import { work } from "@/lib/i18n/dictionaries/pt-br/work"
 import { writing } from "@/lib/i18n/dictionaries/pt-br/writing"
 import { briefing } from "@/lib/i18n/dictionaries/pt-br/briefing"
+import { now } from "@/lib/i18n/dictionaries/pt-br/now"
 
 export const ptBR: EnDictionary = {
   common,
@@ -13,4 +14,5 @@ export const ptBR: EnDictionary = {
   work,
   writing,
   briefing,
+  now,
 }

@@ -39,10 +39,10 @@ export function ArticleContent({ locale, slug }: { locale: Locale; slug: string 
               {FORMATTERS[locale].format(new Date(article.date))} ·{" "}
               {article.readingTime}
             </p>
-            <h1 className="mt-6 font-display text-display-md leading-tight">
+            <h1 className="mt-6 font-display text-display-md tracking-tight">
               {article.title}
             </h1>
-            <p className="mt-6 border-l-2 border-highlight pl-5 font-display text-xl leading-snug text-muted-foreground">
+            <p className="serif-accent mt-6 border-l-2 border-highlight pl-5 text-xl leading-snug text-muted-foreground md:text-2xl">
               {article.summary}
             </p>
           </header>
@@ -51,7 +51,13 @@ export function ArticleContent({ locale, slug }: { locale: Locale; slug: string 
             {article.sections.map((section, index) => (
               <section key={section.heading ?? index}>
                 {section.heading && (
-                  <h2 className="font-display text-2xl md:text-3xl">
+                  <h2 className="font-display text-2xl tracking-tight md:text-3xl">
+                    <span
+                      className="mr-3 font-mono text-xs text-muted-foreground"
+                      aria-hidden="true"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                     {section.heading}
                   </h2>
                 )}
@@ -73,7 +79,9 @@ export function ArticleContent({ locale, slug }: { locale: Locale; slug: string 
 
       <Reveal>
         <div className="mx-auto mt-24 max-w-2xl border-t pt-10">
-          <p className="font-display text-display-sm">{articleCta.ctaLine}</p>
+          <p className="font-display text-display-sm tracking-tight">
+            {articleCta.ctaLine}
+          </p>
           <ArrowLink
             href={localePath(locale, "/start-a-project")}
             className="mt-6"
@@ -85,9 +93,14 @@ export function ArticleContent({ locale, slug }: { locale: Locale; slug: string 
 
       <div className="mx-auto mt-20 max-w-2xl">
         <p className="eyebrow">{articleCta.moreLabel}</p>
-        <div className="mt-4 flex flex-col border-t">
-          {otherArticles.map((item) => (
-            <ArticleRow key={item.slug} article={item} locale={locale} />
+        <div className="mt-4 border-t">
+          {otherArticles.map((item, index) => (
+            <ArticleRow
+              key={item.slug}
+              article={item}
+              locale={locale}
+              index={index + 1}
+            />
           ))}
         </div>
       </div>

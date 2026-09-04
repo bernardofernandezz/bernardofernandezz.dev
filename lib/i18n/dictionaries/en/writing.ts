@@ -3,11 +3,11 @@ export const writing = {
     "Essays on engineering and product decisions — how Bernardo Fernandez thinks about building software.",
   index: {
     eyebrow: "Writing",
-    title: "Thinking, in public",
+    title: "Notes from building things",
     intro:
-      "Essays on engineering and product decisions — the reasoning behind the work, written from practice, not from theory.",
-    afterLine: "Prefer talking to reading?",
-    afterCta: "Start a project",
+      "Things that broke, decisions I made, things I'm still figuring out. Notes from building — not thought leadership.",
+    afterLine: "Got a problem worth thinking about?",
+    afterCta: "Let's talk",
   },
   article: {
     ctaLine: "Thinking about something like this?",

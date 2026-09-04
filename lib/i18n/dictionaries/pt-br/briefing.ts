@@ -162,6 +162,8 @@ export const briefing = {
     send: "Enviar projeto",
     sending: "Enviando...",
   },
+  submitError:
+    "Falta alguma resposta ou algo ficou inválido. Dá uma revisada e tenta de novo.",
   confirmation: {
     thanks: (name: string) => `Obrigado, ${name}.`,
     body:

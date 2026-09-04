@@ -1,11 +1,13 @@
 import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
 import { Reveal } from "@/components/motion/reveal"
 import { ProjectVisual } from "@/components/project/project-visual"
 import { ArrowLink } from "@/components/site/arrow-link"
+import { Magnetic } from "@/components/site/magnetic"
+import { Button } from "@/components/ui/button"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
 import { localePath, type Locale } from "@/lib/i18n/config"
 import { getFeaturedProjects } from "@/lib/content/projects"
-import { cn } from "@/lib/utils"
 
 export function SelectedWork({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale)
@@ -20,7 +22,9 @@ export function SelectedWork({ locale }: { locale: Locale }) {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="eyebrow">{work.eyebrow}</p>
-              <h2 className="mt-4 font-display text-display-lg">{work.title}</h2>
+              <h2 className="mt-4 font-display text-display-lg tracking-tight">
+                {work.title}
+              </h2>
               <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
                 {work.intro}
               </p>
@@ -31,80 +35,77 @@ export function SelectedWork({ locale }: { locale: Locale }) {
           </div>
         </Reveal>
 
-        <div className="mt-16 flex flex-col gap-20 md:mt-20 md:gap-28">
-          {projects.map((project, index) => {
-            const reversed = index % 2 === 1
-            return (
-              <Reveal key={project.slug}>
-                <article className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
-                  <div
-                    className={cn(
-                      "md:col-span-5",
-                      reversed && "md:order-2 md:col-start-8",
-                    )}
-                  >
-                    <Link
-                      href={localePath(locale, `/work/${project.slug}`)}
-                      className="group block transition-opacity hover:opacity-90"
-                      aria-label={`View case study: ${project.name}`}
-                    >
-                      <ProjectVisual
-                        spec={project.visual}
-                        title={project.name}
-                        className="aspect-[4/3] transition-transform duration-500 group-hover:scale-[1.01]"
+        <div className="mt-16 border-t md:mt-20">
+          {projects.map((project, index) => (
+            <Reveal key={project.slug}>
+              <article className="group border-b">
+                <Link
+                  href={localePath(locale, `/work/${project.slug}`)}
+                  className="grid items-center gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-14"
+                  aria-label={`View case study: ${project.name}`}
+                >
+                  <p className="eyebrow transition-colors duration-300 group-hover:text-highlight md:col-span-1">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+
+                  <div className="md:col-span-4">
+                    <h3 className="font-display text-display-sm tracking-tight">
+                      {project.name}
+                      <ArrowUpRight
+                        className="ml-1 inline size-6 -translate-x-1 text-highlight opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                        aria-hidden="true"
                       />
-                    </Link>
+                    </h3>
+                    <p className="serif-accent mt-1 text-xl text-muted-foreground md:text-2xl">
+                      {project.tagline}
+                    </p>
+                    <p className="mt-1 font-mono text-xs uppercase tracking-wider text-muted-foreground/80">
+                      {kindLabels[project.kind]} · {project.year}
+                    </p>
                   </div>
 
-                  <div
-                    className={cn(
-                      "md:col-span-6",
-                      reversed && "md:order-1 md:col-start-1",
-                    )}
-                  >
-                    <p className="eyebrow">
-                      {kindLabels[project.kind].toUpperCase()} · {project.year}
-                    </p>
-                    <h3 className="mt-4 font-display text-display-sm">
-                      <Link
-                        href={localePath(locale, `/work/${project.slug}`)}
-                        className="transition-colors hover:text-highlight"
-                      >
-                        {project.name}
-                        <span className="text-muted-foreground">
-                          {" "}
-                          — {project.tagline}
-                        </span>
-                      </Link>
-                    </h3>
-                    <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
+                  <div className="max-w-lg md:col-span-3">
+                    <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
                       {project.summary}
                     </p>
-                    <p className="mt-5 font-mono text-xs tracking-wide text-muted-foreground/80">
-                      {project.stack.join(" · ")}
+                    <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground opacity-100 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
+                      {project.caseStudy.role}
                     </p>
-                    <ArrowLink
-                      href={localePath(locale, `/work/${project.slug}`)}
-                      className="mt-6"
-                    >
-                      {work.cardCta}
-                    </ArrowLink>
                   </div>
-                </article>
-              </Reveal>
-            )
-          })}
+
+                  <div className="md:col-span-4">
+                    <ProjectVisual
+                      spec={project.visual}
+                      title={project.name}
+                      className="aspect-[16/10] transition-transform duration-500 group-hover:scale-[1.015]"
+                    />
+                  </div>
+                </Link>
+              </article>
+            </Reveal>
+          ))}
         </div>
 
         <Reveal>
-          <div className="mt-20 flex flex-col items-start gap-4 border-t pt-10 md:flex-row md:items-center md:justify-between">
-            <p className="font-display text-display-sm">{work.afterLine}</p>
-            <ArrowLink
-              href={localePath(locale, "/start-a-project")}
-              className="text-base"
-            >
-              {work.afterCta}
-            </ArrowLink>
+          <div className="mt-16 flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+            <p className="font-display text-display-sm tracking-tight">
+              {work.afterLine}
+              <ArrowUpRight
+                className="ml-2 inline size-6 text-highlight"
+                aria-hidden="true"
+              />
+            </p>
+            <Magnetic>
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 rounded-full px-7 text-base"
+              >
+                <Link href={localePath(locale, "/start-a-project")}>
+                  {work.afterCta}
+                </Link>
+              </Button>
+            </Magnetic>
           </div>
         </Reveal>
       </div>

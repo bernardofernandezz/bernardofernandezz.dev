@@ -3,11 +3,11 @@ export const writing = {
     "Ensaios sobre engenharia e decisões de produto — como Bernardo Fernandez pensa na hora de construir software.",
   index: {
     eyebrow: "Escritos",
-    title: "Pensando em público",
+    title: "Anotações de quem constrói coisas",
     intro:
-      "Ensaios sobre engenharia e decisões de produto — o raciocínio por trás do trabalho, escrito a partir da prática, não da teoria.",
-    afterLine: "Prefere conversar a ler?",
-    afterCta: "Começar um projeto",
+      "O que quebrou, decisões que tomei, o que ainda estou descobrindo. Anotações de quem constrói — não thought leadership.",
+    afterLine: "Tem um problema que vale pensar?",
+    afterCta: "Vamos conversar",
   },
   article: {
     ctaLine: "Pensando em algo parecido?",

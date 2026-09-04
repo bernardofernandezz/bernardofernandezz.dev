@@ -36,7 +36,9 @@ export const about = {
       },
     ],
   },
-  exploring: "Currently exploring",
+  thinking: {
+    label: "Questions I'm thinking about",
+  },
   evidence: {
     label: "This site as evidence",
     body:
@@ -44,9 +46,9 @@ export const about = {
   },
   currently: "Currently",
   currentlyBody: (availability: string, location: string) =>
-    `Based in ${location}, working with clients anywhere. ${availability.toLowerCase()} — the fastest way to start is the briefing below.`,
-  ctaLine: "Have a problem that sounds like one of these stories?",
-  ctaButton: "Let's talk about it",
+    `Based in ${location}. ${availability} — and always up for a conversation about something worth building.`,
+  ctaLine: "Now you know a little about me. Tell me what you're building.",
+  ctaButton: "Tell me what you're building",
 }
 
 export type About = typeof about

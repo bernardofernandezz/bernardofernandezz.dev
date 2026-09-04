@@ -21,8 +21,8 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "0 96px",
-          backgroundColor: "#faf9f5",
-          color: "#1c1a17",
+          backgroundColor: "#f5f4f0",
+          color: "#1e1c19",
         }}
       >
         <div
@@ -40,7 +40,7 @@ export default function OpengraphImage() {
           Bernardo Fernandez
         </div>
         <div style={{ display: "flex", fontSize: 38, marginTop: 20, color: "#6f6a63" }}>
-          Algumas ideias pedem uma landing page. Outras pedem um produto de verdade.
+          Gosto de transformar ideias, problemas e perguntas esquisitas em coisas que as pessoas realmente usam.
         </div>
         <div
           style={{
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
             width: 140,
             height: 6,
             marginTop: 44,
-            backgroundColor: "#b0593c",
+            backgroundColor: "#3d56c8",
           }}
         />
       </div>
