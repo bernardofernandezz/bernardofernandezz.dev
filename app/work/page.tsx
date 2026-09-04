@@ -6,6 +6,7 @@ import { ArrowLink } from "@/components/site/arrow-link"
 import {
   PROJECT_CATEGORIES,
   PROJECT_CATEGORY_LABELS,
+  PROJECT_KIND_LABELS,
   projects,
 } from "@/lib/content/projects"
 import { cn } from "@/lib/utils"
@@ -51,9 +52,10 @@ export default async function WorkPage({ searchParams }: PageProps<"/work">) {
           Case studies, not screenshots
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          Each project here includes the problem, the decisions and the result —
-          because that&rsquo;s the part of the work you&rsquo;re actually
-          hiring.
+          These are my own projects, prototypes and experiments — labeled
+          honestly. Each one includes the problem, the decisions and the
+          technical result, because that&rsquo;s the part of the work
+          you&rsquo;re actually hiring.
         </p>
       </Reveal>
 
@@ -115,7 +117,8 @@ export default async function WorkPage({ searchParams }: PageProps<"/work">) {
               >
                 <p className="eyebrow">
                   {String(index + 1).padStart(2, "0")} ·{" "}
-                  {PROJECT_CATEGORY_LABELS[project.category]} · {project.year}
+                  {PROJECT_KIND_LABELS[project.kind].toUpperCase()} ·{" "}
+                  {project.year}
                 </p>
                 <h2 className="mt-4 font-display text-display-sm">
                   <Link

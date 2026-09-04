@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og"
 
-export const alt = "Bernardo Fernandez — Software Developer"
+export const alt = "Bernardo Fernandez — Software Developer & Builder"
 export const size = {
   width: 1200,
   height: 630,
@@ -37,7 +37,7 @@ export default function OpengraphImage() {
           Bernardo Fernandez
         </div>
         <div style={{ display: "flex", fontSize: 38, marginTop: 20, color: "#6f6a63" }}>
-          I build software people actually use.
+          I turn ideas and messy technical problems into working software.
         </div>
         <div
           style={{

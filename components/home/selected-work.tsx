@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Reveal } from "@/components/motion/reveal"
 import { ProjectVisual } from "@/components/project/project-visual"
 import { ArrowLink } from "@/components/site/arrow-link"
-import { featuredProjects, PROJECT_CATEGORY_LABELS } from "@/lib/content/projects"
+import { featuredProjects, PROJECT_KIND_LABELS } from "@/lib/content/projects"
 import { cn } from "@/lib/utils"
 
 function ProjectCard({
@@ -33,8 +33,7 @@ function ProjectCard({
 
         <div className={cn("md:col-span-6", reversed && "md:order-1 md:col-start-1")}>
           <p className="eyebrow">
-            {String(index + 1).padStart(2, "0")} ·{" "}
-            {PROJECT_CATEGORY_LABELS[project.category]} · {project.year}
+            {PROJECT_KIND_LABELS[project.kind].toUpperCase()} · {project.year}
           </p>
           <h3 className="mt-4 font-display text-display-sm">
             <Link
@@ -69,8 +68,13 @@ export function SelectedWork() {
             <div>
               <p className="eyebrow">Selected work</p>
               <h2 className="mt-4 font-display text-display-lg">
-                Work that shipped
+                Things I&rsquo;ve built
               </h2>
+              <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
+                My own projects, prototypes and experiments — labeled honestly.
+                What each one shows is how I think about real technical
+                problems.
+              </p>
             </div>
             <ArrowLink href="/work" className="text-base">
               All projects
@@ -87,10 +91,10 @@ export function SelectedWork() {
         <Reveal>
           <div className="mt-20 flex flex-col items-start gap-4 border-t pt-10 md:flex-row md:items-center md:justify-between">
             <p className="font-display text-display-sm">
-              Have a similar problem?
+              Have something similar in mind?
             </p>
             <ArrowLink href="/start-a-project" className="text-base">
-              Let&rsquo;s build yours
+              Tell me about it
             </ArrowLink>
           </div>
         </Reveal>

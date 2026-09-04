@@ -3,10 +3,21 @@ export const PROJECT_CATEGORIES = ["product", "web", "experiment", "open-source"
 export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number]
 
 export const PROJECT_CATEGORY_LABELS: Record<ProjectCategory, string> = {
-  product: "Product",
+  product: "Web app",
   web: "Web",
   experiment: "Experiment",
-  "open-source": "Open Source",
+  "open-source": "Open source",
+}
+
+export const PROJECT_KINDS = ["personal", "prototype", "experiment", "open-source"] as const
+
+export type ProjectKind = (typeof PROJECT_KINDS)[number]
+
+export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
+  personal: "Personal project",
+  prototype: "Prototype",
+  experiment: "Experiment",
+  "open-source": "Open source",
 }
 
 export interface ProjectDecision {
@@ -15,11 +26,13 @@ export interface ProjectDecision {
 }
 
 export interface ProjectCaseStudy {
-  readonly challenge: string
-  readonly approach: readonly string[]
+  readonly context: string
+  readonly problem: string
+  readonly role: string
+  readonly technicalChallenge: readonly string[]
   readonly decisions: readonly ProjectDecision[]
-  readonly outcome: readonly string[]
-  readonly demonstrates: string
+  readonly result: readonly string[]
+  readonly lesson: string
 }
 
 export interface ProjectVisualSpec {
@@ -31,8 +44,8 @@ export interface Project {
   readonly slug: string
   readonly name: string
   readonly tagline: string
+  readonly kind: ProjectKind
   readonly category: ProjectCategory
-  readonly role: string
   readonly year: string
   readonly summary: string
   readonly stack: readonly string[]
@@ -42,75 +55,83 @@ export interface Project {
 }
 
 /*
- * Placeholder case studies, written to be realistic and easily editable.
- * Replace challenge/approach/outcome with your real work — the structure
- * is what does the selling: problem, decisions, result, capability.
+ * These are Bernardo's own builds — personal projects, prototypes,
+ * experiments and open source. They are labeled as such and framed
+ * around real technical problems, not invented client outcomes.
+ * Replace with professional work as it becomes public.
  */
 export const projects: readonly Project[] = [
   {
     slug: "ledgerline",
     name: "Ledgerline",
     tagline: "Financial clarity for freelancers",
+    kind: "personal",
     category: "product",
-    role: "Design, architecture & full-stack development",
     year: "2025",
     summary:
-      "A web application that turns scattered invoices, receipts and bank exports into a clear, real-time picture of a freelancer's finances.",
+      "A web application that turns scattered invoices, receipts and bank exports into a clear, real-time picture of a freelancer's finances — my own take on a problem every freelancer knows.",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Recharts"],
     visual: { hue: 24, pattern: "grid" },
     featured: true,
     caseStudy: {
-      challenge:
-        "Freelancers manage money across five different places: invoices in one tool, receipts in email, taxes in a spreadsheet and the actual bank somewhere else. By the time the numbers are reconciled, the month is over — and decisions about rates, expenses and runway are made on gut feeling instead of data.",
-      approach: [
-        "I started from the workflow, not the features: how does money actually move through a freelance business, and where does the information break down? That led to a system organized around imports and categories rather than manual entry.",
-        "The ingestion layer accepts CSV exports from major banks and normalizes them into a single transaction model. A rules engine learns recurring payees and applies categories automatically, so the bookkeeping happens as a side effect of importing — not as extra work.",
-        "On top of that sits a dashboard designed around the questions freelancers actually ask: how much came in this month, what is committed, what is safely spendable.",
+      context:
+        "Freelance money is scattered by default: invoices in one tool, receipts in email, taxes in a spreadsheet, the actual bank somewhere else. I built Ledgerline around a different model — instead of managing documents, track the movement of money: what entered, what is committed, what is safely spendable.",
+      problem:
+        "The hard part was never the dashboard. It was making ingestion and categorization trustworthy enough to act on: bank CSVs in different formats, recurring payees with inconsistent names, and the fact that a financial tool users can't trust is worse than no tool at all.",
+      role: "Sole developer — domain modeling, backend, data pipeline and interface.",
+      technicalChallenge: [
+        "Every bank exports CSVs with its own quirks: dates in different formats, debits as positive or negative values, encodings that break mid-file. The ingestion layer has to translate all of them into one reliable transaction model without losing data.",
+        "Categorization needs to be automatic enough to save time and correctable enough to stay accurate — a rules engine that learns recurring payees, with every manual correction feeding back into the rules.",
+        "The dashboard's core question — 'how much can I safely spend right now' — depends on commitments, not just balances. That means modeling future obligations, not only past transactions.",
       ],
       decisions: [
         {
           title: "A single normalized transaction model",
           detail:
-            "Every bank format is translated at the edge of the system, so the core domain never needs to know where a transaction came from. New bank integrations became a mapping problem, not a core rewrite.",
+            "Every bank format is translated at the edge of the system, so the core domain never needs to know where a transaction came from. Adding a bank became a mapping problem instead of a core rewrite.",
         },
         {
           title: "Server-side aggregation over client-side math",
           detail:
-            "Monthly summaries are computed in SQL views instead of loading raw transactions into the browser. The dashboard stays fast even with years of history.",
+            "Monthly summaries are computed in SQL views instead of loading raw transactions into the browser, so the dashboard stays fast even with years of history.",
         },
         {
           title: "Rules engine with human override",
           detail:
-            "Automation handles the 90%, and any manual correction feeds back into the rules. The system gets more accurate the longer it is used.",
+            "Automation handles the majority of categorization, and manual corrections feed back into the rules — the system gets more accurate the longer it is used.",
         },
       ],
-      outcome: [
-        "Replaced hours of monthly spreadsheet reconciliation with an automated import-and-categorize pipeline.",
-        "Gave the owner a real-time answer to 'how much can I actually spend right now' — the number the spreadsheet could never provide.",
+      result: [
+        "Different bank exports normalize into one transaction model, so the pipeline is extendable by mapping, not rewriting.",
+        "Monthly and commitment-aware summaries are computed in SQL — the interface never re-derives financial state.",
+        "Corrections improve the rules engine instead of accumulating as unstructured exceptions.",
       ],
-      demonstrates:
-        "The ability to take a messy, real-world workflow and turn it into a domain model, then build the product around it — from data ingestion to interface.",
+      lesson:
+        "Automating a domain teaches you the domain. Every category I got wrong at first was a gap in my own understanding of how money actually moves through freelance work.",
     },
   },
   {
     slug: "meridian",
     name: "Meridian",
-    tagline: "Direct booking for boutique hotels",
+    tagline: "Direct booking for boutique stays",
+    kind: "prototype",
     category: "web",
-    role: "Architecture, backend & booking experience",
     year: "2024",
     summary:
-      "A booking platform that lets boutique hotels take direct reservations with their own identity — instead of losing 20% to aggregators.",
+      "A multi-tenant booking prototype that explores what direct reservations without aggregators require: availability as an invariant, payments confirmed by webhooks, per-property identity.",
     stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Stripe"],
     visual: { hue: 200, pattern: "flow" },
     featured: true,
     caseStudy: {
-      challenge:
-        "Small hotels depend on booking aggregators that charge heavy commissions and force every property into the same generic template. The hotels wanted direct bookings, but building and maintaining a reliable reservation system was out of reach for a team whose job is hospitality, not software.",
-      approach: [
-        "The platform gives each hotel a customizable public site and a booking engine underneath it. Availability, rates and restrictions live in one system; the public experience renders on top of it with the hotel's own look and feel.",
-        "The booking flow was designed around trust: real-time availability, transparent cancellation policies and immediate confirmation. Every step that could cause abandonment — hidden fees, account creation, slow pages — was removed.",
-        "Payments run through Stripe with webhook-driven confirmation, so the reservation state machine can never drift from what was actually paid.",
+      context:
+        "Small hotels depend on booking aggregators that charge heavy commissions and force every property into the same template. I built Meridian as a prototype to understand what a direct-booking system actually requires — not the surface, the guarantees underneath.",
+      problem:
+        "Reservations look like a UI problem and are actually a correctness problem: availability, rates and payment confirmations must stay consistent under concurrency. The interesting question was how to make double bookings and phantom payments structurally impossible instead of handling them in support.",
+      role: "Sole developer — system design, availability model, payments and booking flow.",
+      technicalChallenge: [
+        "Availability has to be checked at the moment of booking, under concurrency — two users booking the last room at the same time must both get a truthful answer.",
+        "Payment state and reservation state live in two systems (the app and the payment provider). Keeping them synchronized is where most booking systems drift.",
+        "Each property needs its own identity, but a per-property fork would make every fix a fleet-wide operation.",
       ],
       decisions: [
         {
@@ -121,163 +142,183 @@ export const projects: readonly Project[] = [
         {
           title: "Payments confirmed by webhooks, not redirects",
           detail:
-            "The reservation only confirms when Stripe's webhook arrives. Users closing the tab after paying no longer create phantom bookings.",
+            "A reservation only confirms when Stripe's webhook arrives — a user closing the tab after paying can no longer create a phantom booking.",
         },
         {
-          title: "Per-hotel theming without per-hotel code",
+          title: "Per-property theming without per-property code",
           detail:
-            "Hotels configure palette, typography and imagery through data, not forks. A new property goes live in hours, and a fix ships to everyone at once.",
+            "Palette, typography and imagery are configuration data, not forks — a new property is an onboarding step, not a deploy.",
         },
       ],
-      outcome: [
-        "Hotels take direct reservations with zero commission on the booking itself.",
-        "New properties onboard without developer involvement — configuration, not code.",
+      result: [
+        "The availability service makes conflicting reservations impossible at the database level, not by convention.",
+        "Payment state can only advance through webhook events, so the system can never show a confirmed booking that wasn't paid.",
+        "Properties are data — the prototype demonstrated that a new property needs no code changes.",
       ],
-      demonstrates:
-        "Building a multi-tenant system where correctness matters (money, availability) while keeping the experience fast and the product easy to operate.",
+      lesson:
+        "Invariants first. Once availability and payment state are guarded by design, everything else in a booking system becomes a much simpler problem.",
     },
   },
   {
     slug: "fieldnote",
     name: "Fieldnote",
-    tagline: "From idea to MVP in six weeks",
+    tagline: "An MVP built in six weeks",
+    kind: "personal",
     category: "web",
-    role: "Product thinking, design & development",
     year: "2024",
     summary:
-      "An MVP for a community-driven local guides idea — built from a one-paragraph pitch to a working product people could sign up for and use.",
+      "A self-imposed product exercise: take a one-paragraph idea — community-written guides around neighborhoods — and take it from concept to a working MVP in six weeks.",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Mapbox"],
     visual: { hue: 140, pattern: "layers" },
     featured: true,
     caseStudy: {
-      challenge:
-        "The founder had a conviction — local guides written by residents beat generic reviews — and nothing else. No spec, no designs, no brand. The goal was to find out, as cheaply as possible, whether people would create and use guides built around neighborhoods instead of businesses.",
-      approach: [
-        "The first week produced no code. We cut the idea down to one loop worth testing: write a short guide about a place you know, share it, see someone use it. Everything else — profiles, follow, comments, gamification — went to a 'later' list.",
-        "I designed and built exactly that loop: a focused editor, beautiful guide pages that people wanted to share, and just enough of a home feed to make the content discoverable. The editor favors writing over configuring, because the product lives or dies on the quality of what people write.",
-        "Six weeks after the first conversation, real users were publishing guides. The MVP became the argument for the next round of work.",
+      context:
+        "I wanted to practice the hardest part of building products: the cutting. The premise — guides written by residents beat generic reviews — came with no spec, no designs and no second chance. Six weeks, one loop, ship.",
+      problem:
+        "The risk wasn't technical. Every feature I imagined (profiles, follows, comments, gamification) was a way to avoid the real question: is the write → share → discover loop compelling enough on its own?",
+      role: "Product thinking, interface design and full development.",
+      technicalChallenge: [
+        "Cutting to one loop meant saying no to a dozen features that felt mandatory — and building the one loop so well it didn't feel small.",
+        "The reading experience carries the product: typography, maps and image handling needed real polish, because the test was about desire, not workflow.",
+        "Content had to be structured data in the application's own database — portable and queryable — rather than documents inside a third-party CMS.",
       ],
       decisions: [
         {
           title: "One primary loop, ruthlessly",
           detail:
-            "Every feature had to serve the write-share-discover loop or wait. That constraint is what made a six-week deadline possible.",
+            "Every feature had to serve write → share → discover or wait. That constraint is what made the six-week deadline possible.",
         },
         {
           title: "Reading experience over admin features",
           detail:
-            "Typography, maps and image handling got the polish budget because the risk being tested was about desire, not workflow.",
+            "The polish budget went to the guide pages — typography, maps, image handling — because the risk being tested was emotional, not operational.",
         },
         {
           title: "Postgres-backed content model, no CMS",
           detail:
-            "Guides are structured rows, not documents in a third-party service — which keeps the product portable and the data queryable as the concept evolves.",
+            "Guides are structured rows, not documents in a service, keeping the product portable and the data queryable as the concept evolves.",
         },
       ],
-      outcome: [
-        "A working product in six weeks, used by real writers within days of launch.",
-        "Clear evidence for the founding hypothesis — and a codebase the founder could keep building on.",
+      result: [
+        "A working MVP in six weeks: focused editor, shareable guide pages, a minimal discovery feed.",
+        "Clear evidence for and against the founding hypothesis — the MVP became the argument for what to build next.",
       ],
-      demonstrates:
-        "Turning ambiguity into scope: the discipline to cut, the speed to ship, and the product judgment to build the right small thing.",
+      lesson:
+        "Cutting is a design skill. The scope you refuse is what makes the scope you ship worth using.",
     },
   },
   {
     slug: "opsboard",
     name: "OpsBoard",
     tagline: "Real-time coordination for field operations",
+    kind: "prototype",
     category: "product",
-    role: "Full-stack development & infrastructure",
     year: "2023",
     summary:
-      "An internal tool that replaced a WhatsApp group and three spreadsheets with a live board where an operations team coordinates every job of the day.",
-    stack: ["React", "Node.js", "WebSocket", "Redis", "Docker"],
+      "A realtime coordination prototype for the kind of workday that runs through a group chat and three spreadsheets — every job on one live board, updated by every participant, rebuildable from an event log.",
+    stack: ["React", "Node.js", "WebSocket", "Redis", "PostgreSQL"],
     visual: { hue: 262, pattern: "pulse" },
     featured: false,
     caseStudy: {
-      challenge:
-        "A field operations team ran its entire day through a group chat: job assignments, status updates, delays and handoffs all mixed together, scrolling out of sight within hours. Nobody had a current view of the day, and every morning started with reconstructing what happened yesterday.",
-      approach: [
-        "I mapped the actual day of a coordinator — which information they need at a glance, which updates can be asynchronous, which ones interrupt. The board reflects that: every job is a card that moves through states, every change is broadcast live, and the history is queryable instead of scrollable.",
-        "A Node.js service persists each state change to Postgres and publishes it over Redis pub/sub to every open browser. The UI applies updates optimistically and reconciles on the authoritative event, so the board stays responsive on poor mobile connections in the field.",
+      context:
+        "Field operations coordinate through the worst possible medium: a chat where assignments, delays and handoffs scroll out of sight within hours. I built OpsBoard as a prototype to answer one question — what does a tool look like when 'what is happening right now' is its only job?",
+      problem:
+        "Realtime state over unreliable mobile connections, for users wearing gloves, is a harder problem than it sounds. The board had to stay truthful on bad networks, survive disconnects, and fit a day that happens mostly on a phone.",
+      role: "Sole developer — event architecture, realtime layer and interface.",
+      technicalChallenge: [
+        "Broadcasting state is easy; keeping every client correct across reconnects, offline periods and concurrent edits is the actual problem.",
+        "Field usage means gloves, sunlight and one-bar connections — the interface budget is measured in taps, and every state change has to survive being delayed.",
+        "History matters as much as the present: 'what happened yesterday' has to be queryable, not archaeological.",
       ],
       decisions: [
         {
           title: "Events, not diffs",
           detail:
-            "The server broadcasts domain events ('job assigned', 'job delayed'), not UI patches. Any client that reconnects can rebuild its view from the event log — no sync logic in the frontend.",
+            "The server broadcasts domain events ('job assigned', 'job delayed'), not UI patches — any client that reconnects rebuilds its view from the event log, with no sync logic in the frontend.",
+        },
+        {
+          title: "Optimistic UI, authoritative reconciliation",
+          detail:
+            "The interface applies updates immediately and reconciles against the authoritative event, so the board stays responsive on poor connections without lying about state.",
         },
         {
           title: "Mobile-first field usage",
           detail:
-            "Technicians update from a phone with gloves on: big targets, one-tap state changes, offline tolerance. The tool fits the environment instead of fighting it.",
+            "One-tap state changes and large targets — the tool fits the environment instead of fighting it.",
         },
       ],
-      outcome: [
-        "The group chat became a live board that answers 'what is happening right now' without asking anyone.",
-        "Morning handoffs shrank from archaeology to glancing at yesterday's timeline.",
+      result: [
+        "Every client reconstructs its view from the event log — reconnecting after an offline gap needs no special logic.",
+        "A state change is one tap on a phone, and the board reflects it for everyone without a refresh.",
       ],
-      demonstrates:
-        "Designing internal tools people actually adopt — by studying the real workflow and making the correct action the easiest one.",
+      lesson:
+        "Internal tools fail socially before they fail technically. Designing for the environment — gloves, bad signal, interruptions — mattered more than any architectural choice.",
     },
   },
   {
     slug: "typeset-playground",
     name: "Typeset",
     tagline: "An interactive typography playground",
+    kind: "experiment",
     category: "experiment",
-    role: "Concept, design & development",
     year: "2025",
     summary:
-      "A browser tool for exploring type: live variable-font axes, fluid scale previews and side-by-side pairing — built to sharpen my own typographic judgment.",
+      "A browser tool for exploring type: live variable-font axes, fluid scale previews across every viewport at once, and side-by-side pairing — built to sharpen my own typographic judgment.",
     stack: ["Next.js", "TypeScript", "Canvas API", "Variable fonts"],
     visual: { hue: 340, pattern: "type" },
     featured: true,
     caseStudy: {
-      challenge:
-        "Typography decisions are usually made in static mockups, sampled at one size and one weight. The relationships that actually matter — how a scale behaves at real widths, how two faces pair at paragraph sizes — are invisible until implementation, when changing them is most expensive.",
-      approach: [
-        "Typeset renders real text on canvas with variable font axes exposed as direct-manipulation sliders. A fluid-scale mode shows the same headline across every viewport width at once, so the clamp() curve is a thing you see, not a value you guess.",
-        "The pairing view renders two typefaces against each other in a realistic layout — headline, body, caption — and lets you drag the boundaries between them. Every state is shareable through the URL.",
+      context:
+        "Typography decisions are usually made in static mockups, sampled at one size and one weight. The relationships that actually matter — how a fluid scale behaves at real widths, how two typefaces pair at paragraph sizes — are invisible until implementation, when changing them is most expensive.",
+      problem:
+        "Rendering dozens of live type samples in the DOM at interactive framerates is a performance problem; sharing a finding without accounts or storage is a product problem.",
+      role: "Concept, design and development.",
+      technicalChallenge: [
+        "Many live text samples updating per frame thrash layout in the DOM — the previews had to stay at 60fps while still using real font files.",
+        "A fluid scale is a function of viewport width; showing it as one number hides the curve that actually decides whether it works.",
+        "The tool needed to be shareable with zero backend, zero accounts and zero storage.",
       ],
       decisions: [
         {
           title: "Canvas over DOM for the previews",
           detail:
-            "Dozens of live samples updating per frame thrash layout in the DOM. Canvas rendering kept interaction at 60fps while text still comes from real font files.",
+            "Dozens of live samples updating per frame thrash layout in the DOM. Canvas rendering keeps interaction at 60fps while the text still comes from real font files.",
         },
         {
           title: "The URL is the save button",
           detail:
-            "The entire state serializes into the query string. Sharing a finding costs nothing, and the tool needs no accounts, storage or backend.",
+            "The entire state serializes into the query string — sharing a finding costs nothing and the tool needs no accounts or backend.",
         },
       ],
-      outcome: [
-        "A tool I use on every project where type is the interface.",
+      result: [
+        "A tool I use on every project where type is part of the interface.",
         "A public demonstration that interaction design and typography are engineering disciplines, not decoration.",
       ],
-      demonstrates:
-        "The craft layer: caring about the details most people feel but never name, and having the technical depth to build tools for them.",
+      lesson:
+        "Build the tool your judgment needs. Nothing teaches a craft faster than making it measurable.",
     },
   },
   {
     slug: "route-schema",
     name: "route-schema",
     tagline: "Type-safe routes for typed APIs",
+    kind: "open-source",
     category: "open-source",
-    role: "Author & maintainer",
     year: "2023",
     summary:
-      "A small TypeScript library that turns route definitions into typed URL builders — no runtime, no codegen, just inference.",
+      "A small TypeScript library that turns route declarations into typed URL builders — no runtime, no codegen, just inference.",
     stack: ["TypeScript", "Vitest", "tsup"],
     visual: { hue: 210, pattern: "schema" },
     featured: false,
     caseStudy: {
-      challenge:
-        "In most TypeScript codebases, URLs are strings with the type system switched off. Change a parameter name in one place and the links built in nine other places break silently at runtime — a category of bug that should be impossible in a typed language.",
-      approach: [
-        "route-schema lets you declare route patterns once ('/users/:userId/posts/:postId') and infers both the builder signature and the parameter type from that single declaration. Building a URL with missing or mistyped parameters becomes a compile error.",
-        "The entire library is types plus a tiny parse function. It ships under 2kB with zero dependencies.",
+      context:
+        "In most TypeScript codebases, URLs are strings with the type system switched off. Change a parameter name in one place and the links built in nine others break silently at runtime — a category of bug that shouldn't exist in a typed language.",
+      problem:
+        "The fix had to be adoptable: no build step, no generated files to drift, no runtime cost — or teams would simply keep writing template strings.",
+      role: "Author and maintainer.",
+      technicalChallenge: [
+        "Inferring both the builder's signature and the parameter types from a single route declaration, without codegen, requires pushing TypeScript's template literal types to their practical limits.",
+        "The value proposition is smallness — every feature that adds runtime weight works against adoption.",
       ],
       decisions: [
         {
@@ -291,12 +332,12 @@ export const projects: readonly Project[] = [
             "The type layer does the work at compile time; the runtime surface is one small parse function. Small API, small bundle, easy adoption.",
         },
       ],
-      outcome: [
-        "Adopted in internal projects to kill an entire class of URL bugs.",
-        "Maintained as a public example of API design: small surface, sharp purpose.",
+      result: [
+        "Building a URL with missing or mistyped parameters is a compile error instead of a production bug.",
+        "The library ships under 2kB with zero dependencies.",
       ],
-      demonstrates:
-        "Understanding the type system as a design tool — and the restraint to keep a library tiny when the temptation is to grow it.",
+      lesson:
+        "The type system is a design tool, and restraint is a feature — the best library is often the one that refuses to grow.",
     },
   },
 ]

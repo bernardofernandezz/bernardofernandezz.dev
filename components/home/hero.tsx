@@ -27,8 +27,8 @@ export function Hero() {
 
       <Reveal delayMs={200}>
         <p className="mt-10 max-w-2xl font-display text-display-sm text-muted-foreground">
-          I build software people actually use — turning ambiguous ideas into
-          products, systems and experiences that work.
+          I turn ideas and messy technical problems into working software —
+          web applications, tools and the systems behind them.
         </p>
       </Reveal>
 
@@ -48,7 +48,7 @@ export function Hero() {
             variant="outline"
             className="h-12 rounded-full px-7 text-base"
           >
-            <Link href="/work">See my work</Link>
+            <Link href="/work">See what I&rsquo;ve built</Link>
           </Button>
         </div>
       </Reveal>

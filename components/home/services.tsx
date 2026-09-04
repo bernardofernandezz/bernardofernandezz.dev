@@ -7,9 +7,9 @@ export function Services() {
     <section className="border-t bg-card/40">
       <div className="container-page py-20 md:py-28">
         <Reveal>
-          <p className="eyebrow">What I can build</p>
+          <p className="eyebrow">What I can help with</p>
           <h2 className="mt-4 max-w-2xl font-display text-display-lg">
-            Problems I solve, in order of appearance
+            Sound familiar?
           </h2>
         </Reveal>
 
@@ -22,12 +22,12 @@ export function Services() {
                 </p>
                 <div className="md:col-span-5">
                   <h3 className="font-display text-2xl transition-colors group-hover:text-highlight md:text-3xl">
-                    {service.title}
+                    &ldquo;{service.situation}&rdquo;
                   </h3>
                 </div>
                 <div className="md:col-span-6">
                   <p className="max-w-xl leading-relaxed text-muted-foreground">
-                    {service.description}
+                    {service.response}
                   </p>
                   <p className="mt-4 font-mono text-xs tracking-wide text-muted-foreground/80">
                     {service.examples.join(" · ")}
@@ -41,8 +41,8 @@ export function Services() {
         <Reveal>
           <div className="mt-12 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
             <p className="text-lg text-muted-foreground">
-              Not sure where your problem fits? That&rsquo;s normal — it&rsquo;s
-              the first thing we figure out.
+              Recognized yourself? That&rsquo;s enough to start a
+              conversation.
             </p>
             <ArrowLink href="/start-a-project" className="shrink-0 text-base">
               Tell me what you&rsquo;re trying to build

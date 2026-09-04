@@ -7,7 +7,7 @@ import { ProjectVisual } from "@/components/project/project-visual"
 import { ArrowLink } from "@/components/site/arrow-link"
 import {
   getProjectBySlug,
-  PROJECT_CATEGORY_LABELS,
+  PROJECT_KIND_LABELS,
   projects,
 } from "@/lib/content/projects"
 
@@ -20,8 +20,7 @@ function CaseStudyHeader({ project }: CaseStudyProps) {
     <header className="pt-16 md:pt-24">
       <Reveal>
         <p className="eyebrow">
-          {PROJECT_CATEGORY_LABELS[project.category]} · {project.year} ·{" "}
-          {project.role}
+          {PROJECT_KIND_LABELS[project.kind].toUpperCase()} · {project.year}
         </p>
         <h1 className="mt-6 font-display text-display-xl">
           {project.name}
@@ -70,22 +69,44 @@ function CaseStudyBody({ project }: CaseStudyProps) {
 
       <div className="md:col-span-9">
         <Reveal>
-          <section aria-labelledby="challenge">
-            <h2 id="challenge" className="font-display text-display-sm">
-              The challenge
+          <section aria-labelledby="context">
+            <h2 id="context" className="font-display text-display-sm">
+              Context
             </h2>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {caseStudy.challenge}
+              {caseStudy.context}
             </p>
           </section>
         </Reveal>
 
         <Reveal>
-          <section aria-labelledby="approach" className="mt-14">
-            <h2 id="approach" className="font-display text-display-sm">
-              The approach
+          <section aria-labelledby="problem" className="mt-14">
+            <h2 id="problem" className="font-display text-display-sm">
+              The problem
             </h2>
-            {caseStudy.approach.map((paragraph, paragraphIndex) => (
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              {caseStudy.problem}
+            </p>
+          </section>
+        </Reveal>
+
+        <Reveal>
+          <section aria-labelledby="role" className="mt-14 border-y py-8">
+            <h2 id="role" className="eyebrow">
+              My role
+            </h2>
+            <p className="mt-3 text-lg leading-relaxed">
+              {caseStudy.role}
+            </p>
+          </section>
+        </Reveal>
+
+        <Reveal>
+          <section aria-labelledby="technical-challenge" className="mt-14">
+            <h2 id="technical-challenge" className="font-display text-display-sm">
+              What made it technically interesting
+            </h2>
+            {caseStudy.technicalChallenge.map((paragraph, paragraphIndex) => (
               <p
                 key={paragraphIndex}
                 className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground"
@@ -99,7 +120,7 @@ function CaseStudyBody({ project }: CaseStudyProps) {
         <Reveal>
           <section aria-labelledby="decisions" className="mt-14">
             <h2 id="decisions" className="font-display text-display-sm">
-              Key decisions
+              Decisions
             </h2>
             <dl className="mt-6 flex flex-col border-t">
               {caseStudy.decisions.map((decision) => (
@@ -120,12 +141,12 @@ function CaseStudyBody({ project }: CaseStudyProps) {
         </Reveal>
 
         <Reveal>
-          <section aria-labelledby="outcome" className="mt-14">
-            <h2 id="outcome" className="font-display text-display-sm">
-              The result
+          <section aria-labelledby="result" className="mt-14">
+            <h2 id="result" className="font-display text-display-sm">
+              Result
             </h2>
             <ul className="mt-6 flex max-w-2xl flex-col gap-4">
-              {caseStudy.outcome.map((item, itemIndex) => (
+              {caseStudy.result.map((item, itemIndex) => (
                 <li
                   key={itemIndex}
                   className="flex gap-3 leading-relaxed text-muted-foreground"
@@ -143,14 +164,14 @@ function CaseStudyBody({ project }: CaseStudyProps) {
 
         <Reveal>
           <section
-            aria-labelledby="demonstrates"
+            aria-labelledby="lesson"
             className="mt-14 rounded-xl border bg-card/40 p-8"
           >
-            <h2 id="demonstrates" className="eyebrow">
-              What this demonstrates
+            <h2 id="lesson" className="eyebrow">
+              What I learned
             </h2>
             <p className="mt-4 max-w-2xl font-display text-xl leading-snug md:text-2xl">
-              {caseStudy.demonstrates}
+              {caseStudy.lesson}
             </p>
           </section>
         </Reveal>
@@ -159,15 +180,15 @@ function CaseStudyBody({ project }: CaseStudyProps) {
   )
 }
 
-function CaseStudyCta({ project }: CaseStudyProps) {
+function CaseStudyCta() {
   return (
     <Reveal>
       <div className="mt-24 flex flex-col items-start gap-6 border-t pt-12 md:flex-row md:items-center md:justify-between">
         <p className="max-w-md font-display text-display-sm">
-          Need something similar to {project.name}?
+          Have a project in this space?
         </p>
         <ArrowLink href="/start-a-project" className="text-base">
-          Tell me about your project
+          Let&rsquo;s talk about it
         </ArrowLink>
       </div>
     </Reveal>
@@ -233,7 +254,7 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
         <CaseStudyHeader project={project} />
         <CaseStudyVisual project={project} />
         <CaseStudyBody project={project} />
-        <CaseStudyCta project={project} />
+        <CaseStudyCta />
       </article>
       <CaseStudyNavigation slug={project.slug} />
     </>
