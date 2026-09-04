@@ -35,7 +35,7 @@ systemctl daemon-reload
 systemctl enable --now "${SERVICE_NAME}"
 
 echo "==> Building production bundle"
-sudo -u bernardo /home/bernardo/.bun/bin/bun run build --cwd "${APP_DIR}"
+sudo -u bernardo bash -c "cd ${APP_DIR} && /home/bernardo/.bun/bin/bun run build"
 
 systemctl restart "${SERVICE_NAME}"
 sleep 3
