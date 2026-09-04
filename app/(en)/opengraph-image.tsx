@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
 
 export const alt = "Bernardo Fernandez — Software Developer & Builder"
 export const size = {
@@ -8,6 +9,8 @@ export const size = {
 export const contentType = "image/png"
 
 export default function OpengraphImage() {
+  const dict = getDictionary("en")
+
   return new ImageResponse(
     (
       <div
@@ -31,13 +34,13 @@ export default function OpengraphImage() {
             textTransform: "uppercase",
           }}
         >
-          Software Developer · Product Builder
+          {dict.common.brandRole.toUpperCase()}
         </div>
         <div style={{ display: "flex", fontSize: 92, marginTop: 28 }}>
           Bernardo Fernandez
         </div>
         <div style={{ display: "flex", fontSize: 38, marginTop: 20, color: "#6f6a63" }}>
-          I turn ideas and messy technical problems into working software.
+          Some ideas need a landing page. Others need a real product.
         </div>
         <div
           style={{

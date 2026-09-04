@@ -1,24 +1,34 @@
 import Link from "next/link"
-import { type Article } from "@/lib/content/articles"
+import type { Article } from "@/lib/content/articles"
+import { localePath, type Locale } from "@/lib/i18n/config"
 import { cn } from "@/lib/utils"
 
-const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-})
+const FORMATTERS = {
+  en: new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
+  "pt-br": new Intl.DateTimeFormat("pt-BR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
+} as const
 
 interface ArticleRowProps {
   article: Article
+  locale: Locale
   size?: "default" | "large"
 }
 
-export function ArticleRow({ article, size = "default" }: ArticleRowProps) {
+export function ArticleRow({ article, locale, size = "default" }: ArticleRowProps) {
   return (
     <article className="group border-b py-8 transition-colors md:py-10">
-      <Link href={`/writing/${article.slug}`} className="block">
+      <Link href={localePath(locale, `/writing/${article.slug}`)} className="block">
         <p className="eyebrow">
-          {article.category} · {DATE_FORMATTER.format(new Date(article.date))} ·{" "}
+          {article.category} ·{" "}
+          {FORMATTERS[locale].format(new Date(article.date))} ·{" "}
           {article.readingTime}
         </p>
         <h3

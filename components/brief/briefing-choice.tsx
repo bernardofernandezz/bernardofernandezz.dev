@@ -1,9 +1,10 @@
 import { Check } from "lucide-react"
-import type { BriefOption } from "@/lib/briefing/flow"
+import type { BriefOption } from "@/lib/briefing/types"
 import { cn } from "@/lib/utils"
 
 interface BriefingChoiceProps<T extends string> {
   name: string
+  legend: string
   options: readonly BriefOption<T>[]
   selected?: string
   onSelect: (value: T, immediate: boolean) => void
@@ -18,13 +19,14 @@ const BASE_LABEL_CLASS =
  */
 export function BriefingChoice<T extends string>({
   name,
+  legend,
   options,
   selected,
   onSelect,
 }: BriefingChoiceProps<T>) {
   return (
     <fieldset>
-      <legend className="sr-only">Options</legend>
+      <legend className="sr-only">{legend}</legend>
       <div className="grid gap-3 sm:grid-cols-2">
         {options.map((option) => (
           <label
@@ -38,7 +40,9 @@ export function BriefingChoice<T extends string>({
               value={option.value}
               checked={selected === option.value}
               onChange={(event) => {
-                const chosen = options.find((candidate) => candidate.value === event.target.value)
+                const chosen = options.find(
+                  (candidate) => candidate.value === event.target.value,
+                )
                 if (chosen) onSelect(chosen.value, false)
               }}
               className="sr-only"

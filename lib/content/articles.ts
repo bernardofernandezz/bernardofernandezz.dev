@@ -1,10 +1,11 @@
+import type { Locale } from "@/lib/i18n/config"
+
 export interface ArticleSection {
   readonly heading?: string
   readonly paragraphs: readonly string[]
 }
 
-export interface Article {
-  readonly slug: string
+export interface ArticleText {
   readonly title: string
   readonly category: string
   readonly date: string
@@ -13,9 +14,12 @@ export interface Article {
   readonly sections: readonly ArticleSection[]
 }
 
-export const articles: readonly Article[] = [
-  {
-    slug: "business-logic-out-of-react-components",
+export interface Article extends ArticleText {
+  readonly slug: string
+}
+
+const EN: Record<string, ArticleText> = {
+  "business-logic-out-of-react-components": {
     title: "Why I stopped putting business logic inside React components",
     category: "Engineering",
     date: "2026-08-20",
@@ -45,8 +49,7 @@ export const articles: readonly Article[] = [
       },
     ],
   },
-  {
-    slug: "what-a-broken-endpoint-taught-me-about-architecture",
+  "what-a-broken-endpoint-taught-me-about-architecture": {
     title: "What a broken endpoint taught me about architecture",
     category: "Engineering",
     date: "2026-05-14",
@@ -76,8 +79,7 @@ export const articles: readonly Article[] = [
       },
     ],
   },
-  {
-    slug: "how-to-build-an-mvp-without-building-a-mess",
+  "how-to-build-an-mvp-without-building-a-mess": {
     title: "How I think about building an MVP without building a mess",
     category: "Product",
     date: "2026-02-11",
@@ -107,8 +109,108 @@ export const articles: readonly Article[] = [
       },
     ],
   },
-]
+}
 
-export function getArticleBySlug(slug: string): Article | undefined {
-  return articles.find((article) => article.slug === slug)
+const PT_BR: Record<string, ArticleText> = {
+  "business-logic-out-of-react-components": {
+    title: "Por que parei de colocar lógica de negócio dentro de componentes React",
+    category: "Engenharia",
+    date: "2026-08-20",
+    readingTime: "5 min de leitura",
+    summary:
+      "Componentes são onde os bugs aparecem, não onde as regras deveriam morar. O que mudou quando tirei as decisões da camada de visão — e onde traço a linha hoje.",
+    sections: [
+      {
+        paragraphs: [
+          "A primeira versão de qualquer recurso coloca a lógica ali mesmo, no componente. É rápido, é óbvio e funciona — até a segunda tela precisar da mesma regra e copiar, ou a regra mudar e alguém encontrar a terceira cópia dois meses depois.",
+          "Fui assim por um tempo: uma comparação de data aqui, um formato de moeda ali, uma checagem de status embutida no JSX. Cada uma inofensiva. Juntas, fizeram cada tela ficar levemente diferente das outras — e nenhuma errada de um jeito que um teste pegasse.",
+        ],
+      },
+      {
+        heading: "Onde eu traço a linha hoje",
+        paragraphs: [
+          "Minha regra é direta: componentes renderizam e capturam intenção; eles não decidem. Se um pedaço de código responde 'que estado de interface é esse?', pode viver no componente ou num hook. Se responde 'o que o negócio permite?', pertence a funções tipadas que não sabem nada de React.",
+          "O sistema de tipos trabalha mais aqui do que qualquer diagrama de arquitetura. Um status que é string com seis valores válidos é um bug esperando um typo; o mesmo status como union type torna metade dos estados inválidos impossíveis de escrever. O componente então vira a renderização de uma decisão que já foi tomada.",
+        ],
+      },
+      {
+        heading: "O que mudou de verdade",
+        paragraphs: [
+          "Regras de domínio ficaram testáveis sem renderizar nada. Refatorações deixaram de ser arqueologia. E os componentes ficaram chatos — que é o objetivo. Componente chato é aquele cujos bugs são de renderização, não de regras que ninguém lembra de ter escrito.",
+          "O framework importou menos do que eu esperava: a disciplina é a mesma se a visão é React ou outra coisa. A camada de visão é para tradução, não para política.",
+        ],
+      },
+    ],
+  },
+  "what-a-broken-endpoint-taught-me-about-architecture": {
+    title: "O que um endpoint quebrado me ensinou sobre arquitetura",
+    category: "Engenharia",
+    date: "2026-05-14",
+    readingTime: "5 min de leitura",
+    summary:
+      "Um endpoint que passou em todos os testes e falhou com dados reais. O que ele me ensinou sobre fronteiras, validação e projetar para a falha que você ainda não viu.",
+    sections: [
+      {
+        paragraphs: [
+          "O endpoint funcionava perfeitamente em todos os testes: entradas corretas, saídas corretas, casos de borda cobertos, suíte de integração verde. Aí chegou tráfego real e ele falhou de um jeito que nenhum teste tinha imaginado — não porque a lógica estava errada, mas porque o mundo tinha permissão de enviar coisas que os testes nunca consideraram.",
+          "O bug em si era comum. O interessante era onde ele morava: exatamente na fronteira entre meu sistema e o mundo exterior, no lugar onde eu confiava na forma dos dados em vez de verificá-la.",
+        ],
+      },
+      {
+        heading: "Testes verificam o que você assumiu",
+        paragraphs: [
+          "Todo teste que eu tinha escrito confirmava o comportamento para dados no formato que eu esperava que chegassem. Nenhum perguntava a pergunta mais importante: o que esse endpoint faz com dados num formato que ninguém imaginou?",
+          "Validação na fronteira é arquitetura, não burocracia. Um parser estrito na borda de um sistema converte uma falha futura desconhecida numa rejeição presente e conhecida — e essa diferença é a diferença entre um bug report e uma linha de log.",
+        ],
+      },
+      {
+        heading: "O que mudou no jeito de construir",
+        paragraphs: [
+          "Hoje trato as bordas de um sistema — entradas de usuários, outros serviços, terceiros — como hostis por padrão, com contratos estreitos e explícitos que falham alto. O interior pode então ser elegante, porque só vê dados que já passaram pelo porteiro.",
+          "A ironia é que a correção deixou o código menor, não maior. Confiar menos significa verificar uma vez, na fronteira, em vez de se defender por toda parte.",
+        ],
+      },
+    ],
+  },
+  "how-to-build-an-mvp-without-building-a-mess": {
+    title: "Como eu penso um MVP que não vira uma bagunça",
+    category: "Produto",
+    date: "2026-02-11",
+    readingTime: "4 min de leitura",
+    summary:
+      "Velocidade e manutenibilidade não são opostos. As restrições que eu uso para um MVP de seis semanas não virar uma reescrita de seis meses.",
+    sections: [
+      {
+        paragraphs: [
+          "Todo projeto ambicioso começa com uma lista, e a lista é honesta — tudo aquilo vai importar em algum momento. O erro é construir em paralelo: tudo pela metade, nada bom de usar, e a data de lançamento escorrendo enquanto o codebase fica mais difícil de mudar.",
+          "A alternativa em que me estabilizei é um ciclo, não uma lista de funcionalidades: um caminho completo que o usuário percorre, da chegada até o momento em que o produto conquista a confiança dele. Constrói o ciclo. Pola o ciclo. Entrega o ciclo. Deixa o uso real decidir o que é o ciclo dois.",
+        ],
+      },
+      {
+        heading: "Qualidade é o multiplicador do escopo",
+        paragraphs: [
+          "Um produto pequeno que parece sólido gera mais impulso que um grande que parece aproximado. Usuários perdoam funcionalidade faltando; não perdoam se sentir beta tester. O orçamento de polimento não é vaidade — é a diferença entre um produto que se espalha e um que estanca.",
+          "O truque é direcionar esse polimento ao ciclo. Polir funcionalidades que ninguém pediu ainda é como times se sentem produtivos construindo a coisa errada.",
+        ],
+      },
+      {
+        heading: "O que eu corto primeiro",
+        paragraphs: [
+          "Painéis de admin viram scripts. Permissões viram convenções. O segundo tipo de conteúdo vira funcionalidade futura. Cada corte é uma aposta de que o núcleo, bem feito, basta para aprender — e na minha experiência quase sempre basta.",
+          "O que eu me recuso a cortar é a parte que o usuário toca e a parte que o próximo desenvolvedor vai ler. Um codebase pequeno que um estranho consegue navegar vale mais que um grande que só o autor consegue mudar.",
+        ],
+      },
+    ],
+  },
+}
+
+export function getArticles(locale: Locale): readonly Article[] {
+  const textBySlug = locale === "pt-br" ? PT_BR : EN
+  return Object.entries(textBySlug).map(([slug, text]) => ({ slug, ...text }))
+}
+
+export function getArticleBySlug(slug: string, locale: Locale): Article | undefined {
+  const text = (locale === "pt-br" ? PT_BR : EN)[slug]
+  if (!text) return undefined
+  return { slug, ...text }
 }

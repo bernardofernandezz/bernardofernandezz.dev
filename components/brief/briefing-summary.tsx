@@ -1,11 +1,13 @@
 import { ArrowRight, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import type { Briefing } from "@/lib/i18n/dictionaries/en/briefing"
 import type { BriefStepId, BriefSummaryRow } from "@/lib/briefing/flow"
 import type { ProjectBrief } from "@/lib/briefing/types"
 
 interface BriefingSummaryProps {
   rows: readonly BriefSummaryRow[]
   brief: ProjectBrief
+  text: Briefing
   sending: boolean
   error: string | null
   onEdit: (stepId: BriefStepId) => void
@@ -15,6 +17,7 @@ interface BriefingSummaryProps {
 export function BriefingSummary({
   rows,
   brief,
+  text,
   sending,
   error,
   onEdit,
@@ -23,8 +26,8 @@ export function BriefingSummary({
   return (
     <div>
       <p className="font-display text-display-md leading-tight">
-        I think I understand the direction.
-        <span className="text-muted-foreground"> Here&rsquo;s what I got:</span>
+        {text.summary.title}
+        <span className="text-muted-foreground"> {text.summary.titleSuffix}</span>
       </p>
 
       <dl className="mt-10 flex flex-col border-t">
@@ -42,22 +45,20 @@ export function BriefingSummary({
                 className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
                 <RotateCcw className="size-3" aria-hidden="true" />
-                Edit
+                {text.summary.edit}
               </button>
             </div>
           </div>
         ))}
         <div className="grid gap-1 border-b py-4 sm:grid-cols-12 sm:gap-4">
-          <dt className="eyebrow sm:col-span-3 sm:pt-1">Contact</dt>
+          <dt className="eyebrow sm:col-span-3 sm:pt-1">{text.labels.contact}</dt>
           <dd className="leading-relaxed text-muted-foreground sm:col-span-9">
             {brief.name} · {brief.email}
           </dd>
         </div>
       </dl>
 
-      <p className="mt-10 font-display text-display-sm">
-        Sounds interesting. Let&rsquo;s talk about it.
-      </p>
+      <p className="mt-10 font-display text-display-sm">{text.summary.lead}</p>
 
       {error && (
         <p role="alert" className="mt-4 text-sm text-destructive">
@@ -70,7 +71,7 @@ export function BriefingSummary({
         disabled={sending}
         className="mt-8 h-12 rounded-full bg-highlight px-8 text-base text-highlight-foreground hover:bg-highlight/90"
       >
-        {sending ? "Sending..." : "Send project"}
+        {sending ? text.summary.sending : text.summary.send}
         <ArrowRight className="size-4" aria-hidden="true" />
       </Button>
     </div>

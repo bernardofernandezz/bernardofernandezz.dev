@@ -1,0 +1,22 @@
+import type { Metadata } from "next"
+import { WorkIndexPage } from "@/components/work/work-index-page"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { pageMetadata } from "@/lib/i18n/metadata"
+
+export function generateMetadata(): Metadata {
+  const dict = getDictionary("pt-br")
+  return pageMetadata(
+    "pt-br",
+    "/work",
+    dict.common.nav.work,
+    dict.work.metaDescription,
+  )
+}
+
+export default function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string | string[] }>
+}) {
+  return <WorkIndexPage locale="pt-br" searchParams={searchParams} />
+}

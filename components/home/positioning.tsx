@@ -1,28 +1,30 @@
 import { Reveal } from "@/components/motion/reveal"
-import { approach } from "@/lib/content/proof"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import type { Locale } from "@/lib/i18n/config"
+import { getProof } from "@/lib/content/proof"
 
-export function Positioning() {
+export function Positioning({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale)
+  const proof = getProof(locale)
+
   return (
     <section className="border-t">
       <div className="container-page grid gap-12 py-20 md:grid-cols-12 md:py-28">
         <div className="md:col-span-5">
           <Reveal>
-            <p className="eyebrow">How I work</p>
+            <p className="eyebrow">{dict.home.positioning.eyebrow}</p>
             <p className="mt-8 font-display text-display-md leading-tight">
-              I take problems that start vague and turn them into software
-              that ships.
+              {dict.home.positioning.heading}
             </p>
             <p className="mt-8 max-w-md leading-relaxed text-muted-foreground">
-              &ldquo;We need a system for this&rdquo; is where I like to
-              start — before the spec exists, when the problem still needs to
-              be shaped into something a person can build.
+              {dict.home.positioning.intro}
             </p>
           </Reveal>
         </div>
 
         <div className="md:col-span-7 md:pt-4">
           <dl className="flex flex-col divide-y">
-            {approach.map((point, index) => (
+            {proof.approach.map((point, index) => (
               <Reveal key={point.title} delayMs={index * 80}>
                 <div className="py-6 first:pt-0 last:pb-0">
                   <dt className="text-base font-medium">{point.title}</dt>

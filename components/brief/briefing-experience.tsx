@@ -10,18 +10,11 @@ import { BriefingContactStep } from "@/components/brief/briefing-contact-step"
 import { BriefingSummary } from "@/components/brief/briefing-summary"
 import { BriefingConfirmation } from "@/components/brief/briefing-confirmation"
 import {
-  AUDIENCE_OPTIONS,
   BRIEF_STEP_IDS,
-  BUDGET_OPTIONS,
-  INTENT_OPTIONS,
-  STAGE_OPTIONS,
-  TIMELINE_OPTIONS,
-  WEBSITE_KIND_OPTIONS,
   buildSummaryRows,
   getStepPresentation,
   isBriefComplete,
   isStepAnswered,
-  isWebsiteIntent,
   type BriefStepId,
 } from "@/lib/briefing/flow"
 import { submitBrief } from "@/lib/briefing/submit-brief"
@@ -34,13 +27,51 @@ import type {
   Timeline,
   WebsiteKind,
 } from "@/lib/briefing/types"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import type { Locale } from "@/lib/i18n/config"
 import { cn } from "@/lib/utils"
 
 type BriefingPhase = "intro" | "questions" | "summary" | "confirmation"
 
+interface SavedProgress {
+  readonly phase: Exclude<BriefingPhase, "confirmation">
+  readonly stepIndex: number
+  readonly answers: BriefAnswers
+}
+
+const STORAGE_KEY = "brief-progress-v1"
+
+function loadProgress(): SavedProgress | null {
+  try {
+    const raw = window.sessionStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    const parsed: unknown = JSON.parse(raw)
+    if (
+      typeof parsed === "object" &&
+      parsed !== null &&
+      "phase" in parsed &&
+      "stepIndex" in parsed &&
+      "answers" in parsed
+    ) {
+      const saved = parsed as SavedProgress
+      const validPhase =
+        saved.phase === "intro" ||
+        saved.phase === "questions" ||
+        (saved.phase === "summary" && isBriefComplete(saved.answers))
+      if (validPhase && BRIEF_STEP_IDS[saved.stepIndex]) return saved
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
 const LAST_STEP_INDEX = BRIEF_STEP_IDS.length - 1
 
-export function BriefingExperience() {
+export function BriefingExperience({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale)
+  const text = dict.briefing
+
   const [phase, setPhase] = useState<BriefingPhase>("intro")
   const [stepIndex, setStepIndex] = useState(0)
   const [answers, setAnswers] = useState<BriefAnswers>({})
@@ -51,7 +82,7 @@ export function BriefingExperience() {
   const headingRef = useRef<HTMLHeadingElement>(null)
 
   const stepId = BRIEF_STEP_IDS[stepIndex]
-  const presentation = getStepPresentation(stepId, answers)
+  const presentation = getStepPresentation(stepId, answers, text)
   const stepAnswered = isStepAnswered(stepId, answers)
 
   useEffect(() => {
@@ -59,6 +90,29 @@ export function BriefingExperience() {
       headingRef.current?.focus({ preventScroll: true })
     }
   }, [phase, stepIndex])
+
+  useEffect(() => {
+    const save = () => {
+      if (phase === "confirmation") {
+        window.sessionStorage.removeItem(STORAGE_KEY)
+        return
+      }
+      const progress: SavedProgress = { phase, stepIndex, answers }
+      window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(progress))
+    }
+    save()
+  }, [phase, stepIndex, answers])
+
+  useEffect(() => {
+    const saved = loadProgress()
+    if (!saved || !BRIEF_STEP_IDS[saved.stepIndex]) return
+    const frame = requestAnimationFrame(() => {
+      setPhase(saved.phase)
+      setStepIndex(saved.stepIndex)
+      setAnswers(saved.answers)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [])
 
   function moveNext() {
     setDirection("forward")
@@ -154,6 +208,8 @@ export function BriefingExperience() {
           total={BRIEF_STEP_IDS.length}
           canGoBack={phase !== "intro"}
           onBack={moveBack}
+          backLabel={text.progress.back}
+          ariaLabel={text.progress.ariaLabel}
         />
       )}
 
@@ -161,13 +217,12 @@ export function BriefingExperience() {
         <div key={stepKey} className={animationClassName}>
           {phase === "intro" && (
             <div>
-              <p className="eyebrow">Start a project</p>
+              <p className="eyebrow">{text.intro.eyebrow}</p>
               <h1 className="mt-6 font-display text-display-lg">
-                Have something worth building?
+                {text.intro.title}
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-                Tell me about it. A few short questions — enough for me to
-                understand the direction of your project before we even talk.
+                {text.intro.body}
               </p>
               <Button
                 onClick={() => {
@@ -176,12 +231,10 @@ export function BriefingExperience() {
                 }}
                 className="mt-10 h-12 rounded-full bg-highlight px-8 text-base text-highlight-foreground hover:bg-highlight/90"
               >
-                Let&rsquo;s begin
+                {text.intro.button}
                 <ArrowRight className="size-4" aria-hidden="true" />
               </Button>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Takes about two minutes. No commitment.
-              </p>
+              <p className="mt-4 text-sm text-muted-foreground">{text.intro.note}</p>
             </div>
           )}
 
@@ -211,16 +264,18 @@ export function BriefingExperience() {
                 {stepId === "intent" && (
                   <BriefingChoice
                     name="brief-intent"
-                    options={INTENT_OPTIONS}
+                    legend={text.choicesLegend}
+                    options={text.options.intent}
                     selected={answers.intent}
                     onSelect={selectIntent}
                   />
                 )}
                 {stepId === "intent-detail" &&
-                  (answers.intent !== undefined && isWebsiteIntent(answers.intent) ? (
+                  (answers.intent !== undefined && answers.intent === "website" ? (
                     <BriefingChoice
                       name="brief-website-kind"
-                      options={WEBSITE_KIND_OPTIONS}
+                      legend={text.choicesLegend}
+                      options={text.options.websiteKind}
                       selected={answers.intentDetail}
                       onSelect={selectWebsiteKind}
                     />
@@ -228,6 +283,7 @@ export function BriefingExperience() {
                     <BriefingTextStep
                       name="intentDetail"
                       value={answers.intentDetail}
+                      placeholder={text.textPlaceholder}
                       onChange={(value) =>
                         setAnswers((prev) => ({ ...prev, intentDetail: value }))
                       }
@@ -237,13 +293,17 @@ export function BriefingExperience() {
                   <BriefingTextStep
                     name="problem"
                     value={answers.problem}
-                    onChange={(value) => setAnswers((prev) => ({ ...prev, problem: value }))}
+                    placeholder={text.textPlaceholder}
+                    onChange={(value) =>
+                      setAnswers((prev) => ({ ...prev, problem: value }))
+                    }
                   />
                 )}
                 {stepId === "audience" && (
                   <BriefingChoice
                     name="brief-audience"
-                    options={AUDIENCE_OPTIONS}
+                    legend={text.choicesLegend}
+                    options={text.options.audience}
                     selected={answers.audience}
                     onSelect={selectAudience}
                   />
@@ -251,7 +311,8 @@ export function BriefingExperience() {
                 {stepId === "stage" && (
                   <BriefingChoice
                     name="brief-stage"
-                    options={STAGE_OPTIONS}
+                    legend={text.choicesLegend}
+                    options={text.options.stage}
                     selected={answers.stage}
                     onSelect={selectStage}
                   />
@@ -259,7 +320,8 @@ export function BriefingExperience() {
                 {stepId === "timeline" && (
                   <BriefingChoice
                     name="brief-timeline"
-                    options={TIMELINE_OPTIONS}
+                    legend={text.choicesLegend}
+                    options={text.options.timeline}
                     selected={answers.timeline}
                     onSelect={selectTimeline}
                   />
@@ -267,7 +329,8 @@ export function BriefingExperience() {
                 {stepId === "budget" && (
                   <BriefingChoice
                     name="brief-budget"
-                    options={BUDGET_OPTIONS}
+                    legend={text.choicesLegend}
+                    options={text.options.budget}
                     selected={answers.budget}
                     onSelect={selectBudget}
                   />
@@ -276,8 +339,16 @@ export function BriefingExperience() {
                   <BriefingContactStep
                     name={answers.name}
                     email={answers.email}
-                    onNameChange={(value) => setAnswers((prev) => ({ ...prev, name: value }))}
-                    onEmailChange={(value) => setAnswers((prev) => ({ ...prev, email: value }))}
+                    nameLabel={text.steps.contact.nameLabel}
+                    emailLabel={text.steps.contact.emailLabel}
+                    namePlaceholder={text.steps.contact.namePlaceholder}
+                    emailPlaceholder={text.steps.contact.emailPlaceholder}
+                    onNameChange={(value) =>
+                      setAnswers((prev) => ({ ...prev, name: value }))
+                    }
+                    onEmailChange={(value) =>
+                      setAnswers((prev) => ({ ...prev, email: value }))
+                    }
                   />
                 )}
               </div>
@@ -288,7 +359,7 @@ export function BriefingExperience() {
                   disabled={!stepAnswered}
                   className="h-11 rounded-full px-7 text-base"
                 >
-                  Next
+                  {text.next}
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </Button>
               </div>
@@ -297,8 +368,9 @@ export function BriefingExperience() {
 
           {phase === "summary" && isBriefComplete(answers) && (
             <BriefingSummary
-              rows={buildSummaryRows(answers)}
+              rows={buildSummaryRows(answers, text)}
               brief={answers}
+              text={text}
               sending={sending}
               error={submitError}
               onEdit={editFromSummary}
@@ -307,7 +379,12 @@ export function BriefingExperience() {
           )}
 
           {phase === "confirmation" && isBriefComplete(answers) && (
-            <BriefingConfirmation brief={answers} rows={buildSummaryRows(answers)} />
+            <BriefingConfirmation
+              brief={answers}
+              rows={buildSummaryRows(answers, text)}
+              text={text}
+              locale={locale}
+            />
           )}
         </div>
       </div>

@@ -1,3 +1,8 @@
+export interface BriefOption<T extends string> {
+  readonly value: T
+  readonly label: string
+}
+
 export const PROJECT_TYPES = [
   "website",
   "web-app",

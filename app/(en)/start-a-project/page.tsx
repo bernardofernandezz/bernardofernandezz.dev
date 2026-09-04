@@ -1,13 +1,18 @@
 import type { Metadata } from "next"
 import { BriefingExperience } from "@/components/brief/briefing-experience"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { pageMetadata } from "@/lib/i18n/metadata"
 
-export const metadata: Metadata = {
-  title: "Start a project",
-  description:
-    "Tell me what you're trying to build. A short guided briefing — enough to understand the direction of your project before we talk.",
-  alternates: { canonical: "/start-a-project" },
+export function generateMetadata(): Metadata {
+  const dict = getDictionary("en")
+  return pageMetadata(
+    "en",
+    "/start-a-project",
+    dict.common.nav.startProject,
+    dict.briefing.metaDescription,
+  )
 }
 
-export default function StartAProjectPage() {
-  return <BriefingExperience />
+export default function Page() {
+  return <BriefingExperience locale="en" />
 }

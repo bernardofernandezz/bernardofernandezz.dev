@@ -1,25 +1,27 @@
 import { Reveal } from "@/components/motion/reveal"
-import { currentlyExploring, stack } from "@/lib/content/proof"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import type { Locale } from "@/lib/i18n/config"
+import { getProof } from "@/lib/content/proof"
 
-export function EngineeringProof() {
+export function EngineeringProof({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale)
+  const engineering = dict.home.engineering
+  const proof = getProof(locale)
+
   return (
     <section className="border-t">
       <div className="container-page grid gap-12 py-20 md:grid-cols-12 md:py-28">
         <div className="md:col-span-5">
           <Reveal>
-            <p className="eyebrow">Beyond the interface</p>
+            <p className="eyebrow">{engineering.eyebrow}</p>
             <h2 className="mt-4 font-display text-display-md leading-tight">
-              Building is one thing. Engineering is what keeps it standing.
+              {engineering.title}
             </h2>
             <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-              Anyone can assemble an interface. What I pay attention to is
-              what happens behind it: the data model that makes the next
-              feature cheap, the API that fails loudly instead of silently,
-              the deployment that survives a bad day.
+              {engineering.body1}
             </p>
             <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-              That&rsquo;s the range I bring to a project — from the first
-              schema to the interface people actually use.
+              {engineering.body2}
             </p>
           </Reveal>
         </div>
@@ -27,7 +29,7 @@ export function EngineeringProof() {
         <div className="md:col-span-7">
           <Reveal delayMs={100}>
             <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
-              {stack.map((group) => (
+              {proof.stack.map((group) => (
                 <div key={group.area}>
                   <dt className="eyebrow">{group.area}</dt>
                   <dd className="mt-3 flex flex-wrap gap-2">
@@ -47,9 +49,9 @@ export function EngineeringProof() {
 
           <Reveal delayMs={200}>
             <div className="mt-12 rounded-xl border bg-card/40 p-6 md:p-8">
-              <p className="eyebrow">Currently exploring</p>
+              <p className="eyebrow">{engineering.exploringLabel}</p>
               <ul className="mt-4 flex flex-col gap-2.5">
-                {currentlyExploring.map((item) => (
+                {proof.currentlyExploring.map((item) => (
                   <li
                     key={item}
                     className="flex gap-3 text-sm leading-relaxed text-muted-foreground"

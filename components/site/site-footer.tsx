@@ -1,20 +1,27 @@
 import Link from "next/link"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { localePath, type Locale } from "@/lib/i18n/config"
 import { siteConfig } from "@/lib/config/site"
 
-const FOOTER_LINKS = [
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/writing", label: "Writing" },
-  { href: "/start-a-project", label: "Start a project" },
-] as const
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale).common
 
-const SOCIAL_LINKS = [
-  { href: siteConfig.socials.github, label: "GitHub" },
-  { href: siteConfig.socials.linkedin, label: "LinkedIn" },
-  { href: `mailto:${siteConfig.email}`, label: "Email" },
-] as const
+  const siteLinks = [
+    { href: localePath(locale, "/work"), label: dict.nav.work },
+    { href: localePath(locale, "/about"), label: dict.nav.about },
+    { href: localePath(locale, "/writing"), label: dict.nav.writing },
+    {
+      href: localePath(locale, "/start-a-project"),
+      label: dict.nav.startProject,
+    },
+  ]
 
-export function SiteFooter() {
+  const socialLinks = [
+    { href: siteConfig.socials.github, label: "GitHub" },
+    { href: siteConfig.socials.linkedin, label: "LinkedIn" },
+    { href: `mailto:${siteConfig.email}`, label: dict.footer.email },
+  ]
+
   return (
     <footer className="border-t">
       <div className="container-page py-16">
@@ -24,8 +31,8 @@ export function SiteFooter() {
 
         <div className="mt-10 flex flex-col gap-10 sm:flex-row sm:justify-between">
           <nav aria-label="Footer navigation" className="flex flex-col gap-3">
-            <p className="eyebrow">Site</p>
-            {FOOTER_LINKS.map((link) => (
+            <p className="eyebrow">{dict.footer.siteColumn}</p>
+            {siteLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -37,8 +44,8 @@ export function SiteFooter() {
           </nav>
 
           <div className="flex flex-col gap-3">
-            <p className="eyebrow">Elsewhere</p>
-            {SOCIAL_LINKS.map((link) => (
+            <p className="eyebrow">{dict.footer.elsewhere}</p>
+            {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
@@ -53,9 +60,11 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col gap-2 border-t pt-6 text-sm text-muted-foreground sm:flex-row sm:justify-between">
-          <p>© {new Date().getFullYear()} Bernardo Fernandez</p>
           <p>
-            {siteConfig.location} · {siteConfig.availability}
+            © {new Date().getFullYear()} Bernardo Fernandez. {dict.footer.rights}
+          </p>
+          <p>
+            {dict.location} · {dict.availability}
           </p>
         </div>
       </div>

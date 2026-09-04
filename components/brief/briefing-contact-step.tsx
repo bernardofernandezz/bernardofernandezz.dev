@@ -5,6 +5,10 @@ import { Input } from "@/components/ui/input"
 interface BriefingContactStepProps {
   name?: string
   email?: string
+  nameLabel: string
+  emailLabel: string
+  namePlaceholder: string
+  emailPlaceholder: string
   onNameChange: (value: string) => void
   onEmailChange: (value: string) => void
 }
@@ -12,6 +16,10 @@ interface BriefingContactStepProps {
 export function BriefingContactStep({
   name,
   email,
+  nameLabel,
+  emailLabel,
+  namePlaceholder,
+  emailPlaceholder,
   onNameChange,
   onEmailChange,
 }: BriefingContactStepProps) {
@@ -19,21 +27,21 @@ export function BriefingContactStep({
     <div className="grid gap-4 sm:grid-cols-2">
       <div className="flex flex-col gap-2">
         <label htmlFor="brief-name" className="text-sm font-medium text-muted-foreground">
-          Your name
+          {nameLabel}
         </label>
         <Input
           id="brief-name"
           name="name"
           value={name ?? ""}
           onChange={(event) => onNameChange(event.target.value)}
-          placeholder="Ana Silva"
+          placeholder={namePlaceholder}
           autoComplete="name"
           className="h-12 border-input text-base"
         />
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="brief-email" className="text-sm font-medium text-muted-foreground">
-          Email
+          {emailLabel}
         </label>
         <Input
           id="brief-email"
@@ -41,7 +49,7 @@ export function BriefingContactStep({
           type="email"
           value={email ?? ""}
           onChange={(event) => onEmailChange(event.target.value)}
-          placeholder="ana@company.com"
+          placeholder={emailPlaceholder}
           autoComplete="email"
           className="h-12 border-input text-base"
         />

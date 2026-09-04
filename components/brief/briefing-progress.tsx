@@ -7,6 +7,8 @@ interface BriefingProgressProps {
   total: number
   canGoBack: boolean
   onBack: () => void
+  backLabel: string
+  ariaLabel: (current: number, total: number) => string
 }
 
 export function BriefingProgress({
@@ -14,6 +16,8 @@ export function BriefingProgress({
   total,
   canGoBack,
   onBack,
+  backLabel,
+  ariaLabel,
 }: BriefingProgressProps) {
   const counter = `${String(current).padStart(2, "0")} / ${String(total).padStart(2, "0")}`
 
@@ -27,15 +31,18 @@ export function BriefingProgress({
         className="gap-1.5 text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="size-4" aria-hidden="true" />
-        Back
+        {backLabel}
       </Button>
-      <p className="font-mono text-xs tracking-widest text-muted-foreground" aria-hidden="true">
+      <p
+        className="font-mono text-xs tracking-widest text-muted-foreground"
+        aria-hidden="true"
+      >
         {counter}
       </p>
       <Progress
         value={(current / total) * 100}
         className="ml-auto h-1 w-28 bg-border sm:w-40"
-        aria-label={`Briefing progress: step ${current} of ${total}`}
+        aria-label={ariaLabel(current, total)}
       />
     </div>
   )

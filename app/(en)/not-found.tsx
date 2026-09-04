@@ -1,8 +1,10 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { localePath } from "@/lib/i18n/config"
 
 export default function NotFound() {
+
   return (
     <div className="container-page flex flex-1 flex-col items-center justify-center py-32 text-center">
       <p className="eyebrow">404</p>
@@ -23,7 +25,7 @@ export default function NotFound() {
           </Link>
         </Button>
         <Button asChild variant="outline" className="rounded-full px-6">
-          <Link href="/work">See my work</Link>
+          <Link href={localePath("en", "/work")}>See my work</Link>
         </Button>
       </div>
     </div>

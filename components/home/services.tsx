@@ -1,20 +1,25 @@
 import { Reveal } from "@/components/motion/reveal"
 import { ArrowLink } from "@/components/site/arrow-link"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { localePath, type Locale } from "@/lib/i18n/config"
 import { services } from "@/lib/content/services"
 
-export function Services() {
+export function Services({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale)
+  const situations = dict.home.situations
+
   return (
     <section className="border-t bg-card/40">
       <div className="container-page py-20 md:py-28">
         <Reveal>
-          <p className="eyebrow">What I can help with</p>
+          <p className="eyebrow">{situations.eyebrow}</p>
           <h2 className="mt-4 max-w-2xl font-display text-display-lg">
-            Sound familiar?
+            {situations.title}
           </h2>
         </Reveal>
 
         <div className="mt-14 flex flex-col border-t md:mt-16">
-          {services.map((service, index) => (
+          {services[locale].map((service, index) => (
             <Reveal key={service.id} delayMs={index * 60}>
               <div className="group grid gap-4 border-b py-8 transition-colors hover:bg-background/60 md:grid-cols-12 md:gap-8 md:py-10">
                 <p className="font-mono text-sm text-muted-foreground md:col-span-1">
@@ -40,12 +45,12 @@ export function Services() {
 
         <Reveal>
           <div className="mt-12 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-            <p className="text-lg text-muted-foreground">
-              Recognized yourself? That&rsquo;s enough to start a
-              conversation.
-            </p>
-            <ArrowLink href="/start-a-project" className="shrink-0 text-base">
-              Tell me what you&rsquo;re trying to build
+            <p className="text-lg text-muted-foreground">{situations.afterLine}</p>
+            <ArrowLink
+              href={localePath(locale, "/start-a-project")}
+              className="shrink-0 text-base"
+            >
+              {situations.afterCta}
             </ArrowLink>
           </div>
         </Reveal>

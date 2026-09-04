@@ -2,9 +2,12 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
-import { siteConfig } from "@/lib/config/site"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { localePath, type Locale } from "@/lib/i18n/config"
 
-export function Hero() {
+export function Hero({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale)
+
   return (
     <section className="container-page pb-20 pt-16 md:pb-28 md:pt-24">
       <Reveal>
@@ -13,7 +16,7 @@ export function Hero() {
             className="inline-block size-1.5 rounded-full bg-highlight"
             aria-hidden="true"
           />
-          {siteConfig.role} · {siteConfig.location}
+          {dict.common.brandRole} · {dict.common.location}
         </p>
       </Reveal>
 
@@ -26,20 +29,25 @@ export function Hero() {
       </Reveal>
 
       <Reveal delayMs={200}>
-        <p className="mt-10 max-w-2xl font-display text-display-sm text-muted-foreground">
-          I turn ideas and messy technical problems into working software —
-          web applications, tools and the systems behind them.
+        <p className="mt-10 max-w-2xl font-display text-display-sm">
+          {dict.home.hero.statement}
         </p>
       </Reveal>
 
       <Reveal delayMs={300}>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          {dict.home.hero.sub}
+        </p>
+      </Reveal>
+
+      <Reveal delayMs={400}>
         <div className="mt-12 flex flex-wrap items-center gap-4">
           <Button
             asChild
             className="h-12 rounded-full bg-highlight px-7 text-base text-highlight-foreground hover:bg-highlight/90"
           >
-            <Link href="/start-a-project">
-              Start a project
+            <Link href={localePath(locale, "/start-a-project")}>
+              {dict.home.hero.ctaPrimary}
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </Button>
@@ -48,14 +56,16 @@ export function Hero() {
             variant="outline"
             className="h-12 rounded-full px-7 text-base"
           >
-            <Link href="/work">See what I&rsquo;ve built</Link>
+            <Link href={localePath(locale, "/work")}>
+              {dict.home.hero.ctaSecondary}
+            </Link>
           </Button>
         </div>
       </Reveal>
 
-      <Reveal delayMs={400}>
+      <Reveal delayMs={500}>
         <p className="mt-10 text-sm text-muted-foreground">
-          {siteConfig.availability}.
+          {dict.common.availability}.
         </p>
       </Reveal>
     </section>

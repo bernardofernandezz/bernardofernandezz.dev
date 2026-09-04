@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useSyncExternalStore } from "react"
+import { useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ArrowRight, Menu } from "lucide-react"
@@ -13,14 +13,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/site/theme-toggle"
-import { siteConfig } from "@/lib/config/site"
+import { LanguageSwitcher } from "@/components/site/language-switcher"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { localePath, type Locale } from "@/lib/i18n/config"
 import { cn } from "@/lib/utils"
-
-const NAV_LINKS = [
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/writing", label: "Writing" },
-] as const
 
 function subscribeToScroll(onChange: () => void) {
   window.addEventListener("scroll", onChange, { passive: true })
@@ -35,18 +31,22 @@ function getIsScrolledOnServer() {
   return false
 }
 
-function isActive(pathname: string, href: string) {
-  return pathname === href || pathname.startsWith(`${href}/`)
-}
-
-export function SiteNavbar() {
+export function SiteNavbar({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale).common
   const pathname = usePathname()
-  const [menuOpen, setMenuOpen] = useState(false)
   const scrolled = useSyncExternalStore(
     subscribeToScroll,
     getIsScrolled,
     getIsScrolledOnServer,
   )
+
+  const links = [
+    { href: localePath(locale, "/work"), label: dict.nav.work },
+    { href: localePath(locale, "/about"), label: dict.nav.about },
+    { href: localePath(locale, "/writing"), label: dict.nav.writing },
+  ]
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
 
   return (
     <header
@@ -57,20 +57,20 @@ export function SiteNavbar() {
     >
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Link
-          href="/"
+          href={localePath(locale, "/")}
           className="font-display text-xl tracking-tight transition-colors hover:text-highlight"
         >
           Bernardo Fernandez
         </Link>
 
         <nav aria-label="Main navigation" className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
                 "text-sm transition-colors hover:text-foreground",
-                isActive(pathname, link.href) ? "text-foreground" : "text-muted-foreground",
+                isActive(link.href) ? "text-foreground" : "text-muted-foreground",
               )}
             >
               {link.label}
@@ -79,37 +79,39 @@ export function SiteNavbar() {
         </nav>
 
         <div className="flex items-center gap-1.5">
+          <LanguageSwitcher locale={locale} />
           <Button
             asChild
             className="hidden rounded-full bg-highlight text-highlight-foreground hover:bg-highlight/90 md:inline-flex"
           >
-            <Link href="/start-a-project">
-              Start a project
+            <Link href={localePath(locale, "/start-a-project")}>
+              {dict.nav.startProject}
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </Button>
           <ThemeToggle />
-          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+          <Sheet>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
                 className="md:hidden"
-                aria-label="Open menu"
+                aria-label={dict.nav.openMenu}
               >
                 <Menu className="size-5" aria-hidden="true" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-xs">
               <SheetHeader>
-                <SheetTitle className="font-display text-xl">Menu</SheetTitle>
+                <SheetTitle className="font-display text-xl">
+                  {dict.nav.menu}
+                </SheetTitle>
               </SheetHeader>
               <nav
                 aria-label="Mobile navigation"
                 className="flex flex-col gap-1 px-4"
-                onClick={() => setMenuOpen(false)}
               >
-                {NAV_LINKS.map((link) => (
+                {links.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -122,14 +124,14 @@ export function SiteNavbar() {
                   asChild
                   className="mt-6 rounded-full bg-highlight text-highlight-foreground hover:bg-highlight/90"
                 >
-                  <Link href="/start-a-project">
-                    Start a project
+                  <Link href={localePath(locale, "/start-a-project")}>
+                    {dict.nav.startProject}
                     <ArrowRight className="size-4" aria-hidden="true" />
                   </Link>
                 </Button>
               </nav>
               <p className="mt-auto px-4 pb-8 text-sm text-muted-foreground">
-                {siteConfig.availability}
+                {dict.availability}
               </p>
             </SheetContent>
           </Sheet>

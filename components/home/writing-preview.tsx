@@ -1,10 +1,13 @@
 import { Reveal } from "@/components/motion/reveal"
 import { ArticleRow } from "@/components/article/article-row"
 import { ArrowLink } from "@/components/site/arrow-link"
-import { articles } from "@/lib/content/articles"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { localePath, type Locale } from "@/lib/i18n/config"
+import { getArticles } from "@/lib/content/articles"
 
-export function WritingPreview() {
-  const latestArticles = articles.slice(0, 3)
+export function WritingPreview({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale)
+  const writing = dict.home.writing
 
   return (
     <section className="border-t">
@@ -12,23 +15,28 @@ export function WritingPreview() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="eyebrow">Writing</p>
+              <p className="eyebrow">{writing.eyebrow}</p>
               <h2 className="mt-4 font-display text-display-lg">
-                How I think
+                {writing.title}
               </h2>
             </div>
-            <ArrowLink href="/writing" className="text-base">
-              All writing
+            <ArrowLink
+              href={localePath(locale, "/writing")}
+              className="text-base"
+            >
+              {writing.all}
             </ArrowLink>
           </div>
         </Reveal>
 
         <div className="mt-14 flex flex-col border-t">
-          {latestArticles.map((article, index) => (
-            <Reveal key={article.slug} delayMs={index * 60}>
-              <ArticleRow article={article} size="large" />
-            </Reveal>
-          ))}
+          {getArticles(locale)
+            .slice(0, 3)
+            .map((article, index) => (
+              <Reveal key={article.slug} delayMs={index * 60}>
+                <ArticleRow article={article} locale={locale} size="large" />
+              </Reveal>
+            ))}
         </div>
       </div>
     </section>

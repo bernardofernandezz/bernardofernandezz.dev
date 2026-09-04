@@ -6,10 +6,16 @@ import { Textarea } from "@/components/ui/textarea"
 interface BriefingTextStepProps {
   name: string
   value?: string
+  placeholder: string
   onChange: (value: string) => void
 }
 
-export function BriefingTextStep({ name, value, onChange }: BriefingTextStepProps) {
+export function BriefingTextStep({
+  name,
+  value,
+  placeholder,
+  onChange,
+}: BriefingTextStepProps) {
   const ref = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -24,7 +30,7 @@ export function BriefingTextStep({ name, value, onChange }: BriefingTextStepProp
       value={value ?? ""}
       onChange={(event) => onChange(event.target.value)}
       rows={4}
-      placeholder="A couple of sentences is enough..."
+      placeholder={placeholder}
       className="min-h-28 resize-none border-input text-base md:text-lg"
     />
   )
