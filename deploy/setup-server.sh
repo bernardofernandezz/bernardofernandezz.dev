@@ -49,9 +49,9 @@ fi
 
 echo "==> Checking DNS for ${DOMAIN}"
 SERVER_IP=$(curl -4 -s --max-time 10 ifconfig.me || true)
-DOMAIN_IP=$(getent ahostsv4 "${DOMAIN}" | awk '{print $1; exit}')
+DOMAIN_IPS=$(getent ahostsv4 "${DOMAIN}" | awk '{print $1}' | sort -u | tr '\n' ' ')
 
-if [[ -n "${SERVER_IP}" && "${SERVER_IP}" == "${DOMAIN_IP}" ]]; then
+if getent ahostsv4 "${DOMAIN}" | awk '{print $1}' | sort -u | grep -qx "${SERVER_IP}"; then
   echo "==> DNS OK — issuing Let's Encrypt certificate"
   certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}" \
     --non-interactive --agree-tos -m "${EMAIL}" --redirect
@@ -59,7 +59,7 @@ if [[ -n "${SERVER_IP}" && "${SERVER_IP}" == "${DOMAIN_IP}" ]]; then
 else
   echo ""
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  echo "DNS for ${DOMAIN} points to ${DOMAIN_IP:-nothing}, not this server (${SERVER_IP})."
+  echo "DNS for ${DOMAIN} points to ${DOMAIN_IPS:-nothing}, not this server (${SERVER_IP})."
   echo "Fix the A record at your registrar, then run:"
   echo "  sudo certbot --nginx -d ${DOMAIN} -d www.${DOMAIN} --redirect"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
