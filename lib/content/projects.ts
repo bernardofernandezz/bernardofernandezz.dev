@@ -2,10 +2,6 @@ import type { Locale } from "@/lib/i18n/config"
 import { TEXT_EN } from "@/lib/content/projects/text-en"
 import { TEXT_PT_BR } from "@/lib/content/projects/text-pt-br"
 
-export const PROJECT_CATEGORIES = ["product", "web", "experiment", "open-source"] as const
-
-export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number]
-
 export const PROJECT_KINDS = ["personal", "prototype", "experiment", "open-source"] as const
 
 export type ProjectKind = (typeof PROJECT_KINDS)[number]
@@ -33,7 +29,6 @@ export interface ProjectVisualSpec {
 interface ProjectBase {
   readonly slug: string
   readonly kind: ProjectKind
-  readonly category: ProjectCategory
   readonly year: string
   readonly stack: readonly string[]
   readonly visual: ProjectVisualSpec
@@ -59,7 +54,6 @@ const BASE: readonly ProjectBase[] = [
   {
     slug: "ledgerline",
     kind: "personal",
-    category: "product",
     year: "2025",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Recharts"],
     visual: { hue: 24, pattern: "grid" },
@@ -68,7 +62,6 @@ const BASE: readonly ProjectBase[] = [
   {
     slug: "meridian",
     kind: "prototype",
-    category: "web",
     year: "2024",
     stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Stripe"],
     visual: { hue: 200, pattern: "flow" },
@@ -77,7 +70,6 @@ const BASE: readonly ProjectBase[] = [
   {
     slug: "fieldnote",
     kind: "personal",
-    category: "web",
     year: "2024",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Mapbox"],
     visual: { hue: 140, pattern: "layers" },
@@ -86,7 +78,6 @@ const BASE: readonly ProjectBase[] = [
   {
     slug: "opsboard",
     kind: "prototype",
-    category: "product",
     year: "2023",
     stack: ["React", "Node.js", "WebSocket", "Redis", "PostgreSQL"],
     visual: { hue: 262, pattern: "pulse" },
@@ -95,7 +86,6 @@ const BASE: readonly ProjectBase[] = [
   {
     slug: "typeset-playground",
     kind: "experiment",
-    category: "experiment",
     year: "2025",
     stack: ["Next.js", "TypeScript", "Canvas API", "Variable fonts"],
     visual: { hue: 340, pattern: "type" },
@@ -104,7 +94,6 @@ const BASE: readonly ProjectBase[] = [
   {
     slug: "route-schema",
     kind: "open-source",
-    category: "open-source",
     year: "2023",
     stack: ["TypeScript", "Vitest", "tsup"],
     visual: { hue: 210, pattern: "schema" },

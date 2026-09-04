@@ -2,7 +2,9 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowRight } from "lucide-react"
 import { Reveal } from "@/components/motion/reveal"
+import { ProjectJsonLd } from "@/components/seo/json-ld"
 import { ProjectVisual } from "@/components/project/project-visual"
+import { ProjectDiagram, hasProjectDiagram } from "@/components/project/project-diagram"
 import { ArrowLink } from "@/components/site/arrow-link"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
 import { localePath, type Locale } from "@/lib/i18n/config"
@@ -36,6 +38,13 @@ export function CaseStudyContent({
 
   return (
     <>
+      <ProjectJsonLd
+        locale={locale}
+        slug={project.slug}
+        name={project.name}
+        tagline={project.tagline}
+        summary={project.summary}
+      />
       <article className="container-page pb-24">
         <header className="pt-16 md:pt-24">
           <Reveal>
@@ -130,6 +139,18 @@ export function CaseStudyContent({
                 )}
               </section>
             </Reveal>
+
+            {hasProjectDiagram(slug) && (
+              <Reveal>
+                <div className="mt-14">
+                  <ProjectDiagram
+                    slug={slug}
+                    title={project.name}
+                    label={dict.work.caseStudy.diagramLabel}
+                  />
+                </div>
+              </Reveal>
+            )}
 
             <Reveal>
               <section aria-labelledby="decisions" className="mt-14">

@@ -13,10 +13,6 @@ export function generateMetadata(): Metadata {
   )
 }
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string | string[] }>
-}) {
-  return <WorkIndexPage locale="en" searchParams={searchParams} />
+export default function Page() {
+  return <WorkIndexPage locale="en" />
 }

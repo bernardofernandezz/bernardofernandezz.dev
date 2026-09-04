@@ -7,24 +7,19 @@ export const work = {
     experiment: "Experiment",
     "open-source": "Open source",
   },
-  filters: {
-    all: "All",
-    product: "Web apps",
-    web: "Web",
-    experiment: "Experiments",
-    "open-source": "Open source",
-  },
   index: {
     eyebrow: "Work",
-    title: "Case studies, not screenshots",
+    title: "Things I've actually built",
     intro:
-      "These are my own projects, prototypes and experiments — labeled honestly. Each one includes the problem, the decisions and the technical result, because that's the part I find most interesting anyway.",
+      "Not everything here is a product. Some are experiments. Some are prototypes. Some are ideas I wanted to understand. All are labeled honestly.",
+    featuredLabel: "Featured",
+    otherLabel: "Other things",
     afterLine: "Have something in this space?",
-    afterCta: "Let's talk about it",
-    filterNav: "Filter projects by category",
+    afterCta: "Let's see where it goes",
   },
   caseStudy: {
     builtWith: "Built with",
+    diagramLabel: "The system",
     sections: {
       context: "The idea",
       problem: "The problem",
