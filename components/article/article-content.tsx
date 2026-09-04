@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation"
 import { Reveal } from "@/components/motion/reveal"
 import { ArticleRow } from "@/components/article/article-row"
-import { ArrowLink } from "@/components/site/arrow-link"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
-import { localePath, type Locale } from "@/lib/i18n/config"
+import type { Locale } from "@/lib/i18n/config"
 import { getArticleBySlug, getArticles } from "@/lib/content/articles"
 
 const FORMATTERS = {
@@ -74,20 +73,6 @@ export function ArticleContent({ locale, slug }: { locale: Locale; slug: string 
               </section>
             ))}
           </div>
-        </div>
-      </Reveal>
-
-      <Reveal>
-        <div className="mx-auto mt-24 max-w-2xl border-t pt-10">
-          <p className="font-display text-display-sm tracking-tight">
-            {articleCta.ctaLine}
-          </p>
-          <ArrowLink
-            href={localePath(locale, "/start-a-project")}
-            className="mt-6"
-          >
-            {articleCta.ctaLink}
-          </ArrowLink>
         </div>
       </Reveal>
 

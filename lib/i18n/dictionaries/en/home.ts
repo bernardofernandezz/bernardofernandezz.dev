@@ -17,9 +17,6 @@ export const home = {
     intro:
       "My own work, labeled honestly. Each case study is less “look at the UI” and more “here's a problem I took apart”.",
     allProjects: "All projects",
-    cardCta: "Read the case study",
-    afterLine: "Could this be your next project?",
-    afterCta: "Let's see where it goes",
   },
   positioning: {
     eyebrow: "How I think",

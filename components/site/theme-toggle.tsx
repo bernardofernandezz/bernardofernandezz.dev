@@ -3,16 +3,19 @@
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import { getDictionary } from "@/lib/i18n/get-dictionary"
+import type { Locale } from "@/lib/i18n/config"
 
-export function ThemeToggle() {
+export function ThemeToggle({ locale }: { locale: Locale }) {
   const { resolvedTheme, setTheme } = useTheme()
+  const dict = getDictionary(locale).common
 
   return (
     <Button
       variant="ghost"
       size="icon"
       className="text-muted-foreground hover:text-foreground"
-      aria-label="Toggle theme"
+      aria-label={dict.toggleTheme}
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
       <Sun className="size-4 dark:hidden" />

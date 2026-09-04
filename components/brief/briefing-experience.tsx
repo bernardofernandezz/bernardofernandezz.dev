@@ -47,20 +47,32 @@ function loadProgress(): SavedProgress | null {
     if (!raw) return null
     const parsed: unknown = JSON.parse(raw)
     if (
-      typeof parsed === "object" &&
-      parsed !== null &&
-      "phase" in parsed &&
-      "stepIndex" in parsed &&
-      "answers" in parsed
+      typeof parsed !== "object" ||
+      parsed === null ||
+      !("phase" in parsed) ||
+      !("stepIndex" in parsed) ||
+      !("answers" in parsed)
     ) {
-      const saved = parsed as SavedProgress
-      const validPhase =
-        saved.phase === "intro" ||
-        saved.phase === "questions" ||
-        (saved.phase === "summary" && isBriefComplete(saved.answers))
-      if (validPhase && BRIEF_STEP_IDS[saved.stepIndex]) return saved
+      return null
     }
-    return null
+    const saved = parsed as SavedProgress
+    const validPhase =
+      saved.phase === "intro" ||
+      saved.phase === "questions" ||
+      (saved.phase === "summary" && isBriefComplete(saved.answers))
+    if (!validPhase) return null
+    if (
+      !Number.isInteger(saved.stepIndex) ||
+      saved.stepIndex < 0 ||
+      saved.stepIndex >= BRIEF_STEP_IDS.length
+    ) {
+      return null
+    }
+    if (typeof saved.answers !== "object" || saved.answers === null) return null
+    for (const value of Object.values(saved.answers)) {
+      if (typeof value !== "string") return null
+    }
+    return saved
   } catch {
     return null
   }
@@ -72,9 +84,15 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale)
   const text = dict.briefing
 
-  const [phase, setPhase] = useState<BriefingPhase>("intro")
-  const [stepIndex, setStepIndex] = useState(0)
-  const [answers, setAnswers] = useState<BriefAnswers>({})
+  /*
+   * Restored synchronously so the save effect (which writes the initial
+   * state on mount) never clobbers the persisted progress before it is
+   * read back.
+   */
+  const [initialProgress] = useState(loadProgress)
+  const [phase, setPhase] = useState<BriefingPhase>(initialProgress?.phase ?? "intro")
+  const [stepIndex, setStepIndex] = useState(initialProgress?.stepIndex ?? 0)
+  const [answers, setAnswers] = useState<BriefAnswers>(initialProgress?.answers ?? {})
   const [direction, setDirection] = useState<"forward" | "back">("forward")
   const [sending, setSending] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -102,17 +120,6 @@ export function BriefingExperience({ locale }: { locale: Locale }) {
     }
     save()
   }, [phase, stepIndex, answers])
-
-  useEffect(() => {
-    const saved = loadProgress()
-    if (!saved || !BRIEF_STEP_IDS[saved.stepIndex]) return
-    const frame = requestAnimationFrame(() => {
-      setPhase(saved.phase)
-      setStepIndex(saved.stepIndex)
-      setAnswers(saved.answers)
-    })
-    return () => cancelAnimationFrame(frame)
-  }, [])
 
   function moveNext() {
     setDirection("forward")

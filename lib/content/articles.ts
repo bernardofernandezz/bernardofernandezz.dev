@@ -20,7 +20,7 @@ export interface Article extends ArticleText {
 
 const EN: Record<string, ArticleText> = {
   "business-logic-out-of-react-components": {
-    title: "Why I stopped putting business logic inside React components",
+    title: "I kept finding the same rule in three components",
     category: "Engineering",
     date: "2026-08-20",
     readingTime: "5 min read",
@@ -50,7 +50,7 @@ const EN: Record<string, ArticleText> = {
     ],
   },
   "what-a-broken-endpoint-taught-me-about-architecture": {
-    title: "What a broken endpoint taught me about architecture",
+    title: "The endpoint that passed every test and failed with real data",
     category: "Engineering",
     date: "2026-05-14",
     readingTime: "5 min read",
@@ -80,7 +80,7 @@ const EN: Record<string, ArticleText> = {
     ],
   },
   "how-to-build-an-mvp-without-building-a-mess": {
-    title: "How I think about building an MVP without building a mess",
+    title: "Building an MVP is mostly deciding what not to build",
     category: "Product",
     date: "2026-02-11",
     readingTime: "4 min read",
@@ -113,7 +113,7 @@ const EN: Record<string, ArticleText> = {
 
 const PT_BR: Record<string, ArticleText> = {
   "business-logic-out-of-react-components": {
-    title: "Por que parei de colocar lógica de negócio dentro de componentes React",
+    title: "A mesma regra, em três componentes diferentes",
     category: "Engenharia",
     date: "2026-08-20",
     readingTime: "5 min de leitura",
@@ -143,7 +143,7 @@ const PT_BR: Record<string, ArticleText> = {
     ],
   },
   "what-a-broken-endpoint-taught-me-about-architecture": {
-    title: "O que um endpoint quebrado me ensinou sobre arquitetura",
+    title: "O endpoint que passou em todos os testes e falhou com dados reais",
     category: "Engenharia",
     date: "2026-05-14",
     readingTime: "5 min de leitura",
@@ -173,17 +173,17 @@ const PT_BR: Record<string, ArticleText> = {
     ],
   },
   "how-to-build-an-mvp-without-building-a-mess": {
-    title: "Como eu penso um MVP que não vira uma bagunça",
+    title: "Construir um MVP é decidir o que não construir",
     category: "Produto",
     date: "2026-02-11",
     readingTime: "4 min de leitura",
     summary:
-      "Velocidade e manutenibilidade não são opostos. As restrições que eu uso para um MVP de seis semanas não virar uma reescrita de seis meses.",
+      "Velocidade e manutenibilidade não são opostos. As restrições que eu uso pra que um MVP de seis semanas não vire uma reescrita de seis meses.",
     sections: [
       {
         paragraphs: [
           "Todo projeto ambicioso começa com uma lista, e a lista é honesta — tudo aquilo vai importar em algum momento. O erro é construir em paralelo: tudo pela metade, nada bom de usar, e a data de lançamento escorrendo enquanto o codebase fica mais difícil de mudar.",
-          "A alternativa em que me estabilizei é um ciclo, não uma lista de funcionalidades: um caminho completo que o usuário percorre, da chegada até o momento em que o produto conquista a confiança dele. Constrói o ciclo. Pola o ciclo. Entrega o ciclo. Deixa o uso real decidir o que é o ciclo dois.",
+          "A alternativa em que me estabilizei é um ciclo, não uma lista de funcionalidades: um caminho completo que o usuário percorre, da chegada até o momento em que o produto conquista a confiança dele. Constrói o ciclo. Refina o ciclo. Entrega o ciclo. Deixa o uso real decidir o que é o ciclo dois.",
         ],
       },
       {

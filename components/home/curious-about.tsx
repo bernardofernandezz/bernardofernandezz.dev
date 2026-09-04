@@ -3,6 +3,11 @@ import { getDictionary } from "@/lib/i18n/get-dictionary"
 import type { Locale } from "@/lib/i18n/config"
 import { getProof } from "@/lib/content/proof"
 
+/*
+ * Editorial two-column layout — the sticky-feeling label column on the left
+ * and a plain reading list on the right. Deliberately breaks the numbered
+ * border-row pattern the other home sections use.
+ */
 export function CuriousAbout({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale)
   const curious = dict.home.curious
@@ -11,40 +16,38 @@ export function CuriousAbout({ locale }: { locale: Locale }) {
   return (
     <section className="border-t">
       <div className="container-page py-20 md:py-28">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="eyebrow">{curious.eyebrow}</p>
-              <h2 className="mt-4 max-w-2xl font-display text-display-lg tracking-tight">
-                {curious.title}
-              </h2>
-            </div>
-            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-              {curious.intro}
-            </p>
-          </div>
-        </Reveal>
-
-        <dl className="mt-14 grid gap-x-12 border-t sm:grid-cols-2 md:mt-20">
-          {proof.curiosities.map((area, index) => (
-            <Reveal key={area.title} delayMs={index * 70}>
-              <div className="group border-b py-6">
-                <dt className="font-display text-xl tracking-tight md:text-2xl">
-                  <span
-                    className="mr-3 inline-block font-mono text-xs text-muted-foreground transition-colors duration-300 group-hover:text-highlight"
-                    aria-hidden="true"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {area.title}
-                </dt>
-                <dd className="mt-3 max-w-md pl-8 leading-relaxed text-muted-foreground">
-                  {area.detail}
-                </dd>
+        <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+          <div className="md:col-span-4">
+            <Reveal>
+              <div className="md:sticky md:top-28">
+                <p className="eyebrow">{curious.eyebrow}</p>
+                <h2 className="mt-4 font-display text-display-md tracking-tight md:text-display-lg">
+                  {curious.title}
+                </h2>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                  {curious.intro}
+                </p>
               </div>
             </Reveal>
-          ))}
-        </dl>
+          </div>
+
+          <dl className="md:col-span-8">
+            {proof.curiosities.map((area, index) => (
+              <Reveal key={area.title} delayMs={index * 60}>
+                <div
+                  className="group border-b py-7 first:border-t md:py-8"
+                >
+                  <dt className="font-display text-xl tracking-tight transition-colors duration-300 group-hover:text-highlight md:text-2xl">
+                    {area.title}
+                  </dt>
+                  <dd className="mt-2.5 max-w-xl leading-relaxed text-muted-foreground">
+                    {area.detail}
+                  </dd>
+                </div>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   )

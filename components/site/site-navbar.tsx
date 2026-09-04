@@ -69,7 +69,7 @@ export function SiteNavbar({ locale }: { locale: Locale }) {
         </Link>
 
         <nav
-          aria-label="Main navigation"
+          aria-label={dict.nav.mainNav}
           className="hidden items-center gap-7 md:flex"
         >
           {links.map((link) => (
@@ -104,7 +104,7 @@ export function SiteNavbar({ locale }: { locale: Locale }) {
               </Link>
             </Button>
           </Magnetic>
-          <ThemeToggle />
+          <ThemeToggle locale={locale} />
           <Sheet>
             <SheetTrigger asChild>
               <Button
@@ -116,14 +116,18 @@ export function SiteNavbar({ locale }: { locale: Locale }) {
                 <Menu className="size-5" aria-hidden="true" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-xs">
+            <SheetContent
+              side="right"
+              className="w-full max-w-xs"
+              closeLabel={dict.close}
+            >
               <SheetHeader>
                 <SheetTitle className="font-display text-xl">
                   {dict.nav.menu}
                 </SheetTitle>
               </SheetHeader>
               <nav
-                aria-label="Mobile navigation"
+                aria-label={dict.nav.mobileNav}
                 className="flex flex-col gap-1 px-4"
               >
                 {links.map((link) => (

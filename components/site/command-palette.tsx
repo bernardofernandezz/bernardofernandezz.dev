@@ -35,11 +35,13 @@ export function CommandMenu({ locale }: { locale: Locale }) {
   const [emailCopied, setEmailCopied] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
 
   const close = useCallback(() => {
     setOpen(false)
     setQuery("")
     setActiveIndex(0)
+    triggerRef.current?.focus()
   }, [])
 
   useEffect(() => {
@@ -100,9 +102,13 @@ export function CommandMenu({ locale }: { locale: Locale }) {
         group: "actions",
         keywords: "email contact mail",
         perform: () => {
-          navigator.clipboard?.writeText(siteConfig.email).catch(() => {})
-          setEmailCopied(true)
-          window.setTimeout(() => setEmailCopied(false), 2000)
+          navigator.clipboard
+            ?.writeText(siteConfig.email)
+            .then(() => {
+              setEmailCopied(true)
+              window.setTimeout(() => setEmailCopied(false), 2000)
+            })
+            .catch(() => {})
         },
       },
       ...locales
@@ -115,7 +121,10 @@ export function CommandMenu({ locale }: { locale: Locale }) {
               : dict.language.switchToEnglish,
           group: "actions" as const,
           keywords: `language idioma ${languageLabel[item]}`,
-          perform: () => router.push(switchLocalePath(window.location.pathname, item)),
+          perform: () =>
+            router.push(
+              `${switchLocalePath(window.location.pathname, item)}${window.location.search}`,
+            ),
         })),
     ]
 
@@ -162,9 +171,31 @@ export function CommandMenu({ locale }: { locale: Locale }) {
       setActiveIndex((index) => Math.max(index - 1, 0))
       return
     }
+    if (event.key === "Home" && filtered.length) {
+      event.preventDefault()
+      setActiveIndex(0)
+      return
+    }
+    if (event.key === "End" && filtered.length) {
+      event.preventDefault()
+      setActiveIndex(filtered.length - 1)
+      return
+    }
     if (event.key === "Enter") {
       event.preventDefault()
       runItem(filtered[activeIndex])
+    }
+  }
+
+  /*
+   * The palette is a modal: Tab would otherwise escape into the page behind
+   * it. There are only two focusable elements (input, options), so Tab simply
+   * returns focus to the input.
+   */
+  const onDialogKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Tab") {
+      event.preventDefault()
+      inputRef.current?.focus()
     }
   }
 
@@ -177,6 +208,7 @@ export function CommandMenu({ locale }: { locale: Locale }) {
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label={palette.open}
@@ -194,6 +226,7 @@ export function CommandMenu({ locale }: { locale: Locale }) {
           aria-modal="true"
           aria-label={palette.label}
           className="fixed inset-0 z-50 flex items-start justify-center bg-foreground/25 px-4 pt-[12vh] backdrop-blur-sm"
+          onKeyDown={onDialogKeyDown}
           onClick={(event) => {
             if (event.target === event.currentTarget) close()
           }}
@@ -210,9 +243,24 @@ export function CommandMenu({ locale }: { locale: Locale }) {
               placeholder={palette.placeholder}
               autoComplete="off"
               spellCheck={false}
+              role="combobox"
+              aria-expanded="true"
+              aria-autocomplete="list"
+              aria-controls="command-menu-listbox"
+              aria-activedescendant={
+                filtered[activeIndex] ? `${filtered[activeIndex].id}-option` : undefined
+              }
               className="h-13 w-full border-b bg-transparent px-5 text-base outline-none placeholder:text-muted-foreground"
             />
-            <div ref={listRef} role="listbox" className="max-h-80 overflow-y-auto p-2">
+            <p aria-live="polite" className="sr-only">
+              {emailCopied ? palette.actions.emailCopied : ""}
+            </p>
+            <div
+              ref={listRef}
+              id="command-menu-listbox"
+              role="listbox"
+              className="max-h-80 overflow-y-auto p-2"
+            >
               {filtered.length === 0 && (
                 <p className="px-3 py-8 text-center text-sm text-muted-foreground">
                   {palette.noResults}
@@ -231,6 +279,7 @@ export function CommandMenu({ locale }: { locale: Locale }) {
                         <button
                           key={item.id}
                           type="button"
+                          id={`${item.id}-option`}
                           data-item-id={item.id}
                           role="option"
                           aria-selected={active}

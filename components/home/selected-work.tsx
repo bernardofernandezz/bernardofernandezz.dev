@@ -3,8 +3,6 @@ import { ArrowUpRight } from "lucide-react"
 import { Reveal } from "@/components/motion/reveal"
 import { ProjectVisual } from "@/components/project/project-visual"
 import { ArrowLink } from "@/components/site/arrow-link"
-import { Magnetic } from "@/components/site/magnetic"
-import { Button } from "@/components/ui/button"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
 import { localePath, type Locale } from "@/lib/i18n/config"
 import { getFeaturedProjects } from "@/lib/content/projects"
@@ -42,7 +40,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
                 <Link
                   href={localePath(locale, `/work/${project.slug}`)}
                   className="grid items-center gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-14"
-                  aria-label={`View case study: ${project.name}`}
+                  aria-label={`${project.name}: ${project.tagline}`}
                 >
                   <p className="eyebrow transition-colors duration-300 group-hover:text-highlight md:col-span-1">
                     {String(index + 1).padStart(2, "0")}
@@ -85,29 +83,6 @@ export function SelectedWork({ locale }: { locale: Locale }) {
             </Reveal>
           ))}
         </div>
-
-        <Reveal>
-          <div className="mt-16 flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
-            <p className="font-display text-display-sm tracking-tight">
-              {work.afterLine}
-              <ArrowUpRight
-                className="ml-2 inline size-6 text-highlight"
-                aria-hidden="true"
-              />
-            </p>
-            <Magnetic>
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 rounded-full px-7 text-base"
-              >
-                <Link href={localePath(locale, "/start-a-project")}>
-                  {work.afterCta}
-                </Link>
-              </Button>
-            </Magnetic>
-          </div>
-        </Reveal>
       </div>
     </section>
   )

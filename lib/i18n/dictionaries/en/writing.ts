@@ -10,8 +10,6 @@ export const writing = {
     afterCta: "Let's talk",
   },
   article: {
-    ctaLine: "Thinking about something like this?",
-    ctaLink: "Let's talk about your project",
     moreLabel: "More writing",
   },
 }

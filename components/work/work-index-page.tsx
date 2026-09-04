@@ -99,7 +99,7 @@ export async function WorkIndexPage({
               <Link
                 href={localePath(locale, `/work/${project.slug}`)}
                 className="grid items-center gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-12"
-                aria-label={`View case study: ${project.name}`}
+                aria-label={`${project.name}: ${project.tagline}`}
               >
                 <p className="eyebrow transition-colors duration-300 group-hover:text-highlight md:col-span-1">
                   {String(index + 1).padStart(2, "0")}

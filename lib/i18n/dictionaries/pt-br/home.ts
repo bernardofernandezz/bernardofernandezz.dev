@@ -21,9 +21,6 @@ export const home = {
     intro:
       "Trabalho meu, classificado sem maquiagem. Cada case study é menos “olha a UI” e mais “olha o problema que eu desmontei”.",
     allProjects: "Todos os projetos",
-    cardCta: "Ler o case study",
-    afterLine: "Este poderia ser o seu próximo projeto?",
-    afterCta: "Vamos ver onde isso vai",
   },
   positioning: {
     eyebrow: "Como eu penso",

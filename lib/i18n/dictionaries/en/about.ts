@@ -10,7 +10,9 @@ export const about = {
     "The part of building I care most about is where product meets engineering. Whether a data model makes the next feature cheap or expensive. Whether an API fails loudly or silently. Whether an interface feels inevitable or merely functional. I don't think those are separate concerns — they're the same concern, seen from different distances.",
     "I don't have fifteen years of experience, and I won't pretend otherwise. What I have is a habit: taking technical problems seriously — reading the docs, testing the assumption, staying with the problem until it's actually solved, not until it stops being my turn.",
   ],
-  workingWith: "What I work with",
+  workingWith: "What I build with",
+  workingWithNote:
+    "Not a skills wall — this is just what shows up across the projects on the work page, grouped by where it lives.",
   beliefs: {
     label: "What I believe",
     items: [

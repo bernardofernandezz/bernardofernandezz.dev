@@ -185,7 +185,8 @@ export function StructureCanvas({ hue, className, label }: StructureCanvasProps)
       const rect = canvas.getBoundingClientRect()
       pointerX = event.clientX - rect.left
       pointerY = event.clientY - rect.top
-      pointerActive = pointerX >= 0 && pointerX <= rect.width
+      pointerActive =
+        pointerX >= 0 && pointerX <= rect.width && pointerY >= 0 && pointerY <= rect.height
       const dx = (event.clientX - (rect.left + rect.width / 2)) / rect.width
       const dy = (event.clientY - (rect.top + rect.height / 2)) / rect.height
       targetAngleY = 0.55 + dx * 0.5
@@ -204,7 +205,7 @@ export function StructureCanvas({ hue, className, label }: StructureCanvasProps)
       context.clearRect(0, 0, width, height)
       const dark = document.documentElement.classList.contains("dark")
       const ink = dark ? "240,238,232" : "28,26,23"
-      const strokeAlpha = dark ? 0.1 : 0.1
+      const strokeAlpha = dark ? 0.14 : 0.1
       const nodeAlpha = dark ? 0.4 : 0.36
       const accentLightness = dark ? 68 : 48
       const accent = `hsl(${hue} ${dark ? 62 : 68}% ${accentLightness}%)`

@@ -32,6 +32,7 @@ export function Magnetic({ children, className }: MagneticProps) {
     let x = 0
     let y = 0
     let following = false
+    let rect: DOMRect | null = null
 
     const tick = () => {
       x += (targetX - x) * 0.22
@@ -49,8 +50,14 @@ export function Magnetic({ children, className }: MagneticProps) {
       if (!raf) raf = requestAnimationFrame(tick)
     }
 
+    const onPointerEnter = () => {
+      // Cached for the whole hover — reading the rect per pointermove
+      // would force layout on every event.
+      rect = zone.getBoundingClientRect()
+    }
+
     const onPointerMove = (event: PointerEvent) => {
-      const rect = zone.getBoundingClientRect()
+      if (!rect) rect = zone.getBoundingClientRect()
       targetX = (event.clientX - (rect.left + rect.width / 2)) * 0.18
       targetY = (event.clientY - (rect.top + rect.height / 2)) * 0.24
       following = true
@@ -58,17 +65,20 @@ export function Magnetic({ children, className }: MagneticProps) {
     }
 
     const onPointerLeave = () => {
+      rect = null
       targetX = 0
       targetY = 0
       following = false
       start()
     }
 
+    zone.addEventListener("pointerenter", onPointerEnter, { passive: true })
     zone.addEventListener("pointermove", onPointerMove, { passive: true })
     zone.addEventListener("pointerleave", onPointerLeave, { passive: true })
 
     return () => {
       cancelAnimationFrame(raf)
+      zone.removeEventListener("pointerenter", onPointerEnter)
       zone.removeEventListener("pointermove", onPointerMove)
       zone.removeEventListener("pointerleave", onPointerLeave)
       inner.style.transform = ""

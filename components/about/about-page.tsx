@@ -45,21 +45,17 @@ export function AboutPage({ locale }: { locale: Locale }) {
           <Reveal>
             <div className="mt-16">
               <p className="eyebrow">{about.workingWith}</p>
-              <dl className="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                {about.workingWithNote}
+              </p>
+              <dl className="mt-6 grid gap-x-10 gap-y-6 sm:grid-cols-2">
                 {proof.stack.map((group) => (
-                  <div key={group.area}>
+                  <div key={group.area} className="border-t pt-4">
                     <dt className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                       {group.area}
                     </dt>
-                    <dd className="mt-3 flex flex-wrap gap-2">
-                      {group.items.map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-full border px-3 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-highlight hover:text-highlight"
-                        >
-                          {item}
-                        </span>
-                      ))}
+                    <dd className="mt-2 font-mono text-sm leading-relaxed text-foreground/80">
+                      {group.items.join(" · ")}
                     </dd>
                   </div>
                 ))}

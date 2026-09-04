@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/i18n/metadata"
 
 export function generateMetadata(): Metadata {
   const dict = getDictionary("en")
-  return pageMetadata("en", "/about", dict.common.nav.about, dict.about.story[0])
+  return pageMetadata("en", "/about", dict.common.nav.about, dict.about.metaDescription)
 }
 
 export default function Page() {

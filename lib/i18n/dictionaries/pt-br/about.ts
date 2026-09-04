@@ -10,7 +10,9 @@ export const about = {
     "A parte de construir que mais me interessa é onde produto encontra engenharia: se o modelo de dados torna o próximo recurso barato ou caro; se a API falha alto ou falha calada; se a interface parece inevitável ou apenas funcional. Pra mim não são preocupações separadas — são a mesma preocupação vista de distâncias diferentes.",
     "Não tenho quinze anos de experiência e não vou fingir que tenho. O que tenho é um hábito: levar problema técnico a sério — ler a documentação, testar a suposição, ficar com o problema até ele estar resolvido de verdade, não até acabar minha vez.",
   ],
-  workingWith: "O que eu uso",
+  workingWith: "O que eu uso pra construir",
+  workingWithNote:
+    "Não é uma parede de skills — é só o que aparece nos projetos da página de projetos, agrupado pelo lugar que ocupa.",
   beliefs: {
     label: "No que eu acredito",
     items: [
@@ -46,7 +48,7 @@ export const about = {
   },
   currently: "No momento",
   currentlyBody: (availability: string, location: string) =>
-    `Baseado no ${location}. ${availability} — e sempre aberto a uma conversa sobre algo que valha a pena construir.`,
+    `Vivo no ${location}. ${availability} — e sempre aberto a uma conversa sobre algo que valha a pena construir.`,
   ctaLine: "Agora você me conhece um pouco. Me conta o que você está construindo.",
   ctaButton: "Me conta o que você está construindo",
 }

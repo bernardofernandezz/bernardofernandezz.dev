@@ -26,7 +26,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
         {
           title: "Server-side aggregation over client-side math",
           detail:
-            "Monthly summaries are computed in SQL views instead of loading raw transactions into the browser, so the dashboard stays fast even with years of history.",
+            "Monthly summaries are computed in SQL views; the browser never loads raw transactions, so the dashboard stays fast even with years of history.",
         },
         {
           title: "Rules engine with human override",
@@ -35,9 +35,9 @@ export const TEXT_EN: Record<string, ProjectText> = {
         },
       ],
       result: [
-        "Different bank exports normalize into one transaction model, so the pipeline is extendable by mapping, not rewriting.",
+        "Different bank exports normalize into one transaction model, so extending the pipeline means adding a mapping — nothing more.",
         "Monthly and commitment-aware summaries are computed in SQL — the interface never re-derives financial state.",
-        "Corrections improve the rules engine instead of accumulating as unstructured exceptions.",
+        "Corrections feed the rules engine, so the pile of one-off exceptions keeps shrinking instead of growing.",
       ],
       lesson:
         "Automating a domain teaches you the domain. Every category I got wrong at first was a gap in my own understanding of how money actually moves through freelance work.",
@@ -63,7 +63,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
         {
           title: "Availability as the core invariant",
           detail:
-            "Reservations, holds and rate restrictions all go through one availability service with transactional checks. Double bookings became structurally impossible instead of a support ticket.",
+            "Reservations, holds and rate restrictions all go through one availability service with transactional checks. Double bookings stopped being a support ticket and became something the database refuses.",
         },
         {
           title: "Payments confirmed by webhooks, not redirects",
@@ -73,7 +73,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
         {
           title: "Per-property theming without per-property code",
           detail:
-            "Palette, typography and imagery are configuration data, not forks — a new property is an onboarding step, not a deploy.",
+            "Palette, typography and imagery live in configuration data, so a new property is an onboarding step — the deploy never happens.",
         },
       ],
       result: [
@@ -98,7 +98,7 @@ export const TEXT_EN: Record<string, ProjectText> = {
       role: "Product thinking, interface design and full development.",
       technicalChallenge: [
         "Cutting to one loop meant saying no to a dozen features that felt mandatory — and building the one loop so well it didn't feel small.",
-        "The reading experience carries the product: typography, maps and image handling needed real polish, because the test was about desire, not workflow.",
+        "The reading experience carries the product: typography, maps and image handling needed real polish, because the thing under test was desire — whether people want to keep reading — more than workflow.",
         "Content had to be structured data in the application's own database — portable and queryable — rather than documents inside a third-party CMS.",
       ],
       decisions: [
@@ -140,13 +140,13 @@ export const TEXT_EN: Record<string, ProjectText> = {
       technicalChallenge: [
         "Broadcasting state is easy; keeping every client correct across reconnects, offline periods and concurrent edits is the actual problem.",
         "Field usage means gloves, sunlight and one-bar connections — the interface budget is measured in taps, and every state change has to survive being delayed.",
-        "History matters as much as the present: 'what happened yesterday' has to be queryable, not archaeological.",
+        "History matters as much as the present: 'what happened yesterday' has to be queryable, not something you excavate from scrollback.",
       ],
       decisions: [
         {
           title: "Events, not diffs",
           detail:
-            "The server broadcasts domain events ('job assigned', 'job delayed'), not UI patches — any client that reconnects rebuilds its view from the event log, with no sync logic in the frontend.",
+            "The server broadcasts domain events ('job assigned', 'job delayed'); any client that reconnects rebuilds its view from the event log, with no sync logic in the frontend.",
         },
         {
           title: "Optimistic UI, authoritative reconciliation",
@@ -197,10 +197,10 @@ export const TEXT_EN: Record<string, ProjectText> = {
       ],
       result: [
         "A tool I use on every project where type is part of the interface.",
-        "A public demonstration that interaction design and typography are engineering disciplines, not decoration.",
+        "A reminder, in public, that typography decisions are engineering decisions — they have constraints, trade-offs and measurable behavior.",
       ],
       lesson:
-        "Build the tool your judgment needs. Nothing teaches a craft faster than making it measurable.",
+        "I meant this to be a design reference. It turned into a tool because making typographic relationships measurable ended up changing how I see type more than any reference ever did.",
     },
   },
   "route-schema": {

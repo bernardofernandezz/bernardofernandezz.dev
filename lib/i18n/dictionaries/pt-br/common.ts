@@ -7,6 +7,15 @@ export const common = {
   availability: "Disponível para novos projetos",
   localTimeShort: "hora local",
   skipToContent: "Pular para o conteúdo",
+  toggleTheme: "Alternar tema",
+  close: "Fechar",
+  notFound: {
+    titlePlain: "Essa página sumiu",
+    titleAccent: "do mapa",
+    body: "O link pode estar quebrado, ou a página mudou de lugar e não deixou recado.",
+    backHome: "Voltar pro início",
+    seeWork: "Ver os projetos",
+  },
   nav: {
     home: "Início",
     work: "Projetos",
@@ -16,6 +25,8 @@ export const common = {
     startProject: "Vamos construir algo",
     menu: "Menu",
     openMenu: "Abrir menu",
+    mainNav: "Navegação principal",
+    mobileNav: "Navegação móvel",
   },
   commandPalette: {
     open: "Abrir o menu de comandos",
@@ -36,6 +47,7 @@ export const common = {
     siteColumn: "Site",
     elsewhere: "Por aí",
     email: "Email",
+    navLabel: "Navegação do rodapé",
     rights: "Todos os direitos reservados.",
     localTimeLabel: "Meu horário local",
     colophon:

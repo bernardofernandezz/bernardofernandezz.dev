@@ -26,7 +26,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         {
           title: "Agregação no servidor, não no cliente",
           detail:
-            "Os resumos mensais são calculados em views SQL em vez de carregar transações cruas no navegador — o painel continua rápido mesmo com anos de histórico.",
+            "Os resumos mensais são calculados em views SQL; o navegador nunca carrega transações cruas, então o painel continua rápido mesmo com anos de histórico.",
         },
         {
           title: "Motor de regras com correção humana",
@@ -35,9 +35,9 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         },
       ],
       result: [
-        "Exportações de bancos diferentes se normalizam num modelo único — o pipeline se estende por mapeamento, não por reescrita.",
-        "Resumos mensais e cientes de compromissos são calculados em SQL — a interface nunca rederiva o estado financeiro.",
-        "Correções alimentam o motor de regras em vez de acumular como exceções sem estrutura.",
+        "Exportações de bancos diferentes se normalizam num modelo único — estender o pipeline significa adicionar um mapeamento, nada além disso.",
+        "Resumos mensais com ciência de compromissos são calculados em SQL — a interface nunca rederiva o estado financeiro.",
+        "Correções alimentam o motor de regras, então a pilha de exceções pontuais encolhe em vez de crescer.",
       ],
       lesson:
         "Automatizar um domínio ensina o domínio. Cada categoria que eu errei no começo era uma falha no meu próprio entendimento de como o dinheiro circula no trabalho freelance.",
@@ -57,13 +57,13 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
       technicalChallenge: [
         "A disponibilidade precisa ser verificada no momento da reserva, sob concorrência — duas pessoas reservando o último quarto ao mesmo tempo precisam receber respostas verdadeiras.",
         "O estado do pagamento e o estado da reserva vivem em dois sistemas (a aplicação e o provedor de pagamento). Manter os dois sincronizados é onde a maioria dos sistemas de booking escorrega.",
-        "Cada propriedade precisa da própria identidade, mas um fork por propriedade transformaria cada correção em operação de frota.",
+        "Cada propriedade precisa da própria identidade, mas um fork por propriedade transformaria cada correção em deploy para toda a rede.",
       ],
       decisions: [
         {
           title: "Disponibilidade como invariante central",
           detail:
-            "Reservas, retenções e restrições de tarifa passam por um único serviço de disponibilidade com checagens transacionais. Overbooking deixou de ser chamado de suporte e virou impossibilidade estrutural.",
+            "Reservas, retenções e restrições de tarifa passam por um único serviço de disponibilidade com checagens transacionais. Overbooking parou de ser um chamado de suporte e virou algo que o banco de dados recusa.",
         },
         {
           title: "Pagamento confirmado por webhook, não por redirect",
@@ -73,7 +73,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         {
           title: "Identidade por propriedade sem código por propriedade",
           detail:
-            "Paleta, tipografia e imagens são configuração, não fork — uma propriedade nova é um passo de onboarding, não um deploy.",
+            "Paleta, tipografia e imagens vivem em dados de configuração, então uma propriedade nova é um passo de onboarding — o deploy nunca acontece.",
         },
       ],
       result: [
@@ -89,7 +89,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
     name: "Fieldnote",
     tagline: "Um MVP construído em seis semanas",
     summary:
-      "Um exercício de produto que impose a mim mesmo: pegar uma ideia de um parágrafo — guias escritas pela comunidade, organizadas por bairro — e levar do conceito a um MVP funcionando em seis semanas.",
+      "Um exercício de produto que me impus: pegar uma ideia de um parágrafo — guias escritas pela comunidade, organizadas por bairro — e levar do conceito a um MVP funcionando em seis semanas.",
     caseStudy: {
       context:
         "Eu queria treinar a parte mais difícil de construir produtos: cortar. A premissa — guias escritas por moradores superam reviews genéricos — chegou sem especificação, sem design e sem segunda chance. Seis semanas, um loop, entregar.",
@@ -98,7 +98,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
       role: "Pensamento de produto, design de interface e desenvolvimento completo.",
       technicalChallenge: [
         "Cortar pra um único ciclo significou dizer não pra uma dúzia de recursos que pareciam obrigatórios — e construir o único ciclo tão bem que ele não parecesse pequeno.",
-        "A experiência de leitura carrega o produto: tipografia, mapas e tratamento de imagens precisaram de polimento real, porque o teste era sobre desejo, não sobre fluxo de trabalho.",
+        "A experiência de leitura carrega o produto: tipografia, mapas e tratamento de imagens precisaram de polimento real, porque o que estava em teste era desejo — se as pessoas querem continuar lendo — mais que fluxo de trabalho.",
         "O conteúdo precisava ser dado estruturado no próprio banco da aplicação — portável e consultável — em vez de documentos dentro de um CMS de terceiros.",
       ],
       decisions: [
@@ -133,20 +133,20 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
       "Um protótipo de coordenação em tempo real para o tipo de dia de trabalho que vive num grupo de chat e três planilhas — cada tarefa num quadro vivo, atualizado por todos, reconstruível a partir de um log de eventos.",
     caseStudy: {
       context:
-        "Operações de campo se coordenam pelo pior meio possível: um chat onde atribuições, atrasos e passagens de bastidor desaparecem da tela em horas. Construí o OpsBoard como protótipo pra responder uma pergunta — como é uma ferramenta cujo único trabalho é mostrar 'o que está acontecendo agora'?",
+        "Operações de campo se coordenam pelo pior meio possível: um chat onde atribuições, atrasos e repasses de responsabilidade desaparecem da tela em horas. Construí o OpsBoard como protótipo pra responder uma pergunta — como é uma ferramenta cujo único trabalho é mostrar 'o que está acontecendo agora'?",
       problem:
-        "Estado em tempo real sobre conexão móvel ruim, para usuários de luva, é um problema mais duro do que parece. O quadro precisava continuar verdadeiro em redes ruins, sobreviver a desconexões e caber num dia que acontece majoritariamente no celular.",
+        "Estado em tempo real sobre conexão móvel ruim, para pessoas usando luvas, é um problema mais duro do que parece. O quadro precisava continuar verdadeiro em redes ruins, sobreviver a desconexões e caber num dia que acontece majoritariamente no celular.",
       role: "Desenvolvedor único — arquitetura de eventos, camada de tempo real e interface.",
       technicalChallenge: [
         "Transmitir estado é fácil; manter todo cliente correto através de reconexões, períodos offline e edições simultâneas é o problema de verdade.",
-        "Uso em campo significa luvas, sol e uma barra de sinal — o orçamento de interface é medido em toques, e toda mudança de estado precisa sobreviver a ser atrasada.",
-        "Histórico importa tanto quanto o presente: 'o que aconteceu ontem' precisa ser consultável, não arqueológico.",
+        "Uso em campo significa luvas, sol e uma barra de sinal — o orçamento de interface é medido em toques, e toda mudança de estado precisa sobreviver a chegar atrasada.",
+        "Histórico importa tanto quanto o presente: 'o que aconteceu ontem' precisa ser consultável, não algo que você escava do histórico do chat.",
       ],
       decisions: [
         {
           title: "Eventos, não diffs",
           detail:
-            "O servidor publica eventos de domínio ('tarefa atribuída', 'tarefa atrasada'), não patches de interface — qualquer cliente que reconecta reconstrói sua visão a partir do log de eventos, sem lógica de sincronização no frontend.",
+            "O servidor publica eventos de domínio ('tarefa atribuída', 'tarefa atrasada'); qualquer cliente que reconecta reconstrói sua visão a partir do log de eventos, sem lógica de sincronização no frontend.",
         },
         {
           title: "UI otimista, reconciliação autoritativa",
@@ -164,7 +164,7 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
         "Mudar de estado é um toque no celular, e o quadro reflete pra todo mundo sem refresh.",
       ],
       lesson:
-        "Ferramentas internas falham socialmente antes de falharem tecnicamente. Projetar para o ambiente — luvas, sinal ruim, interrupções — pesou mais que qualquer escolha de arquitetura.",
+        "Ferramentas internas falham socialmente antes de falharem tecnicamente. Projetar para o ambiente — luvas, sinal ruim, interrupções — pesou mais que qualquer decisão de arquitetura.",
     },
   },
   "typeset-playground": {
@@ -197,10 +197,10 @@ export const TEXT_PT_BR: Record<string, ProjectText> = {
       ],
       result: [
         "Uma ferramenta que eu uso em todo projeto onde tipografia faz parte da interface.",
-        "Uma demonstração pública de que design de interação e tipografia são disciplinas de engenharia, não decoração.",
+        "Um lembrete público de que decisões de tipografia são decisões de engenharia — têm restrições, trade-offs e comportamento mensurável.",
       ],
       lesson:
-        "Construa a ferramenta que seu julgamento precisa. Nada ensina um ofício mais rápido do que torná-lo mensurável.",
+        "A intenção era criar uma referência de design. Virou uma ferramenta porque tornar as relações tipográficas mensuráveis mudou meu olhar mais do que qualquer referência mudou.",
     },
   },
   "route-schema": {

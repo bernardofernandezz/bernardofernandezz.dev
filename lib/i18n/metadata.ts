@@ -28,7 +28,7 @@ export function rootMetadata(locale: Locale): Metadata {
     openGraph: {
       type: "website",
       locale: openGraphLocale[locale],
-      url: siteConfig.url,
+      url: localePath(locale, "/"),
       siteName: siteConfig.name,
       title: dict.common.siteTitle,
       description: dict.common.siteDescription,
@@ -57,6 +57,12 @@ export function pageMetadata(
       title,
       description,
       locale: openGraphLocale[locale],
+      url: localePath(locale, path),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   }
 }

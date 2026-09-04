@@ -12,8 +12,6 @@ export const now = {
     thinking: "Thinking about",
   },
   updatedLabel: "Updated",
-  ctaLine: "Want to build something together?",
-  ctaLink: "Let's talk",
 }
 
 export type Now = typeof now

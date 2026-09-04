@@ -47,7 +47,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
 
           <div className="flex gap-16 sm:gap-24">
-            <nav aria-label="Footer navigation" className="flex flex-col gap-3">
+            <nav aria-label={dict.footer.navLabel} className="flex flex-col gap-3">
               <p className="eyebrow">{dict.footer.siteColumn}</p>
               {siteLinks.map((link) => (
                 <Link

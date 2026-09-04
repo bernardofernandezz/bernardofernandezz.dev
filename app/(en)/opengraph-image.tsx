@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
+import { siteConfig } from "@/lib/config/site"
 
-export const alt = "Bernardo Fernandez — Software Developer & Builder"
+export const alt = siteConfig.name
 export const size = {
   width: 1200,
   height: 630,
@@ -37,10 +38,10 @@ export default function OpengraphImage() {
           {dict.common.brandRole.toUpperCase()}
         </div>
         <div style={{ display: "flex", fontSize: 92, marginTop: 28 }}>
-          Bernardo Fernandez
+          {siteConfig.name}
         </div>
         <div style={{ display: "flex", fontSize: 38, marginTop: 20, color: "#6f6a63" }}>
-          I like turning ideas, problems and weird questions into things people can actually use.
+          {dict.home.hero.body}
         </div>
         <div
           style={{
